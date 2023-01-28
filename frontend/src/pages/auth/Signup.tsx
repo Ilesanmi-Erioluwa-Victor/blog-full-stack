@@ -9,10 +9,13 @@ const Signup = ():JSX.Element => {
   };
 
   return (
-    <div className="flex ">
-       <h2>Hello from sign up</h2>
-
-
+    <div className="flex padding bg-orange-300 w[100%] relative">
+       {/* First Section */}
+       <section className="flex sec-flex">
+          <nav>
+            
+          </nav>
+       </section>
     </div>
   )
 }
