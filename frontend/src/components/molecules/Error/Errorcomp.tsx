@@ -1,8 +1,8 @@
 import React from "react"
 import  { Link } from "react-router-dom"
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
+import { Button } from "src/components/atoms";
 import { Icon } from "src/utils";
-import { Button } from "../atoms";
 
 
 type ErrorMessage = Record<
@@ -43,15 +43,15 @@ const ErrorPage = (props: { statusCode: number }) => {
               className={"items-center" }
             />
           </div>
-          <div className="flex flex-col text-center w-10/12 lg:w-6/12">
+          <div className={`sec-flex text-center w-10/12 lg:w-6/12`}>
             <p className="text-2xl my-5">{errorMessageToShow.errorTitle}</p>
-            <p className="">{errorMessageToShow.errorMessage}</p>
+            <p className="text-xl font-semibold">{errorMessageToShow.errorMessage}</p>
           </div>
           <Link to="/">
             <Button 
             className={`border-primary_green border rounded-md 
             text-primary_green w-[100] md:w-[100%] lg:w-[100%]
-             p-4 mt-5 bg-yellow-500 text-white font-semibold`}>
+             p-4 mt-5 bg-yellow-500 text-white font-semibold transition-all hover:bg-orange-500`}>
               Take me home
             </Button>
           </Link>
