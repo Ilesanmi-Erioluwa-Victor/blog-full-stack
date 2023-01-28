@@ -1,16 +1,20 @@
-import PropTypes, { InferProps } from "prop-types";
+// import PropTypes, { InferProps } from "prop-types";
 
-const ImgProps = {
-  className: PropTypes.string,
-  alt : PropTypes.string,
-  src : PropTypes.object,
+// const ImgProps = {
+//   className: PropTypes.string,
+//   alt : PropTypes.string,
+//   src : PropTypes.object,
   
-};
+// };
 
-const Icon = ({className, alt, src, ...rest}: InferProps <typeof ImgProps >) => {
-    return <img src={src} alt={alt} className={className} {...rest}/>
-}
+// const Icon = ({className, alt, src, ...rest}: InferProps <typeof ImgProps >) => {
+//     return <img src={src} alt={alt} className={className} {...rest}/>
+// }
 
-export {
-    Icon
-}
+// export {
+//     Icon
+// }
+
+export const Go = () => (
+    <h3>Hello</h3>
+)
