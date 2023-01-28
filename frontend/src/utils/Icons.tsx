@@ -2,19 +2,18 @@
 
 // const ImgProps = {
 //   className: PropTypes.string,
-//   alt : PropTypes.string,
-//   src : PropTypes.object,
-  
+//   alt : PropTypes.string || undefined,
+//   src : PropTypes.any,
 // };
 
-// const Icon = ({className, alt, src, ...rest}: InferProps <typeof ImgProps >) => {
-//     return <img src={src} alt={alt} className={className} {...rest}/>
-// }
+interface Img {
+    src : any,
+    alt : string,
+    className : string,
+}
 
-// export {
-//     Icon
-// }
+export const Icon = ({className, alt, src}: Img) => {
+    return <img src={src} alt={alt} className={className} />
+}
 
-export const Go = () => (
-    <h3>Hello</h3>
-)
+

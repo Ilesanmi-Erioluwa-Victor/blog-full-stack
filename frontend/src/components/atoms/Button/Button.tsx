@@ -3,8 +3,7 @@ import PropTypes, { InferProps } from "prop-types";
 
 const BtnProps = {
   onClick: PropTypes.func,
-  classes: PropTypes.string,
-  type: PropTypes.oneOf(["filled", "bordered"]),
+  className: PropTypes.string,
   tag: PropTypes.elementType,
   children: PropTypes.node,
   text: PropTypes.string,
@@ -14,7 +13,7 @@ const BtnProps = {
 
 const ButtonComponent = (
   {
-    classes,
+    className,
     children,
     text,
     tag,
@@ -25,7 +24,7 @@ const ButtonComponent = (
   let Tag = tag ? tag : "button";
 
   return (
-    <Tag {...restProps} className={`${classes}`} ref={ref}>
+    <Tag {...restProps} className={`${className}`} ref={ref}>
       {text ? text : children}
     </Tag>
   );
