@@ -2,8 +2,8 @@ import React from "react";
 
 interface InputProps {
   placeholder: string;
-  className?: string | undefined;
-  label?: string | undefined;
+  className: string;
+  label: string | undefined;
   type : string;
   name? : string | undefined;
   value? : any;

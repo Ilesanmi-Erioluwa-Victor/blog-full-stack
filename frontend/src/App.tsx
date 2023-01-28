@@ -1,9 +1,11 @@
 import React from 'react';
 import Button from './components/atoms/Button/Button';
-
+import NetworkStatus from './components/atoms/NetworkStatus/NetworkStatus';
 
 function App() {
   return (
+    <>
+    <NetworkStatus>
     <div className="App">
       <header className="App-header">
        <Button classes={`bg-black p-3 outline-none text-white rounded`} type={"button"}> Button</Button>
@@ -14,6 +16,8 @@ function App() {
 
       </header>
     </div>
+    </NetworkStatus>
+    </>
   );
 }
 
