@@ -2,6 +2,7 @@ import React from "react"
 import  { Link } from "react-router-dom"
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import { Button } from "src/components/atoms";
+import GeneralLayout from "src/layouts/GeneralLayouts/GeneralLayout";
 import { Icon } from "src/utils";
 
 
@@ -33,7 +34,7 @@ const ErrorPage = (props: { statusCode: number }) => {
   const errorMessageToShow = errorMessages[statusCode];
 
   return (
-    <>
+    <GeneralLayout>
       <div className=" mx-10">
         <div className="flex flex-col items-center py-20">
           <div className="items-center">
@@ -57,7 +58,7 @@ const ErrorPage = (props: { statusCode: number }) => {
           </Link>
         </div>
       </div>
-    </>
+    </GeneralLayout>
   );
 };
 

@@ -12,8 +12,8 @@ interface Img {
     className : string,
 }
 
-export const Icon = ({className, alt, src}: Img) => {
-    return <img src={src} alt={alt} className={className} />
+export const Icon = ({className, alt, src, ...rest}: Img) => {
+    return <img src={src} alt={alt} className={className} {...rest}/>
 }
 
 
