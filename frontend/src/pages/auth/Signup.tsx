@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Signup = ():JSX.Element => {
     const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
@@ -7,10 +7,12 @@ const Signup = ():JSX.Element => {
       const togglePasswordVisibility = () => {
     setPasswordFieldType(!passwordFieldType);
   };
-  
+
   return (
-    <div>
+    <div className="flex ">
        <h2>Hello from sign up</h2>
+
+
     </div>
   )
 }
