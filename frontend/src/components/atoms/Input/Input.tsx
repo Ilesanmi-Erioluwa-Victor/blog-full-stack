@@ -8,7 +8,7 @@ interface InputProps {
   name? : string | undefined;
   value? : any;
   onChange? : any;
-  fieldsetClass? : string
+  fieldsetClass? : string,
 }
 
 const Input: React.FC<InputProps> = ({ placeholder, className, label, type, name, fieldsetClass, onChange, value }) => {
