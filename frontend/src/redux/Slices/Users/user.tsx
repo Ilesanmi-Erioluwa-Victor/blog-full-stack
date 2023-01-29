@@ -11,8 +11,12 @@ export const userRegisterAction = createAsyncThunk(
             }
         }
 
-        const response = await axios.post("http://localhost:5000/api/users/register", user, config)
+        const response = await axios.post("http://localhost:5000/api/users/register", user, config);
+         return response.data;
        } catch (error) {
-        
+          if(!error) {
+           throw error
+          }
+          return rejectWithValue(error)
        }
 });   
