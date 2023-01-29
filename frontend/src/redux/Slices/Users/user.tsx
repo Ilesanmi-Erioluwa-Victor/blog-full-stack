@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// interface from my signup route
 import { User } from "src/pages/auth/Signup";
 
 
@@ -32,12 +33,17 @@ export const userRegisterAction = createAsyncThunk(
   }
 );
 
+const initialState : User = {
+    firstName : "",
+    lastName : "",
+    email : "",
+    password : "",
+}
+
 // Slices
 const usersSlices = createSlice({
   name: "users",
-  initialState: {
-    auth: "",
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) =>{
    
