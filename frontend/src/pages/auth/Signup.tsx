@@ -6,28 +6,52 @@ import {
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+// import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
 import { Icon } from "src/utils";
 
 interface User {
-  fname : string;
+  firstName : string;
   password : string;
-  lname: string;
+  lastName: string;
   email : string;
 
 }
 
 const Signup = (): JSX.Element => {
   const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
-
   const [user, setUser ]  = useState<User>({
-   fname : "",
-   lname : "",
+   firstName : "",
+   lastName : "",
    email : "",
    password : ""
-  })
+  });
+  // const dispatch = useDispatch();
+
+  const handleInputChange = (e:any) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setUser({...user, [name] : value});
+    console.log({
+      name, value
+    })
+  }
+
+  const handleInputSubmit = async (event: any) => {
+    event.preventDefault();
+    alert("clicked...")
+    const { firstName,lastName, email, password } = user;
+
+    if(! firstName || !lastName || !email || !password) {
+      return  toast.error("You are offline", {
+              toastId: "offline-id",
+            });
+    }
+    //await dispatch({firstName,lastName, email, password})
+  }
 
   return (
     <div className="flex padding bg w[100%] relative">
@@ -63,13 +87,16 @@ const Signup = (): JSX.Element => {
           </span>
         </h2>
 
-        <form className="sec-flex mb-3">
+        <form className="sec-flex mb-3" onSubmit={handleInputSubmit}>
           {/*  first name and last Name*/}
           <fieldset className="flex gap-2 w-[100%]">
             <div className="w-[100%] relative">
               <Input
                 type={"text"}
                 label={"FirstName"}
+                name="firstName"
+                value={user.firstName}
+                onChange={handleInputChange}
                 placeholder={"Enter your firstname"}
                 className="mt-2 focus:border-transparent focus:outline-transparent transition-all p-6 pl-8"
                 fieldsetClass="w-[100%]"
@@ -81,7 +108,10 @@ const Signup = (): JSX.Element => {
             <div className="w-[100%] relative">
               <Input
                 type={"text"}
-                label={"LastName"}
+                label={"lastName"}
+                  name="lastName"
+                value={user.lastName}
+                onChange={handleInputChange}
                 placeholder={"Enter your lastname"}
                 className="mt-2 focus:border-transparent focus:outline-transparent p-6 pl-8"
                 fieldsetClass="w-[100%]"
@@ -97,6 +127,9 @@ const Signup = (): JSX.Element => {
               <Input
                 type={"email"}
                 label={"Email"}
+                  name="email"
+                value={user.email}
+                onChange={handleInputChange}
                 placeholder={"Enter your Email"}
                 className="mt-2 focus:border-transparent focus:outline-transparent transition-all p-6 pl-8"
                 fieldsetClass="w-[100%]"
@@ -110,6 +143,9 @@ const Signup = (): JSX.Element => {
               <Input
                 type={passwordFieldType ? "text" : "password"}
                 label={"Password"}
+                  name="password"
+                value={user.password}
+                onChange={handleInputChange}
                 placeholder={"Enter your Password"}
                 className="mt-2 focus:border-transparent focus:outline-transparent transition-all p-6 pl-8"
                 fieldsetClass="w-[100%]"
