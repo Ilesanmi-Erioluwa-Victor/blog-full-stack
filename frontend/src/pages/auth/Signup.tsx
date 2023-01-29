@@ -8,7 +8,8 @@ import {
 } from "@heroicons/react/24/outline";
 // import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
 import { Icon } from "src/utils";
@@ -42,21 +43,21 @@ const Signup = (): JSX.Element => {
 
   const handleInputSubmit = async (event: any) => {
     event.preventDefault();
-    alert("clicked...")
     const { firstName,lastName, email, password } = user;
 
     if(! firstName || !lastName || !email || !password) {
-      return  toast.error("You are offline", {
-              toastId: "offline-id",
-            });
+      // return  toast.error("You are offline", {
+      //         toastId: "offline-id",
+      //       });
+      return alert("Please, fill up all the content..")
     }
     //await dispatch({firstName,lastName, email, password})
   }
 
   return (
-    <div className="flex padding bg w[100%] relative">
+    <div className="flex padding bg w[100%] relative gap-4 items-center">
       {/* First Section */}
-      <section className="flex sec-flex w-[70%] gap-4">
+      <section className="flex sec-flex w-[60%] gap-4">
         <div className="sec-flex">
           <Link to={"/"} className="w-[10rem]">
             <h3 className="text-xl text-orange-700 font-bold">Blog Platform</h3>
@@ -170,7 +171,7 @@ const Signup = (): JSX.Element => {
           </fieldset>
           <Button
             className={
-              "block bg-orange-600 self-start w-[50%] rounded-md text-white text-sm p-4"
+              "block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4"
             }
           >
             Submit
@@ -179,14 +180,16 @@ const Signup = (): JSX.Element => {
       </section>
 
       {/* Second Section */}
-      <section className="w-[30%]">
-        <h1>Hello from Prime</h1>
+      <section className="w-[40%] sec-flex">
+        <h2 className="text-lg text-bg md:text-4xl font-semibold">Join Today</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
           quas eligendi repellat, perspiciatis est maxime, libero dolorum
-          molestias cupiditate ab veritatis sunt tempora sit distinctio
-          doloremque obcaecati, cumque voluptas in.
         </p>
+        <figure className="w-full">
+           <Icon src={ErrorImg} alt="logo"/>
+        </figure>
+        
       </section>
     </div>
   );
