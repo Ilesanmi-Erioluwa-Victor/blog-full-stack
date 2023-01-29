@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
-// import { useAppDispatch, useAppSelector } from "src/redux/hooks";
+import { useAppDispatch } from "src/redux/hooks";
+import { userRegisterAction } from "src/redux/Slices/Users/user";
 import { Icon } from "src/utils";
 
 export interface User {
@@ -30,7 +31,7 @@ const Signup = (): JSX.Element => {
    email : "",
    password : ""
   });
-  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 //   useAppDispatch
 // useAppSelector
 
@@ -53,8 +54,9 @@ const Signup = (): JSX.Element => {
       //       });
       return alert("Please, fill up all the content..")
     }
-    //await dispatch({firstName,lastName, email, password})
-   console.log({user})
+    
+   dispatch(userRegisterAction({firstName, email, password, lastName}))
+  //  dispatch(userRegisterAction({firstName, lastName, email, password}))
   }
 
   return (

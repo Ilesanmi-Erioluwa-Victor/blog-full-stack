@@ -8,10 +8,10 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      // serializableCheck: {
-      //   ignoredActionPaths: ["payload.formData"],
-      //   ignoredPaths: ["form.imgFile.formData"],
-      // },
+      serializableCheck: {
+        ignoredActionPaths: ["payload.formData"],
+        ignoredPaths: ["form.imgFile.formData"],
+      },
     }),
 });
 
