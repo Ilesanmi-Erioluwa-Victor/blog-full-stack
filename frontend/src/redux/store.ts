@@ -1,7 +1,9 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import userReducers from "./Slices/Users/user"
+
 export const store = configureStore({
   reducer: {
-   
+   users : userReducers,
   },
 
   middleware: (getDefaultMiddleware) =>

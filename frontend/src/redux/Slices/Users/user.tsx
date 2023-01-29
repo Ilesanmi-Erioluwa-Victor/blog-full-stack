@@ -33,11 +33,17 @@ export const userRegisterAction = createAsyncThunk(
   }
 );
 
-const initialState : User = {
+const initialState = {
     firstName : "",
     lastName : "",
     email : "",
     password : "",
+    loading : false,
+    errors : "" || undefined,
+     // : {
+    //     appError : "",
+    //     serverError : ""
+    // }
 }
 
 // Slices
@@ -46,6 +52,26 @@ const usersSlices = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) =>{
-   
+   builder.addCase(userRegisterAction.pending, (state) => {
+    state.loading = true;
+    state.errors = undefined;
+   });
+
+    builder.addCase(userRegisterAction.fulfilled, (state, action) => {
+    state.loading = false;
+    state.firstName = action?.payload;
+    state.lastName = action?.payload;
+    state.email = action?.payload;
+    state.password = action?.payload;
+    state.errors = undefined;
+   });
+
+    builder.addCase(userRegisterAction.rejected, (state, action) => {
+    state.loading = false;
+    // state.errors = action?.payload?.message;
+    // state.errors.serverError = action?.error?.message;
+   });
   },
 });
+
+export default usersSlices.reducer
