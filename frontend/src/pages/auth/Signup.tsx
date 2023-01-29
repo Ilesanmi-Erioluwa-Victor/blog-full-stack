@@ -45,36 +45,38 @@ const Signup = (): JSX.Element => {
     event.preventDefault();
     const { firstName,lastName, email, password } = user;
 
-    if(! firstName || !lastName || !email || !password) {
+    if(!firstName || !lastName || !email || !password) {
       // return  toast.error("You are offline", {
       //         toastId: "offline-id",
       //       });
       return alert("Please, fill up all the content..")
     }
     //await dispatch({firstName,lastName, email, password})
+   console.log({user})
   }
 
   return (
     <div className="flex padding bg w[100%] relative gap-4 items-center">
       {/* First Section */}
-      <section className="flex sec-flex w-[60%] gap-4">
+      <section className="flex sec-flex w-[60%] gap-4 full">
         <div className="sec-flex">
-          <Link to={"/"} className="w-[10rem]">
-            <h3 className="text-xl text-orange-700 font-bold">Blog Platform</h3>
+          <Link to={"/"} className="w-[10rem] flex gap-1">
+            <Icon src={google} alt="logo" />
+            <span className="text-base text-yellow-600 font-bold">Blog Platform</span>
           </Link>
-          <h2 className="text-[2rem] mt-[5rem]">
+          <h2 className="text-[2rem] mt-[5rem] max-md:text-4xl">
             Join Our blogging platform, <br />
             to experience unlimited Resources.
           </h2>
 
-          <p className="mb-6">
+          <p className="mb-6 max-md:text-[1.1rem]">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit.
             <br /> Numquam aperiam unde nobis excepturi sed. Magnam?
           </p>
         </div>
 
         <Button
-          className={`flex items-center gap-2 py-[1rem] pl-[7rem] pr-0 lg:px-[6rem] mb-8 max-w-[381px] lg:max-w-[455px] w-[95%] googleContainer`}
+          className={`flex items-center gap-2 py-[1rem] pl-[1rem] pr-0 lg:px-[6rem] mb-8 max-w-[381px] lg:max-w-[455px] w-[95%] googleContainer`}
         >
           <Icon src={google} alt="google" />
           <p className={`font-[500] text-[0.875rem]`}>Sign up with Google</p>
@@ -90,7 +92,7 @@ const Signup = (): JSX.Element => {
 
         <form className="sec-flex mb-3" onSubmit={handleInputSubmit}>
           {/*  first name and last Name*/}
-          <fieldset className="flex gap-2 w-[100%]">
+          <fieldset className="flex gap-2 w-[100%] max-md:flex-col max-md:gap-5">
             <div className="w-[100%] relative">
               <Input
                 type={"text"}
@@ -123,7 +125,7 @@ const Signup = (): JSX.Element => {
             </div>
           </fieldset>
           {/*  Email and  Password*/}
-          <fieldset className="flex gap-2 w-[100%]">
+          <fieldset className="flex gap-2 w-[100%] max-md:flex-col max-md:gap-5">
             <div className="w-[100%] relative">
               <Input
                 type={"email"}
@@ -171,21 +173,25 @@ const Signup = (): JSX.Element => {
           </fieldset>
           <Button
             className={
-              "block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4"
+              "block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4 max-md:w-full"
             }
           >
             Submit
           </Button>
         </form>
+        <p className="flex justify-end items-center">
+          <span>Already a member?</span>
+           <span className="bg-transparent transition-all text-black hover:bg-yellow-600 ml-3 pr-3 rounded-sm hover:text-white">
+          <Link to={"/login"} className="block text-center px-6 py-1"> login</Link></span></p>
       </section>
 
       {/* Second Section */}
-      <section className="w-[40%] sec-flex">
-        <h2 className="text-lg text-bg md:text-4xl font-semibold">Join Today</h2>
+      <section className="w-[40%] sec-flex none">
+        <h2 className="text-lg text-bg md:text-4xl font-semibold mb-4">Join Today</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          quas eligendi repellat, perspiciatis est maxime, libero dolorum
+          Pen down your ideas on a platform that will you give you best inspiration 
         </p>
+        <p className="mt-[-.5rem]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum beatae sed illum error quo dicta in exercitationem aperiam doloribus neque?</p>
         <figure className="w-full">
            <Icon src={ErrorImg} alt="logo"/>
         </figure>
