@@ -14,14 +14,17 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //_______________________________Register Ctrol
 const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
   // Avoid Duplicate Registration
-  // const alreadyExist = User.findOne({
-  //   email: req?.body?.email,
-  // });
-
-  // if (alreadyExist) throw new Error("You are already registered..");
 
   // Register user
   try {
+    const alreadyExist = User.findOne({
+      email: req?.body?.email,
+    });
+
+    if (alreadyExist) {
+      throw new Error("You are already registered..");
+    }
+
     const user = await User.create({
       firstName: req?.body?.firstName,
       lastName: req?.body?.lastName,
@@ -370,7 +373,7 @@ const ProfilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
       { new: true }
     );
 
-       // Remove Uploaded img
+    // Remove Uploaded img
     fs.unlinkSync(localPath);
     res.json(user);
   } catch (error) {
