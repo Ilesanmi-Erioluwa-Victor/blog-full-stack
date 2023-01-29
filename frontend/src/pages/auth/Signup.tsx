@@ -6,15 +6,15 @@ import {
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-// import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 // import { toast } from "react-toastify";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
+// import { useAppDispatch, useAppSelector } from "src/redux/hooks";
 import { Icon } from "src/utils";
 
-interface User {
+export interface User {
   firstName : string;
   password : string;
   lastName: string;
@@ -31,6 +31,8 @@ const Signup = (): JSX.Element => {
    password : ""
   });
   // const dispatch = useDispatch();
+//   useAppDispatch
+// useAppSelector
 
   const handleInputChange = (e:any) => {
     const name = e.target.name;

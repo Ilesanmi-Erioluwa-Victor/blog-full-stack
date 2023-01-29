@@ -1,18 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { User } from "src/pages/auth/Signup";
 
-export interface formState {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
 
 // Register User
 export const userRegisterAction = createAsyncThunk(
   "users/register",
   async (
-    { firstName, lastName, email, password }: formState,
+    { firstName, lastName, email, password }: User,
     { rejectWithValue, getState, dispatch }
   ) => {
     try {
@@ -45,6 +40,6 @@ const usersSlices = createSlice({
   },
   reducers: {},
   extraReducers: (builder) =>{
-    builder.addCase()
+   
   },
 });
