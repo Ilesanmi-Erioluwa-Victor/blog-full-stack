@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors")
 // const sgMail = require("@sendgrid/mail")
 const app = express();
 const dbConnect = require("./config/db/dbConnect");
@@ -18,7 +19,8 @@ const categoryRoute = require("./Routes/categorys/categoryRoute");
 
 // Middleware
 app.use(express.json());
-
+// Cors
+app.use(cors());
 // Users Routes
 // Note, i use my route path in 'usersRoutes' folder
 app.use("/api/users", usersRoutes);
