@@ -7,7 +7,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
@@ -38,7 +38,7 @@ const Signup = (): JSX.Element => {
   const handleInputChange = (e:any) => {
     const name = e.target.name;
     const value = e.target.value;
-    setUser({...user, [name] : value});
+    setUser({...user, [name] : value.trim()});
     console.log({
       name, value
     })
@@ -49,14 +49,15 @@ const Signup = (): JSX.Element => {
     const { firstName,lastName, email, password } = user;
 
     if(!firstName || !lastName || !email || !password) {
-      // return  toast.error("You are offline", {
-      //         toastId: "offline-id",
-      //       });
-      return alert("Please, fill up all the content..")
+      return  toast.error("Please, fill up all inputs !!!", {
+              toastId: "fill_inputs",
+                position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+            });
     }
     
-   dispatch(userRegisterAction({firstName, email, password, lastName}))
-  //  dispatch(userRegisterAction({firstName, lastName, email, password}))
+   const response = await dispatch(userRegisterAction({firstName, email, password, lastName}))
+   console.log(response);
   }
 
   return (

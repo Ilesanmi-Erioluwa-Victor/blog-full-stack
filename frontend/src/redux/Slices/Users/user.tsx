@@ -1,12 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
+
 // interface from my signup route
 import { User } from "src/pages/auth/Signup";
 
 // Register User
 export const userRegisterAction = createAsyncThunk(
   "users/register",
-  async ({firstName, lastName, email, password}: User, { rejectWithValue, getState, dispatch }) => {
+  async ( user: User, { rejectWithValue, getState, dispatch }) => {
     try {
       const config = {
         headers: {
@@ -16,7 +18,7 @@ export const userRegisterAction = createAsyncThunk(
 
       const response = await axios.post(
         "http://localhost:5000/api/users/register",
-        {firstName, lastName, email, password},
+        user,
         config
       );
       return response.data;
@@ -29,42 +31,42 @@ export const userRegisterAction = createAsyncThunk(
   }
 );
 
-const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  loading: false,
-  errors: "" || undefined,
-  // : {
-  //     appError : "",
-  //     serverError : ""
-  // }
-};
+interface Errormessage {
+  Error : string;
+}
+
 
 // Slices
 const usersSlices = createSlice({
   name: "users",
-  initialState,
+  initialState : {
+    userAuth : "login",
+    registered : {},
+    loading : false,
+    Error : "" || undefined,
+  },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(userRegisterAction.pending, (state) => {
+    builder.addCase(userRegisterAction.pending, (state, action) => {
       state.loading = true;
-      state.errors = undefined;
+      state.Error = undefined;
     });
 
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
       state.loading = false;
-      state.firstName = action?.payload;
-      state.lastName = action?.payload;
-      state.email = action?.payload;
-      state.password = action?.payload;
-      state.errors = undefined;
+      state.registered = action?.payload;
+      state.Error = undefined;
     });
 
-    builder.addCase(userRegisterAction.rejected, (state) => {
+    builder.addCase(userRegisterAction.rejected, (state, action) => {
+       toast.error(`${action.payload}`, {
+              toastId: "fill_inputs",
+                position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+            });
+      console.log(action.payload)
       state.loading = false;
-      // state.errors = action?.payload?.message;
+      // state.Error = action?.payload?.message;
       // state.errors.serverError = action?.error?.message;
     });
   },
