@@ -1,6 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit" 
 import axios from "axios";
 
+export interface formState {
+ firstName : string;
+ lastName : string;
+ email : string;
+ password : string
+}
+
+
+
 // Register User
 export const userRegisterAction = createAsyncThunk(
     "users/register", async (user, {rejectWithValue, getState, dispatch})=> {
@@ -20,3 +29,15 @@ export const userRegisterAction = createAsyncThunk(
           return rejectWithValue(error)
        }
 });   
+
+// Slices 
+const usersSlices = createSlice({
+    name : "users",
+    initialState : {
+        auth : ""
+    },
+    reducers : {},
+    extraReducers : {
+        
+    }
+})
