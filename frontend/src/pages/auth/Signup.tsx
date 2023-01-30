@@ -11,8 +11,9 @@ import { toast } from "react-toastify";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
-import { useAppDispatch } from "src/redux/hooks";
+import { useAppDispatch, useAppSelector } from "src/redux/hooks";
 import { userRegisterAction } from "src/redux/Slices/Users/user";
+import { RootState } from "src/redux/store";
 import { Icon } from "src/utils";
 
 export interface User {
@@ -32,8 +33,6 @@ const Signup = (): JSX.Element => {
    password : ""
   });
   const dispatch = useAppDispatch();
-//   useAppDispatch
-// useAppSelector
 
   const handleInputChange = (e:any) => {
     const name = e.target.name;
@@ -59,6 +58,9 @@ const Signup = (): JSX.Element => {
    const response = await dispatch(userRegisterAction({firstName, email, password, lastName}))
    console.log(response);
   }
+
+    const { users } = useAppSelector(( state : RootState) => state);
+  console.log(users)
 
   return (
     <div className="flex padding bg w[100%] relative gap-4 items-center">
