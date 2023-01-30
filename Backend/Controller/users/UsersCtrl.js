@@ -13,16 +13,13 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // expressAsyncHandler for error Handling..
 //_______________________________Register Ctrol
 const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
-  // Avoid Duplicate Registration
+  const { email } = req?.body;
 
   // Register user
   try {
-    const alreadyExist = User.findOne({
-      email: req?.body?.email,
-    });
-
-    if (alreadyExist) {
-      throw new Error("You are already registered..");
+    // Avoid Duplicate Registration
+    if (await User.emailTaken(email)) {
+      throw new Error("You are already registered, just log in to your account");
     }
 
     const user = await User.create({

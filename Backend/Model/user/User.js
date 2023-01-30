@@ -157,6 +157,11 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+// Email taken...
+userSchema.statics.emailTaken = async function(email) {
+  const user = await this.findOne({email});
+  return !!user;
+}
 // Verify account method...
 userSchema.methods.createAccountVerificationToken = async function () {
   // create a token
