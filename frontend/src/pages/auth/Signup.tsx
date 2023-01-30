@@ -53,11 +53,10 @@ const Signup = (): JSX.Element => {
     }
     
    const response = await dispatch(userRegisterAction({firstName, email, password, lastName}))
-   console.log(response);
   }
 
     const { users } = useAppSelector(( state : RootState) => state);
-  console.log(users)
+  // console.log(users)
 
   return (
     <div className="flex padding bg w[100%] relative gap-4 items-center">

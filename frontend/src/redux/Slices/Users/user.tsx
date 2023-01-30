@@ -51,25 +51,19 @@ const usersSlices = createSlice({
     builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
       state.Error = undefined;
-      state.registered = {}
-    });
+    })
 
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
       state.loading = false;
       state.registered = action?.payload;
       state.Error = undefined;
-    });
+    })
 
     builder.addCase(userRegisterAction.rejected, (state, action) => {
-      if (action.payload) {
-        state.Error = action.payload;
-        state.loading = false;
-        state.registered = {}
-      } else {
-        state.Error = action.error;
-        state.loading = false;
-        state.registered = {}
-      }
+      console.log(action)
+        // state.Error = action.error;
+        // state.loading = false;
+
     });
   },
 });
