@@ -38,9 +38,6 @@ const Signup = (): JSX.Element => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({...user, [name] : value.trim()});
-    console.log({
-      name, value
-    })
   }
 
   const handleInputSubmit = async (event: any) => {
