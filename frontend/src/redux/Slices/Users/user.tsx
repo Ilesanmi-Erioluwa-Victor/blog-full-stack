@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 // interface from my signup route
 import { User } from "src/pages/auth/Signup";
@@ -8,7 +7,7 @@ import { User } from "src/pages/auth/Signup";
 // Register User
 export const userRegisterAction = createAsyncThunk(
   "users/register",
-  async ( user: User, { rejectWithValue, getState, dispatch }) => {
+  async (user: User, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -31,23 +30,25 @@ export const userRegisterAction = createAsyncThunk(
   }
 );
 
-interface Errormessage {
-  Error : string;
+interface initialState {
+  Error: any;
+  userAuth: string;
+  registered: object;
+  loading: boolean;
 }
-
 
 // Slices
 const usersSlices = createSlice({
   name: "users",
-  initialState : {
-    userAuth : "login",
-    registered : {},
-    loading : false,
-    Error : "" || undefined,
-  },
+  initialState: {
+    userAuth: "login",
+    registered: {},
+    loading: false,
+    Error: "",
+  } as initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(userRegisterAction.pending, (state, action) => {
+    builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
       state.Error = undefined;
     });
@@ -59,15 +60,11 @@ const usersSlices = createSlice({
     });
 
     builder.addCase(userRegisterAction.rejected, (state, action) => {
-       toast.error(`${action.payload}`, {
-              toastId: "fill_inputs",
-                position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-            });
-      console.log(action.payload)
-      state.loading = false;
-      // state.Error = action?.payload?.message;
-      // state.errors.serverError = action?.error?.message;
+      if (action.payload) {
+        state.Error = action.payload;
+      } else {
+        state.Error = action.error;
+      }
     });
   },
 });
