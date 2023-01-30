@@ -17,13 +17,13 @@ const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
 
   // Register user
   try {
-    // const alreadyExist = User.findOne({
-    //   email: req?.body?.email,
-    // });
+    const alreadyExist = User.findOne({
+      email: req?.body?.email,
+    });
 
-    // if (alreadyExist) {
-    //   throw new Error("You are already registered..");
-    // }
+    if (alreadyExist) {
+      throw new Error("You are already registered..");
+    }
 
     const user = await User.create({
       firstName: req?.body?.firstName,
