@@ -9,7 +9,7 @@ export const userRegisterAction = createAsyncThunk(
   "users/register",
   async (user: User, { rejectWithValue }) => {
     try {
-      const config = {
+         const config = {
         headers: {
           "Content-Type": "application/json",
         },
@@ -22,20 +22,18 @@ export const userRegisterAction = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (!error) {
-        throw error;
-      }
-      return rejectWithValue(error);
+      rejectWithValue(error)
     }
-  }
+   
+      }
 );
 
-interface initialState {
-  Error: any;
-  userAuth: string;
-  registered: object;
-  loading: boolean;
-}
+// interface initialState {
+//   Error: any;
+//   userAuth: string;
+//   registered: object;
+//   loading: boolean;
+// }
 
 // Slices
 const usersSlices = createSlice({
@@ -45,27 +43,24 @@ const usersSlices = createSlice({
     registered: {},
     loading: false,
     Error: "",
-  } as initialState,
-  reducers: {},
+  },
+   reducers: {
+      
+    },
   extraReducers: (builder) => {
     builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
-      state.Error = undefined;
     })
-
-    builder.addCase(userRegisterAction.fulfilled, (state, action) => {
+   builder.addCase(userRegisterAction.fulfilled, (state, action ) => {
+      state.registered = action?.payload
+    })
+   builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
-      state.registered = action?.payload;
-      state.Error = undefined;
+      console.log(action.error)
+      console.log(action.type)
     })
-
-    builder.addCase(userRegisterAction.rejected, (state, action) => {
-      console.log(action)
-        // state.Error = action.error;
-        // state.loading = false;
-
-    });
-  },
+  }
+   
 });
 
 export default usersSlices.reducer;

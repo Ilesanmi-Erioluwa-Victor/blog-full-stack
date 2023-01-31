@@ -6,13 +6,10 @@ export const store = configureStore({
    users : userReducers,
   },
 
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     serializableCheck: {
-  //       ignoredActionPaths: ["payload.formData"],
-  //       ignoredPaths: ["form.imgFile.formData"],
-  //     },
-  //   }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false
+    }),
 });
 
 export type AppDispatch = typeof store.dispatch;
