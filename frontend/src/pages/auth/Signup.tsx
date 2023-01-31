@@ -54,7 +54,7 @@ const Signup = (): JSX.Element => {
           autoClose: 1000,
             });
     }
-     dispatch(userRegisterAction(user))
+     dispatch(userRegisterAction({firstName, email, password, lastName}))
      const { registered } = users;
      if( registered){
       return <Navigate to={"/login"} replace={true}/>

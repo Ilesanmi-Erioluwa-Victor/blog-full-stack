@@ -49,7 +49,7 @@ export const userLoginAction = createAsyncThunk(
         config
       );
       // save user to local storage
-      localStorage.setItem("userInfo", JSON.stringify(user))
+      localStorage.setItem("userInfo", JSON.stringify(response.data))
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -76,7 +76,7 @@ const usersSlices = createSlice({
     Error: "",
   },
   reducers: {},
-  extraReducers: (builder : any) => {
+  extraReducers: (builder) => {
     // Register user
     builder.addCase(userRegisterAction.pending, (state:any) => {
       state.loading = true;
