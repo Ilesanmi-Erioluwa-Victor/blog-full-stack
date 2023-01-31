@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
+import { useAppDispatch, useAppSelector } from "src/redux/hooks";
+import { userLoginAction } from "src/redux/Slices/Users/user";
+import { RootState } from "src/redux/store";
 import { Icon } from "src/utils";
 
 export interface loginUser {
@@ -22,6 +25,8 @@ const Login = (): JSX.Element => {
     email: "",
     password: "",
   });
+
+    const dispatch = useAppDispatch();
 
   const handleInputChange = (e: any) => {
     const name = e.target.name;
@@ -40,7 +45,10 @@ const Login = (): JSX.Element => {
         autoClose: 1000,
       });
     }
+    dispatch(userLoginAction(loginUser))
   };
+
+     const { userAuth } = useAppSelector(( state : RootState) => state.users);
 
   return (
     <section className="paddingLogin bg-transparent">

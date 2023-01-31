@@ -56,6 +56,8 @@ export const userLoginAction = createAsyncThunk(
   }
 );
 
+const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string): null;
+
 // interface initialState {
 //   Error: any;
 //   userAuth: string;
@@ -67,7 +69,7 @@ export const userLoginAction = createAsyncThunk(
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    userAuth: "login",
+    userAuth: getUserFromLocalStorage,
     registered: {},
     loading: false,
     Error: "",
@@ -80,6 +82,8 @@ const usersSlices = createSlice({
     });
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
       state.registered = action?.payload;
+      state.loading = false;
+      state.registered = {};
     });
     builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
@@ -92,7 +96,7 @@ const usersSlices = createSlice({
       state.loading = true;
     });
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
-      state.registered = action?.payload;
+      state.userAuth = action?.payload;
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
