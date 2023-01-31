@@ -5,57 +5,9 @@ import { Button } from "src/components/atoms";
 Link;
 Button;
 
-interface headerType {
-  title: string;
-  icon?: any;
-  link: string;
-  active: boolean;
-  dropDown?: {
-    title: string;
-    href: string;
-  }[];
-}
 
-let header: headerType[] = [
-  {
-    title: "Home",
-    icon: "",
-    link: "/",
-    active: true,
-  },
-  {
-    title: "Resources",
-    icon: <ChevronDownIcon className="w-5 h-5" />,
-    link: "#",
-    active: false,
-    dropDown: [{ title: "item", href: "#" }],
-  },
-  {
-    title: "candidates",
-    icon: "",
-    link: "/onboarding",
-    active: false,
-    dropDown: [{ title: "item", href: "#" }],
-  },
-  {
-    title: "employer",
-    icon: "",
-    link: "/employer",
-    active: false,
-  },
-  {
-    title: "Hire talent",
-    icon: "",
-    link: "/hire-talent",
-    active: false,
-  },
-  {
-    title: "remote jobs",
-    icon: "",
-    link: "/remote-jobs",
-    active: false,
-  },
-];
+
+
 
 const Navigation = (): JSX.Element => {
   const changePath = (path: string) => {
