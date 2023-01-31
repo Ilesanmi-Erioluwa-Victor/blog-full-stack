@@ -6,7 +6,7 @@ import {
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
@@ -34,6 +34,9 @@ const Signup = (): JSX.Element => {
   });
   const dispatch = useAppDispatch();
 
+   const { users } = useAppSelector(( state : RootState) => state);
+
+
   const handleInputChange = (e:any) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -51,12 +54,13 @@ const Signup = (): JSX.Element => {
           autoClose: 1000,
             });
     }
-    
-   const response = await dispatch(userRegisterAction({firstName, email, password, lastName}))
+     dispatch(userRegisterAction({firstName, email, password, lastName}))
+     const { registered } = users;
+     if( registered){
+      return <Navigate to={"/login"} replace={true}/>
+     }
   }
 
-    const { users } = useAppSelector(( state : RootState) => state);
-  // console.log(users)
 
   return (
     <div className="flex padding bg w[100%] relative gap-4 items-center">
