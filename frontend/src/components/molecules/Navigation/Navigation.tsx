@@ -1,21 +1,24 @@
 import React from "react";
-// import { useLocation } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import Admin from "src/pages/Admin/Admin";
+import { useAppSelector } from "src/redux/hooks";
+import { RootState } from "src/redux/store";
+import PrivateNav from "./Private/PrivateNav";
 import PublicNav from "./Public/PublicNav";
-// import PrivateNav from "./Private/PrivateNav";
-// import AdminNavigation from "./Admin/AdminNav";
-
 
 const Navigation = (): JSX.Element => {
-  const location = useLocation();
-  console.log(location);
+  const users = useAppSelector((state: RootState) => state.users);
+  const { userAuth } = users;
+  const isAdmin = userAuth?.isAdmin;
   return (
-   <>
-  {location.pathname === "/" && <PublicNav />}
-   
-
-
-   </>
+    <>
+      {!userAuth ? (
+        <PublicNav />
+      ) : userAuth ? (
+        <PrivateNav />
+      ) : (
+        isAdmin && <Admin />
+      )}
+    </>
   );
 };
 

@@ -10,7 +10,6 @@ import messages from "src/assets/admin_icons/messages.svg";
 import setting_3 from "src/assets/admin_icons/setting-3.svg";
 import user from "src/assets/admin_icons/user.svg";
 import { Icon } from "src/utils";
-// import navLinks from "./navLinks";
 
 interface headerType {
   title: string;
@@ -74,7 +73,7 @@ export default function AdminNavigation(): JSX.Element {
       {/* Sidebar */}
       <section
         className={`${
-          navSwitch === true ? "w-max" : "w-[18%]"
+          navSwitch === true ? "w-max" : "w-[17%]"
         } h-screen relative px-5 z-50`}
       >
         <div className={`relative w-full`}>
