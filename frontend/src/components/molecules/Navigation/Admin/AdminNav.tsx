@@ -16,35 +16,35 @@ interface headerType {
 let header: headerType[] = [
   {
     title: "Home",
-    link: "/",
+    link: "/dashboard",
     active: true,
   },
   {
     title: "Create",
-    link: "/create-post",
+    link: "/dashboard/createPost",
     active: false,
   },
   {
     title: "Posts",
-    link: "/posts",
+    link: "/dashboard/Posts",
     active: false,
   },
 
   {
     title: "Authors",
-    link: "/authors",
+    link: "/dashboard/Authors",
     active: false,
   },
 
     {
     title: "Add Category",
-    link: "/addCategory",
+    link: "/dashboard/addCategory",
     active: false,
   },
 
     {
     title: "Category List",
-    link: "/categoryList",
+    link: "/dashboard/categoryList",
     active: false,
   },
  
