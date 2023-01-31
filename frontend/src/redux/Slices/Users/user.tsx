@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
 // interface from my signup route
 import { User } from "src/pages/auth/Signup";
+import { Baseurl } from "src/utils/Baseurl";
+
 
 // Register User
 export const userRegisterAction = createAsyncThunk(
@@ -16,7 +17,7 @@ export const userRegisterAction = createAsyncThunk(
       };
 
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${Baseurl}/users/register`,
         user,
         config
       );
@@ -43,7 +44,7 @@ export const userLoginAction = createAsyncThunk(
 
     try {
      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        `${Baseurl}/users/login`,
         user,
         config
       );
@@ -75,36 +76,37 @@ const usersSlices = createSlice({
     Error: "",
   },
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: (builder : any) => {
     // Register user
-    builder.addCase(userRegisterAction.pending, (state) => {
+    builder.addCase(userRegisterAction.pending, (state:any) => {
       state.loading = true;
     });
-    builder.addCase(userRegisterAction.fulfilled, (state, action) => {
+    builder.addCase(userRegisterAction.fulfilled, (state :any, action:any) => {
       state.registered = action?.payload;
       state.loading = false;
       state.registered = {};
     });
-    builder.addCase(userRegisterAction.rejected, (state, action) => {
+    builder.addCase(userRegisterAction.rejected, (state:any, action:any) => {
       state.loading = false;
       console.log(action.error);
       console.log(action.type);
     });
 
     // Login user 
-     builder.addCase(userLoginAction.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(userLoginAction.fulfilled, (state, action) => {
-      state.userAuth = action?.payload;
-    });
-    builder.addCase(userLoginAction.rejected, (state, action) => {
-      state.loading = false;
-      console.log(action.error);
-      console.log(action.type);
-    });
+    //  builder.addCase(userLoginAction.pending, (state) => {
+    //   state.loading = true;
+    // });
+    // builder.addCase(userLoginAction.fulfilled, (state, action) => {
+    //   state.userAuth = action?.payload;
+    // });
+    // builder.addCase(userLoginAction.rejected, (state, action) => {
+    //   state.loading = false;
+    //   console.log(action.error);
+    //   console.log(action.type);
+    // });
 
   },
+  
 });
 
 export default usersSlices.reducer;
