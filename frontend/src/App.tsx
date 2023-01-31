@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="containergrid">
       <div className="overall-layout">
-        <Navigation />
-    <Routes>
+      <Navigation />
+      <Routes>
       <Route element={<Home />} path="/" />
       <Route element={<Error />} path="*" />
       <Route element={<Signup />} path="/signup" />

@@ -3,6 +3,7 @@ import { Bars3Icon, PlusIcon} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/atoms";
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
+import { Icon } from 'src/utils';
 
 interface headerType {
   title: string;
@@ -27,20 +28,28 @@ let header: headerType[] = [
     link: "/posts",
     active: false,
   },
+
   {
-    title: "Register",
-    link: "/signup",
-    active: false,
-  },
-  {
-    title: "Login",
-    link: "/login",
+    title: "Authors",
+    link: "/authors",
     active: false,
   },
  
 ];
 
-const PublicNav = () => {
+const PrivateNav = () => {
+ const userNav = [{
+    name : "Your Profile",
+    link : `/profile`
+ },
+
+ {
+    name : "Change your Password",
+    link : `/update-password`
+ },
+
+]
+
      const changePath = (path: string) => {
     // router.push(path);
   };
@@ -83,13 +92,13 @@ const PublicNav = () => {
           </nav>
           <div className="flex space-x-4 items-center">
             <div className="hidden md:flex space-x-4">
-                <Link to={"/login"}>
+                <Link to={"/logout"}>
               <Button className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm 
                 text-dark_blue border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`} >
-                Login 
+                Logout 
             </Button>
                 </Link>
-              
+
               <Link to={"/newPost"}>
               <Button
                 className={`pl-3 w-36 md:w-28 xl:w-36 rounded-md capitalize h-10 text-sm 
@@ -100,6 +109,17 @@ const PublicNav = () => {
             <div className="flex lg:hidden h-full items-center">
               <Bars3Icon className="w-8 h-6" />
             </div>
+
+            <figure className='relative'>
+                <Icon src={""} alt='user' className=''/>
+                <ul className='absolute top-10 right-6 w-full'>
+                {userNav.map( (items : any, index: number) => (
+                    <li key={index} className='w-full bg-red-900'>
+                            <Link to={items.link}>{items.name}</Link>
+                    </li>
+                ))}
+                </ul>
+            </figure>
           </div>
         </header>
       </div>
@@ -111,4 +131,4 @@ const PublicNav = () => {
 
 
 
-export default PublicNav
+export default PrivateNav
