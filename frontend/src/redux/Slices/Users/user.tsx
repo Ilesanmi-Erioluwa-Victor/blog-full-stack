@@ -28,22 +28,27 @@ export const userRegisterAction = createAsyncThunk(
 );
 
 // Login user
-// Register User
+interface loginUser {
+  email : string;
+  password : string;
+}
 export const userLoginAction = createAsyncThunk(
-  "users/register",
-  async (user: User, { rejectWithValue }) => {
-    try {
-      const config = {
+  "users/login",
+  async (user: loginUser, { rejectWithValue }) => {
+        const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
 
-      const response = await axios.post(
+    try {
+     const response = await axios.post(
         "http://localhost:5000/api/users/login",
         user,
         config
       );
+      // save user to local storage
+      localStorage.setItem("userInfo", JSON.stringify(user))
       return response.data;
     } catch (error) {
       rejectWithValue(error);
@@ -69,6 +74,7 @@ const usersSlices = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
+    // Register user
     builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
     });
@@ -80,6 +86,20 @@ const usersSlices = createSlice({
       console.log(action.error);
       console.log(action.type);
     });
+
+    // Login user 
+     builder.addCase(userLoginAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(userLoginAction.fulfilled, (state, action) => {
+      state.registered = action?.payload;
+    });
+    builder.addCase(userLoginAction.rejected, (state, action) => {
+      state.loading = false;
+      console.log(action.error);
+      console.log(action.type);
+    });
+
   },
 });
 
