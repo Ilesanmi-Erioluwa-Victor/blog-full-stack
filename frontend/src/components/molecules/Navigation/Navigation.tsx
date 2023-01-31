@@ -11,8 +11,8 @@ const Navigation = (): JSX.Element => {
   console.log(location);
   return (
    <>
-  
-   <PublicNav />
+  {location.pathname === "/" && <PublicNav />}
+   
 
 
    </>
