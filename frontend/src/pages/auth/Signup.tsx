@@ -45,6 +45,11 @@ const Signup = (): JSX.Element => {
 
   const handleInputSubmit = async (event: any) => {
     event.preventDefault();
+    try {
+      
+    } catch (error) {
+      
+    }
     const { firstName,lastName, email, password } = user;
 
     if(!firstName || !lastName || !email || !password) {
@@ -54,7 +59,17 @@ const Signup = (): JSX.Element => {
           autoClose: 1000,
             });
     }
-     dispatch(userRegisterAction({firstName, email, password, lastName}))
+   const result =  await dispatch(userRegisterAction(user));
+   if(userRegisterAction.fulfilled.match(result)) {
+    const message = result.payload
+    console.log(message)
+   } else {
+    if(result.payload) {
+      console.log(result.payload)
+    } else {
+      console.log(result.error)
+    }
+   }
      const { registered } = users;
      if( registered){
       return <Navigate to={"/login"} replace={true}/>

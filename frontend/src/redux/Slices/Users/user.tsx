@@ -59,12 +59,12 @@ export const userLoginAction = createAsyncThunk(
 
 const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string): null;
 
-// interface initialState {
-//   Error: any;
-//   userAuth: string;
-//   registered: object;
-//   loading: boolean;
-// }
+interface initialState {
+  Error: any;
+  userAuth: object;
+  registered: object;
+  loading: boolean;
+}
 
 // Slices
 const usersSlices = createSlice({
@@ -74,7 +74,7 @@ const usersSlices = createSlice({
     registered: {},
     loading: false,
     Error: "",
-  },
+  } as initialState,
   reducers: {},
   extraReducers: (builder) => {
     // Register user
