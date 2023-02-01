@@ -34,7 +34,9 @@ const categorySlices = createSlice({
     });
 
     builder.addCase(createCategoryAction.fulfilled, (state, action) =>{
-        state.loading = true;
+        state.loading = false;
+        state.category = action?.payload;
+        // state.isCreated = true;
     });
 
     }
