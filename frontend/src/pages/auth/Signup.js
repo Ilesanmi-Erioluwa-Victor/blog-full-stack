@@ -6,44 +6,41 @@ import {
   LockClosedIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
-import { useAppDispatch, useAppSelector } from "src/redux/hooks";
 import { userRegisterAction } from "src/redux/Slices/Users/user";
-import { RootState } from "src/redux/store";
+// import { RootState } from "src/redux/store";
 import { Icon } from "src/utils";
 
-export interface User {
-  firstName : string;
-  password : string;
-  lastName: string;
-  email : string;
+// export interface User {
+//   firstName : string;
+//   password : string;
+//   lastName: string;
+//   email : string;
 
-}
+// }
 
-const Signup = (): JSX.Element => {
-  const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
-  const [user, setUser ]  = useState<User>({
+const Signup = () => {
+  const [passwordFieldType, setPasswordFieldType] = useState(false);
+  const [user, setUser ]  = useState({
    firstName : "",
    lastName : "",
    email : "",
    password : ""
   });
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
-   const { users } = useAppSelector(( state : RootState) => state);
-
-
-  const handleInputChange = (e:any) => {
+  const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setUser({...user, [name] : value.trim()});
   }
 
-  const handleInputSubmit = async (event: any) => {
+  const handleInputSubmit = async (event) => {
     event.preventDefault();
     try {
       
@@ -59,21 +56,12 @@ const Signup = (): JSX.Element => {
           autoClose: 1000,
             });
     }
-   const result =  await dispatch(userRegisterAction(user));
-   if(userRegisterAction.fulfilled.match(result)) {
-    const message = result.payload
-    console.log(message)
-   } else {
-    if(result.payload) {
-      console.log(result.payload)
-    } else {
-      console.log(result.error)
-    }
-   }
-     const { registered } = users;
-     if( registered){
-      return <Navigate to={"/login"} replace={true}/>
-     }
+await dispatch(userRegisterAction(user));
+  
+  //    const { registered } = users;
+  //    if( registered){
+  //     return <Navigate to={"/login"} replace={true}/>
+  //    }
   }
 
 

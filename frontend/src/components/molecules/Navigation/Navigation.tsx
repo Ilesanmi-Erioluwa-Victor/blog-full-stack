@@ -1,5 +1,4 @@
 import React from "react";
-// import Admin from "src/pages/Admin/Admin";
 import { useAppSelector } from "src/redux/hooks";
 import { RootState } from "src/redux/store";
 import PrivateNav from "./Private/PrivateNav";
@@ -16,10 +15,6 @@ const Navigation = (): JSX.Element => {
       ) : userAuth ? (
         <PrivateNav />
       ) : ""
-
-      //  (
-      //   // isAdmin && <Admin />
-      // )
     }
     </>
   );

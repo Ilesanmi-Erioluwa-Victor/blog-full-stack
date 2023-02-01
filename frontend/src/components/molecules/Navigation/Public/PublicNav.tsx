@@ -57,14 +57,14 @@ const PublicNav = () => {
     <GeneralLayout>
    <div className={`w-full h-20 sticky top-0 z-50 bg-white`}>
       <div className={`relative h-20`}>
-        <header className="w-12/12 relative z-50 md:w-full xl:w-full mx-auto h-full flex justify-between  items-center">
+        <header className="w-12/12 relative z-50 md:w-full xl:w-full mx-auto h-full flex justify-between  items-center px-10">
           <Link to="/">
             <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
               <img src="/main_logo.svg" alt="logo" className="" />
             </div>
           </Link>
           <nav className="hidden lg:flex items-center h-full ">
-            <ul className="flex lg:space-x-3 xl:space-x-5">
+            <ul className="flex lg:space-x-3 xl:space-x-5 md:gap-4 lg:gap-6">
               {header.map((item: any, index: number) => (
                 <Link to={item.link} key={index}>
                   <li
@@ -84,15 +84,15 @@ const PublicNav = () => {
           <div className="flex space-x-4 items-center">
             <div className="hidden md:flex space-x-4">
                 <Link to={"/login"}>
-              <Button className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm 
-                text-dark_blue border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`} >
+              <Button className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm transition-all bg-orange-400
+                text-white border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`} >
                 Login 
             </Button>
                 </Link>
               
               <Link to={"/newPost"}>
               <Button
-                className={`pl-3 w-36 md:w-28 xl:w-36 rounded-md capitalize h-10 text-sm 
+                className={`pl-3 w-36 md:w-28 xl:w-36 rounded-md capitalize h-10 text-sm transition-all hover:bg-orange-400
                 text-dark_blue border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80 flex items-center gap-3`}
               ><PlusIcon className='w-3 self-center'/> New Post </Button>
               </Link>

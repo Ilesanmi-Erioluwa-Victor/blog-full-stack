@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // interface from my signup route
-import { User } from "src/pages/auth/Signup";
+// import { User } from "src/pages/auth/Signup";
 import { Baseurl } from "src/utils/Baseurl";
 
 
 // Register User
 export const userRegisterAction = createAsyncThunk(
   "users/register",
-  async (user: User, { rejectWithValue }) => {
+  async (user, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
@@ -28,14 +28,10 @@ export const userRegisterAction = createAsyncThunk(
   }
 );
 
-// Login user
-interface loginUser {
-  email : string;
-  password : string;
-}
+
 export const userLoginAction = createAsyncThunk(
   "users/login",
-  async (user: loginUser, { rejectWithValue }) => {
+  async (user, { rejectWithValue }) => {
         const config = {
         headers: {
           "Content-Type": "application/json",
@@ -52,58 +48,62 @@ export const userLoginAction = createAsyncThunk(
       localStorage.setItem("userInfo", JSON.stringify(response.data))
       return response.data;
     } catch (error) {
-      rejectWithValue(error);
+      if (error instanceof Error) {
+          return rejectWithValue(error.message);
+        }
+        return console.log('ERROR', error);
     }
   }
 );
 
-const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo") as string): null;
+const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")): null;
 
-interface initialState {
-  Error: any;
-  userAuth: object;
-  registered: object;
-  loading: boolean;
-}
+// interface initialState {
+//   Error: string | unknown;
+//   userAuth: object;
+//   registered: object;
+//   loading: boolean;
+// }
 
-// Slices
 const usersSlices = createSlice({
   name: "users",
   initialState: {
     userAuth: getUserFromLocalStorage,
     registered: {},
     loading: false,
-    Error: "",
-  } as initialState,
+    Error: {
+      appError : "",
+      serverError : ""
+    },
+  },
   reducers: {},
   extraReducers: (builder) => {
     // Register user
-    builder.addCase(userRegisterAction.pending, (state:any) => {
+        builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(userRegisterAction.fulfilled, (state :any, action:any) => {
-      state.registered = action?.payload;
-      state.loading = false;
-      state.registered = {};
+    builder.addCase(userRegisterAction.fulfilled, (state, action) => {
+      state.userAuth = action?.payload;
     });
-    builder.addCase(userRegisterAction.rejected, (state:any, action:any) => {
+    builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
       console.log(action.error);
       console.log(action.type);
     });
-
     // Login user 
-    //  builder.addCase(userLoginAction.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(userLoginAction.fulfilled, (state, action) => {
-    //   state.userAuth = action?.payload;
-    // });
-    // builder.addCase(userLoginAction.rejected, (state, action) => {
-    //   state.loading = false;
-    //   console.log(action.error);
-    //   console.log(action.type);
-    // });
+     builder.addCase(userLoginAction.pending, (state) => {
+      state.loading = true;
+      state.Error.appError = undefined;
+      state.Error.serverError = undefined;
+    });
+    builder.addCase(userLoginAction.fulfilled, (state, action) => {
+      state.userAuth = action?.payload;
+    });
+    builder.addCase(userLoginAction.rejected, (state, action) => {
+      state.loading = false;
+       state.Error.appError = action?.error
+      state.Error.serverError = action?.payload
+    });
 
   },
   

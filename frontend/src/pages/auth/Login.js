@@ -5,36 +5,30 @@ import {
   EyeIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
-import { useAppDispatch, useAppSelector } from "src/redux/hooks";
 import { userLoginAction } from "src/redux/Slices/Users/user";
-import { RootState } from "src/redux/store";
 import { Icon } from "src/utils";
 
-export interface loginUser {
-  password: string;
-  email: string;
-}
-
-const Login = (): JSX.Element => {
-  const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
-  const [loginUser, setLoginUser] = useState<loginUser>({
+const Login = ()=> {
+  const [passwordFieldType, setPasswordFieldType] = useState(false);
+  const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
   });
 
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setLoginUser({ ...loginUser, [name]: value.trim() });
   };
 
-  const handleInputSubmit = async (event: any) => {
+  const handleInputSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = loginUser;
 
@@ -45,10 +39,21 @@ const Login = (): JSX.Element => {
         autoClose: 1000,
       });
     }
-    dispatch(userLoginAction(loginUser))
+    dispatch(userLoginAction(loginUser));
+        
   };
 
-     const { userAuth } = useAppSelector(( state : RootState) => state.users);
+  const { userAuth, Error:{appError, serverError}, loading } = useSelector(( state ) => state?.users);
+ if(appError || serverError) {
+         toast.error(`${serverError} - ${appError.message}`, {
+        toastId: "login_failed",
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+         }
+         if(userAuth) {
+          return <Navigate to={`/profile`} />
+         }        
 
   return (
     <section className="paddingLogin bg-transparent">
@@ -132,6 +137,7 @@ const Login = (): JSX.Element => {
               </span>
             </div>
             <Button
+            disabled={loading}
               className={
                 "block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4 max-md:w-full"
               }

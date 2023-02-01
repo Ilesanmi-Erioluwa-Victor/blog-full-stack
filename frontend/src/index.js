@@ -12,7 +12,7 @@ import Toastify from "./utils/ToastifyConfig";
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+  document.getElementById("root")
 );
 root.render(
   <>
