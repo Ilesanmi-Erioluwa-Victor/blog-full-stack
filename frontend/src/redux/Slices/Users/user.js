@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// interface from my signup route
-// import { User } from "src/pages/auth/Signup";
 import { Baseurl } from "src/utils/Baseurl";
 
 
