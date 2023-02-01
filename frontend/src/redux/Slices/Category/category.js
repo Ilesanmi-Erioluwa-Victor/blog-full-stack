@@ -36,6 +36,16 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.fulfilled, (state, action) =>{
         state.loading = false;
         state.category = action?.payload;
+        state.appError = undefined;
+        state.serverError = undefined;
+        // state.isCreated = true;
+    });
+
+      builder.addCase(createCategoryAction.rejected, (state, action) =>{
+        state.loading = false;
+        state.category = action?.payload;
+           state.appError = action?.payload?.message;
+        state.serverError = action?.error;
         // state.isCreated = true;
     });
 
