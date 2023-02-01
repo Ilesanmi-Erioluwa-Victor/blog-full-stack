@@ -1,8 +1,10 @@
 import React from 'react'
 import { Bars3Icon, PlusIcon} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import { Button } from "src/components/atoms";
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
+import { Icon } from 'src/utils';
 
 interface headerType {
   title: string;
@@ -58,9 +60,9 @@ const PublicNav = () => {
    <div className={`w-full h-20 sticky top-0 z-50 bg-white`}>
       <div className={`relative h-20`}>
         <header className="w-12/12 relative z-50 md:w-full xl:w-full mx-auto h-full flex justify-between  items-center px-10">
-          <Link to="/">
-            <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
-              <img src="/main_logo.svg" alt="logo" className="" />
+          <Link to="/" className='w-[3rem] h-[3rem]'>
+            <div className={`h-full flex items-center cursor-pointer`}>
+              <Icon src={ErrorImg} alt="logo" className="" />
             </div>
           </Link>
           <nav className="hidden lg:flex items-center h-full ">
