@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
-
+import { useAppDispatch, useAppSelector } from "src/redux/hooks";
+import { RootState } from "src/redux/store";
 
 const Addcategory = (): JSX.Element => {
     const [title, setTitle] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const category = useAppSelector((state : RootState) => state.category)
+  console.log(category)
 
 const handleFormSubmit = (ev :any) => {
   ev.preventDefault();
