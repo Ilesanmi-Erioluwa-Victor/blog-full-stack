@@ -10,7 +10,7 @@ export const createCategoryAction = createAsyncThunk(
         // getState, for returning all your state in your request
     //   Api call
     try {
-        const { data } = axios.post(`${Baseurl}/category`, {
+        const { data } = await axios.post(`${Baseurl}/category`, {
             title : category?.title
         })
     } catch (error) {
@@ -26,7 +26,7 @@ export const createCategoryAction = createAsyncThunk(
 const categorySlices = createSlice({
     name : "category",
     initialState : {
-
+     category : "Node js"
     },
     extraReducers : (builder) =>{
     builder.addCase(createCategoryAction.pending, (state, action) =>{
