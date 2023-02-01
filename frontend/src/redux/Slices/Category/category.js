@@ -21,3 +21,14 @@ export const createCategoryAction = createAsyncThunk(
     }
     }
 )
+
+// Slices
+const categorySlices = createSlice({
+    name : "category",
+    initialState : {
+
+    },
+    extraReducers : (builder) =>{
+
+    }
+})
