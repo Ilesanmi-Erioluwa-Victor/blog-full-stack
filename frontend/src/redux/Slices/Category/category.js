@@ -10,11 +10,11 @@ export const createCategoryAction = createAsyncThunk(
     // getState, for returning all your state in your request
     const user = getState()?.users;
     const {
-      userAuth: { token },
+      userAuth,
     } = user;
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userAuth?.token}`,
       },
     };
     //   Api call

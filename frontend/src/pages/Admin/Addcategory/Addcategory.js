@@ -9,8 +9,8 @@ const Addcategory = () => {
     const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
-  const category = useSelector((state) => state.category)
-  console.log(category)
+  const category = useSelector((state) => state?.category)
+  const {serverError } = category;
 
 const handleFormSubmit = async (ev) => {
   ev.preventDefault();
@@ -22,6 +22,13 @@ const handleFormSubmit = async (ev) => {
             });
   }
   dispatch(createCategoryAction(title))
+}
+if(serverError) {
+  toast.error(`${serverError.message}`, {
+              toastId: "post_category",
+                position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+            });
 }
 
 
