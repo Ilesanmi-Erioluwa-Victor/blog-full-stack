@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
-import { useAppDispatch, useAppSelector } from "src/redux/hooks";
-import { RootState } from "src/redux/store";
+import { createCategoryAction } from "src/redux/Slices/Category/category";
+import { useDispatch, useSelector } from "react-redux";
 
-const Addcategory = (): JSX.Element => {
-    const [title, setTitle] = useState<string>("");
-  const dispatch = useAppDispatch();
+const Addcategory = () => {
+    const [title, setTitle] = useState("");
+  const dispatch = useDispatch();
 
-  const category = useAppSelector((state : RootState) => state.category)
+  const category = useSelector((state) => state.category)
   console.log(category)
 
-const handleFormSubmit = (ev :any) => {
+const handleFormSubmit = async (ev) => {
   ev.preventDefault();
   if(!title) {
     return toast.error("Please, add post category!!!", {
@@ -21,6 +21,7 @@ const handleFormSubmit = (ev :any) => {
           autoClose: 1000,
             });
   }
+  dispatch(createCategoryAction(title))
 }
 
 
@@ -35,7 +36,7 @@ const handleFormSubmit = (ev :any) => {
       <Input
         type="text"
         placeholder="Create Post Category"
-        onChange={(e: any) => setTitle(e.target.value)}
+        onChange={(e) => setTitle(e.target.value)}
         value={title}
         className={
           "mt-2 focus:border-transparent focus:outline-transparent p-6 pl-8"
