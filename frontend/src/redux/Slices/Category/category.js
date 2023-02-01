@@ -8,5 +8,12 @@ export const createCategoryAction = createAsyncThunk(
     "category/create", 
     async(category, {rejectWithValue}) => {
     //   Api call
+    try {
+        const { data } = axios.post(`${Baseurl}/category`, {
+            title : category?.title
+        })
+    } catch (error) {
+        
+    }
     }
 )
