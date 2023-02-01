@@ -85,12 +85,12 @@ const PublicNav = () => {
           </nav>
           <div className="flex space-x-4 items-center">
             <div className="hidden md:flex space-x-4">
-                <Link to={"/login"}>
+                {/* <Link to={"/login"}>
               <Button className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm transition-all bg-orange-400
                 text-white border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`} >
                 Login 
             </Button>
-                </Link>
+                </Link> */}
               
               <Link to={"/newPost"}>
               <Button
