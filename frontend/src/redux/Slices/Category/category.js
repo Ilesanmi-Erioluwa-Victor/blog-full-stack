@@ -6,14 +6,18 @@ import { Baseurl } from "src/utils/Baseurl";
 
 export const createCategoryAction = createAsyncThunk(
     "category/create", 
-    async(category, {rejectWithValue}) => {
+    async(category, {rejectWithValue, getState}) => {
+        // getState, for returning all your state in your request
     //   Api call
     try {
         const { data } = axios.post(`${Baseurl}/category`, {
             title : category?.title
         })
     } catch (error) {
-        
+        if(!error.response) {
+            throw error
+        }
+        return rejectWithValue(error?.response?.data)
     }
     }
 )
