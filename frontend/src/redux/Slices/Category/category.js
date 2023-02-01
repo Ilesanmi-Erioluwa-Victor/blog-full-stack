@@ -6,7 +6,7 @@ import { Baseurl } from "src/utils/Baseurl";
 
 export const createCategoryAction = createAsyncThunk(
     "category/create", 
-    async() => {
-        
+    async(category, {rejectWithValue}) => {
+    //   Api call
     }
 )
