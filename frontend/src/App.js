@@ -19,11 +19,11 @@ function App() {
         <Navigation />
         <Routes>
           <Route element={<AdminNavigation />}>
-            <Route
+            <Route 
               element={<Navigate to={"/dashboard/Authors"} />}
               path={"/dashboard"}
             />
-            <Route element={<Createpost />} path={"dashboard/createPost"} />
+            <Route element={<Createpost />}  path={"dashboard/createPost"} />
             <Route element={<Post />} path={"dashboard/Posts"} />
             <Route element={<Authors />} path={"dashboard/Authors"} />
             <Route element={<Addcategory />} path={"dashboard/AddCategory"} />
