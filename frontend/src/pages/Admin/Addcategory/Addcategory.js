@@ -34,8 +34,8 @@ if(serverError) {
 
   return (
     <form className="sec-flex" onSubmit={handleFormSubmit}>
-      <h3>Add New Post Category</h3>
-      <p>
+      <h2 className="text-2xl font-semibold">Add New Post Category</h2>
+      <p className="">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, voluptas
         quae illum dolores accusantium cum eos hic iste quisquam ad fugit
         perspiciatis, laudantium impedit voluptatibus rem ut dolore id quis.

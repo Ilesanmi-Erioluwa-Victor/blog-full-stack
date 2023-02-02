@@ -2,8 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Baseurl } from "src/utils/Baseurl";
 
-// Action
-
+// Action Create Category
 export const createCategoryAction = createAsyncThunk(
   "category/create",
   async (category, { rejectWithValue, getState }) => {
@@ -25,6 +24,35 @@ export const createCategoryAction = createAsyncThunk(
           title: category?.title,
         },
         config
+      );
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+// Get all Categories
+export const getCategoriesAction = createAsyncThunk(
+  "category/getAll",
+  async ({ rejectWithValue, getState }) => {
+    // getState, for returning all your state in your request
+    const user = getState()?.users;
+    const {
+      userAuth,
+    } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
+    //   Api call
+    try {
+      const { data } = await axios.get(
+        `${Baseurl}/category`,config
       );
       return data;
     } catch (error) {
