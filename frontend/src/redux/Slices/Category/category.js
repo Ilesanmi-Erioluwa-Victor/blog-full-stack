@@ -58,6 +58,7 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
       state.category = action?.payload;
+      console.log(action)
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
