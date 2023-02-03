@@ -4,8 +4,12 @@ import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
 import { createCategoryAction } from "src/redux/Slices/Category/category";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const Addcategory = () => {
+const Addcategory = (props) => {
+  const {id} = useParams();
+  console.log(id)
+  console.log({props})
     const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
