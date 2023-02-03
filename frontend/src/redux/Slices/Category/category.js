@@ -52,7 +52,7 @@ export const getCategoriesAction = createAsyncThunk(
     //   Api call
     try {
       const { data } = await axios.get(
-        `${Baseurl}/category`,config
+        `${Baseurl}/categorys`,config
       );
       return data;
     } catch (error) {
