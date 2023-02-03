@@ -38,7 +38,7 @@ export const createCategoryAction = createAsyncThunk(
 // Get all Categories
 export const getCategoriesAction = createAsyncThunk(
   "category/getAll",
-  async ({ rejectWithValue, getState }) => {
+  async (pay,{ rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
     const {
