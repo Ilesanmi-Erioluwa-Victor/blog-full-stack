@@ -56,10 +56,11 @@ export const getCategoriesAction = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      if (!error.response) {
-        throw error;
-      }
-      return rejectWithValue(error?.response?.data);
+      // if (!error.response) {
+      //   throw error;
+      // }
+      // return rejectWithValue(error);
+      console.log(error)
     }
   }
 );
@@ -68,9 +69,9 @@ export const getCategoriesAction = createAsyncThunk(
 const categorySlices = createSlice({
   name: "category",
   initialState: {
-    category: "Node js",
   },
   extraReducers: (builder) => {
+    // Creaet category
     builder.addCase(createCategoryAction.pending, (state, action) => {
       state.loading = true;
     });
@@ -87,6 +88,28 @@ const categorySlices = createSlice({
       state.loading = false;
       state.category = action?.payload;
       console.log(action)
+      state.appError = action?.payload?.message;
+      state.serverError = action?.error;
+      // state.isCreated = true;
+    });
+        
+    // Get all Categories
+        builder.addCase(getCategoriesAction.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(getCategoriesAction.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action.payload)
+      state.categoryList = action?.payload;
+      state.appError = undefined;
+      state.serverError = undefined;
+      // state.isCreated = true;
+    });
+
+    builder.addCase(getCategoriesAction.rejected, (state, action) => {
+      state.loading = false;
+      state.categoryList = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
