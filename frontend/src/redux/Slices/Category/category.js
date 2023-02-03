@@ -38,7 +38,7 @@ export const createCategoryAction = createAsyncThunk(
 // Get all Categories
 export const getCategoriesAction = createAsyncThunk(
   "category/getAll",
-  async (pay,{ rejectWithValue, getState }) => {
+  async ({ rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
     const {
@@ -56,11 +56,41 @@ export const getCategoriesAction = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      // if (!error.response) {
-      //   throw error;
-      // }
-      // return rejectWithValue(error);
-      console.log(error)
+       if (!error.response) {
+         throw error;
+       }
+       return rejectWithValue(error);
+
+    }
+  }
+);
+
+// Get all Categories
+export const getCategoryAction = createAsyncThunk(
+  "category/getAll",
+  async (id,{ rejectWithValue, getState }) => {
+    // getState, for returning all your state in your request
+    const user = getState()?.users;
+    const {
+      userAuth,
+    } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
+    //   Api call
+    try {
+      const { data } = await axios.get(
+        `${Baseurl}/categorys`,config
+      );
+      return data;
+    } catch (error) {
+       if (!error.response) {
+         throw error;
+       }
+       return rejectWithValue(error);
+
     }
   }
 );
