@@ -19,7 +19,7 @@ export const createCategoryAction = createAsyncThunk(
     //   Api call
     try {
       const { data } = await axios.post(
-        `${Baseurl}/category`,
+        `${Baseurl}/categorys`,
         {
           title: category?.title,
         },
