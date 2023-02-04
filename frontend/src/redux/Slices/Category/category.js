@@ -85,6 +85,32 @@ export const getCategoryAction = createAsyncThunk(
   }
 );
 
+// Update Category
+// Get  Category
+export const updateCategoryAction = createAsyncThunk(
+  "category/updateCategory",
+  async (id, { rejectWithValue, getState }) => {
+    // getState, for returning all your state in your request
+    const user = getState()?.users;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
+    //   Api call
+    try {
+      const { data } = await axios.put(`${Baseurl}/categorys${id}`, config);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error);
+    }
+  }
+);
+
 // Slices
 const categorySlices = createSlice({
   name: "category",
