@@ -12,6 +12,11 @@ const Updatecategory = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
+  // Get the category id
+  useEffect( () =>{
+    dispatch(getCategoryAction(id))
+  },[dispatch, id])
+
   const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading } = categorystate;
 
