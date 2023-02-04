@@ -11,9 +11,8 @@ const Addcategory = (props) => {
     const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
-  const category = useSelector((state) => state?.category)
-  const {serverError } = category;
-
+  const categorystate = useSelector((state) => state?.category)
+  const {serverError, category } = categorystate;
 const handleFormSubmit = async (ev) => {
   ev.preventDefault();
   if(!title) {
@@ -23,8 +22,14 @@ const handleFormSubmit = async (ev) => {
           autoClose: 1000,
             });
   }
-  console.log(title)
-  dispatch(createCategoryAction(title))
+ dispatch(createCategoryAction(title))
+ if(category?.title) {
+    return toast.success("You have succesfully created category!!!", {
+              toastId: "create_post_category",
+                position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+            });
+  }
 }
 if(serverError) {
   toast.error(`${serverError.message}`, {
