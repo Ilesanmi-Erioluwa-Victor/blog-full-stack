@@ -23,6 +23,8 @@ const Login = ()=> {
 
     const dispatch = useDispatch();
 
+      const { userAuth, Error:{appError, serverError}, loading } = useSelector(( state ) => state?.users);
+
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -41,24 +43,26 @@ const Login = ()=> {
       });
     }
     dispatch(userLoginAction(loginUser));
-        
-  };
-
-  const { userAuth, Error:{appError, serverError}, loading } = useSelector(( state ) => state?.users);
- if(appError || serverError) {
-         toast.error(`${serverError} - ${appError.message}`, {
+     if(appError || serverError) {
+      return toast.error(`${serverError} - ${appError.message}`, {
         toastId: "login_failed",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+      
          }
-         if(userAuth) {
-          navigate(`/profile`)
-         }
-         
-         if(userAuth?.isAdmin === true) {
-           navigate(`/dashboard/authors`)
-         }
+        
+  };
+
+
+   if(userAuth) {
+    navigate("/profile")
+   }
+
+    if(userAuth?.isAdmin === true) {
+     navigate("/dashboard")  
+    }
+
 
   return (
     <section className="paddingLogin bg-transparent">

@@ -57,7 +57,7 @@ const PublicNav = () => {
 
   return (
     <GeneralLayout>
-   <div className={`w-full h-20 sticky top-0 z-50 bg-white`}>
+   <div className={`w-full h-20 sticky top-0 z-50 bg-white bg-orange-900`}>
       <div className={`relative h-20`}>
         <header className="w-12/12 relative z-50 md:w-full xl:w-full mx-auto h-full flex justify-between  items-center px-10">
           <Link to="/" className='w-[3rem] h-[3rem]'>

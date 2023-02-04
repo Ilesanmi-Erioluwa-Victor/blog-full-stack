@@ -8,7 +8,7 @@ const Footer = () => {
   const { userAuth } = users;
   return (
     <>
-    {userAuth && <h2>Hello from user</h2>}
+    {/* {userAuth && <h2>Hello from user</h2>} */}
      footer
     </>
   )

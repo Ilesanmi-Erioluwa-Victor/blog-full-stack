@@ -73,7 +73,7 @@ const PrivateNav = () => {
 
   return (
     <GeneralLayout>
-      <div className={`w-full h-20 sticky top-0 z-50 bg-white`}>
+      <div className={`w-full h-20 sticky top-0 z-50 bg-white bg-green-900`}>
         <div className={`relative h-20`}>
           <header className="w-11/12 relative z-50 md:w-11/12 xl:w-10/12 mx-auto h-full flex justify-between  items-center">
             <Link to="/">
