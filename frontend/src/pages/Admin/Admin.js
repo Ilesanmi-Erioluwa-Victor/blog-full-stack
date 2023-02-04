@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import ReactLoading from 'react-loading';
 import briefcase from "src/assets/admin_icons/briefcase.svg";
 import directsend from "src/assets/admin_icons/direct-send.svg";
 import messages_2 from "src/assets/admin_icons/messages-2.svg";
@@ -76,7 +77,7 @@ export default function AdminNavigation() {
       if(!isAdmin) {
         navigate(`/login`)
       }
-    },[isAdmin])
+    },[isAdmin, navigate])
 
   const handleNavSwitch = () => {
     setNavSwitch(!navSwitch);
