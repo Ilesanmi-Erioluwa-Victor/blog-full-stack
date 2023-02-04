@@ -10,7 +10,9 @@ const Navigation = (): JSX.Element => {
   const users = useAppSelector((state: RootState) => state.users);
   const { userAuth } = users;
   const isAdmin = userAuth?.isAdmin;
-  return <>{isAdmin ? <Admin /> : userAuth ? <PrivateNav /> : <PublicNav />}</>;
+  return <>
+  {isAdmin ? <Admin /> : userAuth ? <PrivateNav /> : <PublicNav />}
+  </>;
 };
 
 export default Navigation;
