@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
-import { useDispatch } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useNavigate } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import briefcase from "src/assets/admin_icons/briefcase.svg";
@@ -67,6 +67,16 @@ export default function AdminNavigation() {
   const dispatch = useDispatch();
   const [navSwitch, setNavSwitch] = useState(false);
   const [focused, setFocused] = useState(null);
+  const navigate = useNavigate();
+   const users = useSelector( (state) =>state.users)
+    const { userAuth } = users;
+    const isAdmin = userAuth?.isAdmin
+    
+    useEffect( () => {
+      if(!isAdmin) {
+        navigate(`/login`)
+      }
+    },[isAdmin])
 
   const handleNavSwitch = () => {
     setNavSwitch(!navSwitch);
