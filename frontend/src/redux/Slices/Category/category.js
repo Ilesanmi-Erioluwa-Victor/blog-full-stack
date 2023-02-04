@@ -5,7 +5,7 @@ import { Baseurl } from "src/utils/Baseurl";
 // Action Create Category
 export const createCategoryAction = createAsyncThunk(
   "category/create",
-  async (category, { rejectWithValue, getState }) => {
+  async (title, { rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
     const { userAuth } = user;
@@ -19,7 +19,7 @@ export const createCategoryAction = createAsyncThunk(
       const { data } = await axios.post(
         `${Baseurl}/categorys`,
         {
-          title: category?.title,
+          title
         },
         config
       );
@@ -60,7 +60,7 @@ export const getCategoriesAction = createAsyncThunk(
 
 // Get all Categories
 export const getCategoryAction = createAsyncThunk(
-  "category/getAll",
+  "category/getCategory",
   async (id, { rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
@@ -86,7 +86,12 @@ export const getCategoryAction = createAsyncThunk(
 // Slices
 const categorySlices = createSlice({
   name: "category",
-  initialState: {},
+  initialState: {
+    category : "",
+    loading: false,
+    appError : "",
+    serverError : ""
+  },
   extraReducers: (builder) => {
     // Creaet category
     builder.addCase(createCategoryAction.pending, (state, action) => {
@@ -96,15 +101,12 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.fulfilled, (state, action) => {
       state.loading = false;
       state.category = action?.payload;
-      state.appError = undefined;
-      state.serverError = undefined;
       // state.isCreated = true;
     });
 
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
-      state.category = action?.payload;
-      console.log(action);
+      state.category = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;

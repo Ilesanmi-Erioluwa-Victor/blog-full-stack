@@ -8,8 +8,6 @@ import { useParams } from "react-router-dom";
 
 const Addcategory = (props) => {
   const {id} = useParams();
-  console.log(id)
-  console.log({props})
     const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
@@ -25,6 +23,7 @@ const handleFormSubmit = async (ev) => {
           autoClose: 1000,
             });
   }
+  console.log(title)
   dispatch(createCategoryAction(title))
 }
 if(serverError) {
