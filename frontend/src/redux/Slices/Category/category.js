@@ -74,7 +74,7 @@ export const getCategoryAction = createAsyncThunk(
     };
     //   Api call
     try {
-      const { data } = await axios.get(`${Baseurl}/categorys`, config);
+      const { data } = await axios.get(`${Baseurl}/categorys/${id}`, config);
       return data;
     } catch (error) {
       if (!error.response) {
@@ -207,7 +207,8 @@ const categorySlices = createSlice({
 
     builder.addCase(getCategoryAction.fulfilled, (state, action) => {
       state.loading = false;
-      state.categoryList = action?.payload;
+      state.category = action?.payload;
+           state.categoryList = null;
       state.appError = undefined;
       state.serverError = undefined;
       state.deleteCatgory = null;

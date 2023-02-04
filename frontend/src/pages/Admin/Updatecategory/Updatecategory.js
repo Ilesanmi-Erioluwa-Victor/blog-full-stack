@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom";
 
 const Updatecategory = () => {
   const { id } = useParams();
-  console.log(id)
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
