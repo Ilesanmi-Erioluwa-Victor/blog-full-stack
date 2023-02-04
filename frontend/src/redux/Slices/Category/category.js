@@ -8,9 +8,7 @@ export const createCategoryAction = createAsyncThunk(
   async (category, { rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
-    const {
-      userAuth,
-    } = user;
+    const { userAuth } = user;
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth?.token}`,
@@ -41,9 +39,7 @@ export const getCategoriesAction = createAsyncThunk(
   async ({ rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
-    const {
-      userAuth,
-    } = user;
+    const { userAuth } = user;
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth?.token}`,
@@ -51,16 +47,13 @@ export const getCategoriesAction = createAsyncThunk(
     };
     //   Api call
     try {
-      const { data } = await axios.get(
-        `${Baseurl}/categorys`,config
-      );
+      const { data } = await axios.get(`${Baseurl}/categorys`, config);
       return data;
     } catch (error) {
-       if (!error.response) {
-         throw error;
-       }
-       return rejectWithValue(error);
-
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error);
     }
   }
 );
@@ -68,12 +61,10 @@ export const getCategoriesAction = createAsyncThunk(
 // Get all Categories
 export const getCategoryAction = createAsyncThunk(
   "category/getAll",
-  async (id,{ rejectWithValue, getState }) => {
+  async (id, { rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
-    const {
-      userAuth,
-    } = user;
+    const { userAuth } = user;
     const config = {
       headers: {
         Authorization: `Bearer ${userAuth?.token}`,
@@ -81,16 +72,13 @@ export const getCategoryAction = createAsyncThunk(
     };
     //   Api call
     try {
-      const { data } = await axios.get(
-        `${Baseurl}/categorys`,config
-      );
+      const { data } = await axios.get(`${Baseurl}/categorys`, config);
       return data;
     } catch (error) {
-       if (!error.response) {
-         throw error;
-       }
-       return rejectWithValue(error);
-
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error);
     }
   }
 );
@@ -98,8 +86,7 @@ export const getCategoryAction = createAsyncThunk(
 // Slices
 const categorySlices = createSlice({
   name: "category",
-  initialState: {
-  },
+  initialState: {},
   extraReducers: (builder) => {
     // Creaet category
     builder.addCase(createCategoryAction.pending, (state, action) => {
@@ -117,20 +104,20 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
       state.category = action?.payload;
-      console.log(action)
+      console.log(action);
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
     });
-        
+
     // Get all Categories
-        builder.addCase(getCategoriesAction.pending, (state, action) => {
+    builder.addCase(getCategoriesAction.pending, (state, action) => {
       state.loading = true;
     });
 
     builder.addCase(getCategoriesAction.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload)
+      console.log(action.payload);
       state.categoryList = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
