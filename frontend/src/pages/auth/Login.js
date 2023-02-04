@@ -62,7 +62,7 @@ const Login = ()=> {
    if(userAuth?.isAdmin === true) {
 navigate("/dashboard")  
    }
-  },[userAuth])
+  },[navigate, userAuth])
 
 
 
