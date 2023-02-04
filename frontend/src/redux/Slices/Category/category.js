@@ -119,7 +119,8 @@ const categorySlices = createSlice({
     loading: false,
     appError : "",
     serverError : "",
-    categoryList : ""
+    categoryList : "",
+    updateCatgory : ""
   },
   extraReducers: (builder) => {
     // Creaet category
@@ -137,6 +138,7 @@ const categorySlices = createSlice({
       state.loading = false;
       state.category = null;
       state.categoryList = null;
+      state.updateCatgory = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
@@ -153,6 +155,7 @@ const categorySlices = createSlice({
       state.categoryList = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.updateCatgory = null
       // state.isCreated = true;
     });
 
@@ -161,6 +164,7 @@ const categorySlices = createSlice({
       state.categoryList = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
+      state.updateCatgory = null;
       // state.isCreated = true;
     });
 
@@ -175,6 +179,7 @@ const categorySlices = createSlice({
       state.categoryList = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.updateCatgory = null
       // state.isCreated = true;
     });
 
@@ -183,6 +188,7 @@ const categorySlices = createSlice({
       state.categoryList = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
+      state.updateCatgory = null;
       // state.isCreated = true;
     });
 
@@ -194,16 +200,17 @@ const categorySlices = createSlice({
 
     builder.addCase(updateCategoryAction.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
-      state.categoryList = action?.payload;
+      state.updateCatgory = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.categoryList = null;
       // state.isCreated = true;
     });
 
     builder.addCase(updateCategoryAction.rejected, (state, action) => {
       state.loading = false;
       state.categoryList = null;
+      state.updateCatgory = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
