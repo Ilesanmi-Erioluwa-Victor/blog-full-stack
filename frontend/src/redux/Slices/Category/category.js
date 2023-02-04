@@ -163,6 +163,51 @@ const categorySlices = createSlice({
       state.serverError = action?.error;
       // state.isCreated = true;
     });
+
+      // Get Category
+    builder.addCase(getCategoryAction.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(getCategoryAction.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action.payload);
+      state.categoryList = action?.payload;
+      state.appError = undefined;
+      state.serverError = undefined;
+      // state.isCreated = true;
+    });
+
+    builder.addCase(getCategoryAction.rejected, (state, action) => {
+      state.loading = false;
+      state.categoryList = null;
+      state.appError = action?.payload?.message;
+      state.serverError = action?.error;
+      // state.isCreated = true;
+    });
+
+    // update category
+      // Get all Categories
+    builder.addCase(updateCategoryAction.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(updateCategoryAction.fulfilled, (state, action) => {
+      state.loading = false;
+      console.log(action.payload);
+      state.categoryList = action?.payload;
+      state.appError = undefined;
+      state.serverError = undefined;
+      // state.isCreated = true;
+    });
+
+    builder.addCase(updateCategoryAction.rejected, (state, action) => {
+      state.loading = false;
+      state.categoryList = null;
+      state.appError = action?.payload?.message;
+      state.serverError = action?.error;
+      // state.isCreated = true;
+    });
   },
 });
 
