@@ -18,10 +18,10 @@ const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
   // Register user
   try {
     // Avoid Duplicate Registration
-    if (await User.emailTaken(email)) {
+       if (await User.emailTaken(email)) {
       throw new Error("You are already registered, just log in to your account");
     }
-
+    
     const user = await User.create({
       firstName: req?.body?.firstName,
       lastName: req?.body?.lastName,
@@ -30,7 +30,7 @@ const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
     });
     res.json(user);
   } catch (error) {
-    res.json(`error ${error.message}`);
+    res.json(`sorry, ${error.message}`);
   }
 });
 
