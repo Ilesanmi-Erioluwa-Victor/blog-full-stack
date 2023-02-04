@@ -62,6 +62,13 @@ let header = [
     active: false,
     icon: messages_2,
   },
+
+    {
+    title: "Update category",
+    link: "/dashboard/update-category/:id",
+    active: false,
+    icon: messages_2,
+  },
 ];
 
 export default function AdminNavigation() {

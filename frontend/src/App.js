@@ -9,6 +9,7 @@ import {
   Addcategory,
   Category,
   Createpost,
+  Updatecategory,
   Authors,
   // Admin
 } from "src/pages/Admin";
@@ -29,6 +30,7 @@ function App() {
             <Route element={<Authors />} path={"dashboard/authors"} />
             <Route element={<Addcategory />} path={"dashboard/add-category"} />
             <Route element={<Category />} path={"dashboard/category-list"} />
+            <Route element={<Updatecategory />} path={"dashboard/update-category/:id"} />
           </Route>
           <Route element={<Home />} path="/" />
           <Route element={<Error />} path="*" />
