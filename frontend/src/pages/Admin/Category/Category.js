@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getCategoriesAction } from 'src/redux/Slices/Category/category'
-getCategoriesAction
 
 const Category = () => {
   const dispatch = useDispatch();

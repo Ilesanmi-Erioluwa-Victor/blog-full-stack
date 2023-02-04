@@ -39,6 +39,7 @@ export const getCategoriesAction = createAsyncThunk(
   async ({ rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
     const user = getState()?.users;
+          console.log(getState());
     const { userAuth } = user;
     const config = {
       headers: {
@@ -48,6 +49,7 @@ export const getCategoriesAction = createAsyncThunk(
     //   Api call
     try {
       const { data } = await axios.get(`${Baseurl}/categorys`, config);
+
       return data;
     } catch (error) {
       if (!error.response) {
@@ -58,7 +60,7 @@ export const getCategoriesAction = createAsyncThunk(
   }
 );
 
-// Get all Categories
+// Get  Category
 export const getCategoryAction = createAsyncThunk(
   "category/getCategory",
   async (id, { rejectWithValue, getState }) => {

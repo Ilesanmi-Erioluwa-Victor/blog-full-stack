@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   EnvelopeIcon,
   EyeSlashIcon,
@@ -54,14 +54,17 @@ const Login = ()=> {
         
   };
 
-
-   if(userAuth) {
+  useEffect (() => {
+      if(userAuth) {
     navigate("/profile")
    }
+   
+   if(userAuth?.isAdmin === true) {
+navigate("/dashboard")  
+   }
+  },[userAuth])
 
-    if(userAuth?.isAdmin === true) {
-     navigate("/dashboard")  
-    }
+
 
 
   return (
