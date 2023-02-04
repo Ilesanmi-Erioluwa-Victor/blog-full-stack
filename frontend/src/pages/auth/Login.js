@@ -6,7 +6,7 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import google from "src/assets/svg/google.svg";
 import { Button, Input } from "src/components/atoms";
@@ -19,6 +19,7 @@ const Login = ()=> {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -52,8 +53,12 @@ const Login = ()=> {
       });
          }
          if(userAuth) {
-          return <Navigate to={`/profile`} />
-         }        
+          navigate(`/profile`)
+         }
+         
+         if(userAuth?.isAdmin === true) {
+           navigate(`/dashboard/authors`)
+         }
 
   return (
     <section className="paddingLogin bg-transparent">
