@@ -7,38 +7,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 const Addcategory = (props) => {
-  const {id} = useParams();
-    const [title, setTitle] = useState("");
+  const { id } = useParams();
+  const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
-  const categorystate = useSelector((state) => state?.category)
-  const {serverError, category } = categorystate;
-const handleFormSubmit = async (ev) => {
-  ev.preventDefault();
-  if(!title) {
-    return toast.error("Please, add post category!!!", {
-              toastId: "post_category",
-                position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-            });
-  }
- dispatch(createCategoryAction(title))
- if(category?.title) {
-    return toast.success("You have succesfully created category!!!", {
-              toastId: "create_post_category",
-                position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-            });
-  }
-}
-if(serverError) {
-  toast.error(`${serverError.message}`, {
-              toastId: "post_category",
-                position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-            });
-}
+  const categorystate = useSelector((state) => state?.category);
+  const { serverError, category, loading } = categorystate;
 
+  const handleFormSubmit = async (ev) => {
+    ev.preventDefault();
+    if (!title) {
+      return toast.error("Please, add post category!!!", {
+        toastId: "post_category",
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+    }
+    dispatch(createCategoryAction(title));
+    if (category?.user) {
+      return toast.success("You have succesfully created category!!!", {
+        toastId: "create_post_category",
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+    }
+  };
+  if (serverError) {
+    toast.error(`${serverError.message}`, {
+      toastId: "post_category",
+      position: toast.POSITION.TOP_CENTER,
+      autoClose: 1000,
+    });
+  }
 
   return (
     <form className="sec-flex" onSubmit={handleFormSubmit}>
@@ -64,7 +64,7 @@ if(serverError) {
         }
       >
         <PlusIcon className="w-6 text-white" />
-        Add Post Category
+        {loading ? "loading..." : "Add Post Category"}  
       </Button>
     </form>
   );
