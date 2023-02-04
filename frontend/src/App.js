@@ -28,7 +28,7 @@ function App() {
             <Route element={<Post />} path={"dashboard/posts"} />
             <Route element={<Authors />} path={"dashboard/authors"} />
             <Route element={<Addcategory />} path={"dashboard/add-category"} />
-            <Route element={<Category />} path={"dashboard/caategory-list"} />
+            <Route element={<Category />} path={"dashboard/category-list"} />
           </Route>
           <Route element={<Home />} path="/" />
           <Route element={<Error />} path="*" />
