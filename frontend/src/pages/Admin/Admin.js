@@ -91,9 +91,22 @@ export default function AdminNavigation() {
   };
 
   return (
-    
-    
-    <div className="flex w-full bg-red-600">
+    <>
+      {loading ? 
+    <>
+    <Circles
+  height="80"
+  width="80"
+  color="#4fa94d"
+  ariaLabel="circles-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+    </>  : 
+
+    <>
+     <div className="flex w-full bg-red-600">
       {/* Sidebar */}
       <section
         className={`${
@@ -187,6 +200,11 @@ export default function AdminNavigation() {
         <Outlet />
       </div>
     </div>
-  );
+    </>
+    }
+    
+    </>
+    
+  )
 }
 
