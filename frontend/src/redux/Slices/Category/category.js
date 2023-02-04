@@ -90,7 +90,8 @@ const categorySlices = createSlice({
     category : "",
     loading: false,
     appError : "",
-    serverError : ""
+    serverError : "",
+    categoryList : ""
   },
   extraReducers: (builder) => {
     // Creaet category
@@ -107,6 +108,7 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
       state.category = null;
+      state.categoryList = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
