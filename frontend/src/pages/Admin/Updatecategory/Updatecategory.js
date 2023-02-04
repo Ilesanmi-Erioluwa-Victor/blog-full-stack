@@ -65,7 +65,7 @@ const Updatecategory = () => {
         }
       >
         <PlusIcon className="w-6 text-white" />
-        {loading ? "loading..." : "Add Post Category"}  
+        {loading ? "loading..." : "Update Post Category"}  
       </Button>
     </form>
   );
