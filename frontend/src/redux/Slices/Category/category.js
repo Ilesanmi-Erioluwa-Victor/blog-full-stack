@@ -86,7 +86,6 @@ export const getCategoryAction = createAsyncThunk(
 );
 
 // Update Category
-// Get  Category
 export const updateCategoryAction = createAsyncThunk(
   "category/updateCategory",
   async (id, { rejectWithValue, getState }) => {
@@ -111,6 +110,32 @@ export const updateCategoryAction = createAsyncThunk(
   }
 );
 
+// Update Category
+export const deleteCategoryAction = createAsyncThunk(
+  "category/deleteCategory",
+  async (id, { rejectWithValue, getState }) => {
+    // getState, for returning all your state in your request
+    const user = getState()?.users;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
+    //   Api call
+    try {
+      const { data } = await axios.delete(`${Baseurl}/categorys${id}`, config);
+      return data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error);
+    }
+  }
+);
+
+
 // Slices
 const categorySlices = createSlice({
   name: "category",
@@ -120,7 +145,8 @@ const categorySlices = createSlice({
     appError : "",
     serverError : "",
     categoryList : "",
-    updateCatgory : ""
+    updateCatgory : "",
+    deleteCatgory : ""
   },
   extraReducers: (builder) => {
     // Creaet category
@@ -131,6 +157,11 @@ const categorySlices = createSlice({
     builder.addCase(createCategoryAction.fulfilled, (state, action) => {
       state.loading = false;
       state.category = action?.payload;
+      state.categoryList = null;
+      state.updateCatgory = null;
+      state.deleteCatgory = null;
+      state.appError = action?.payload?.message;
+      state.serverError = action?.error;
       // state.isCreated = true;
     });
 
@@ -139,6 +170,7 @@ const categorySlices = createSlice({
       state.category = null;
       state.categoryList = null;
       state.updateCatgory = null;
+      state.deleteCatgory = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
@@ -151,10 +183,10 @@ const categorySlices = createSlice({
 
     builder.addCase(getCategoriesAction.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       state.categoryList = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.deleteCatgory = null;
       state.updateCatgory = null
       // state.isCreated = true;
     });
@@ -164,6 +196,7 @@ const categorySlices = createSlice({
       state.categoryList = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
+      state.deleteCatgory = null;
       state.updateCatgory = null;
       // state.isCreated = true;
     });
@@ -175,10 +208,10 @@ const categorySlices = createSlice({
 
     builder.addCase(getCategoryAction.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       state.categoryList = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.deleteCatgory = null;
       state.updateCatgory = null
       // state.isCreated = true;
     });
@@ -189,11 +222,11 @@ const categorySlices = createSlice({
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       state.updateCatgory = null;
+         state.deleteCatgory = null;
       // state.isCreated = true;
     });
 
     // update category
-      // Get all Categories
     builder.addCase(updateCategoryAction.pending, (state, action) => {
       state.loading = true;
     });
@@ -203,7 +236,9 @@ const categorySlices = createSlice({
       state.updateCatgory = action?.payload;
       state.appError = undefined;
       state.serverError = undefined;
+      state.deleteCatgory = null;
       state.categoryList = null;
+      state.category = null;
       // state.isCreated = true;
     });
 
@@ -211,6 +246,35 @@ const categorySlices = createSlice({
       state.loading = false;
       state.categoryList = null;
       state.updateCatgory = null;
+      state.deleteCatgory = null;
+      state.appError = action?.payload?.message;
+      state.serverError = action?.error;
+      state.category = null;
+      // state.isCreated = true;
+    });
+
+    // delete category
+    builder.addCase(deleteCategoryAction.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(deleteCategoryAction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.deleteCatgory = action?.payload;
+      state.appError = undefined;
+      state.serverError = undefined;
+      state.categoryList = null;
+      state.category = null;
+      state.updateCatgory = null
+      // state.isCreated = true;
+    });
+
+    builder.addCase(deleteCategoryAction.rejected, (state, action) => {
+      state.loading = false;
+      state.categoryList = null;
+      state.deleteCatgory = null;
+      state.updateCatgory = null;
+      state.category = null;
       state.appError = action?.payload?.message;
       state.serverError = action?.error;
       // state.isCreated = true;
