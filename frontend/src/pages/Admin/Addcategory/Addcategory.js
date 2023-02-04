@@ -17,7 +17,7 @@ const Addcategory = (props) => {
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
     if (!title) {
-      return toast.error("Please, add post category!!!", {
+       toast.error("Please, add post category!!!", {
         toastId: "post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
@@ -26,7 +26,7 @@ const Addcategory = (props) => {
     dispatch(createCategoryAction(title));
     setTitle("")
     if (category?.user) {
-      return toast.success("You have succesfully created category!!!", {
+       toast.success("You have succesfully created category!!!", {
         toastId: "create_post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
