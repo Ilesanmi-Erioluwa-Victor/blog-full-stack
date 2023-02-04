@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 // import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -9,16 +10,18 @@ import messages_2 from "src/assets/admin_icons/messages-2.svg";
 import messages from "src/assets/admin_icons/messages.svg";
 import setting_3 from "src/assets/admin_icons/setting-3.svg";
 import user from "src/assets/admin_icons/user.svg";
+import { Button } from "src/components/atoms";
+import { userLogOutAction } from "src/redux/Slices/Users/user";
 import { Icon } from "src/utils";
 
-interface headerType {
-  title: string;
-  icon?: any;
-  link: string;
-  active: boolean;
-}
+// interface headerType {
+//   title: string;
+//   icon?: any;
+//   link: string;
+//   active: boolean;
+// }
 
-let header: headerType[] = [
+let header = [
   {
     title: "Home",
     link: "/dashboard",
@@ -60,9 +63,10 @@ let header: headerType[] = [
   },
 ];
 
-export default function AdminNavigation(): JSX.Element {
+export default function AdminNavigation() {
+  const dispatch = useDispatch();
   const [navSwitch, setNavSwitch] = useState(false);
-  const [focused, setFocused] = React.useState<string | null>(null);
+  const [focused, setFocused] = useState(null);
 
   const handleNavSwitch = () => {
     setNavSwitch(!navSwitch);
@@ -94,7 +98,7 @@ export default function AdminNavigation(): JSX.Element {
               onMouseLeave={() => setFocused(null)}
             >
               <ul className="flex flex-col space-y-5">
-                {header.map((item: any, index: number) => (
+                {header.map((item, index) => (
                   <li key={index}>
                     <Link to={item.link}>
                       <span
@@ -139,6 +143,13 @@ export default function AdminNavigation(): JSX.Element {
             </nav>
           </header>
         </div>
+          <Button
+                  className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm 
+                text-dark_blue border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`}
+                  onClick={() => dispatch(userLogOutAction())}
+                >
+                  Logout
+                </Button>
         <div
           onClick={handleNavSwitch}
           className={`absolute top-16 cursor-pointer hover:bg-light_green ${
