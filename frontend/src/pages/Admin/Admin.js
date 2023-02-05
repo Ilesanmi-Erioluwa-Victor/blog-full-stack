@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate,Link } from "react-router-dom";
 // import { motion } from "framer-motion";
-import { Link, Navigate} from "react-router-dom";
 import { Circles } from  'react-loader-spinner'
 import briefcase from "src/assets/admin_icons/briefcase.svg";
 import directsend from "src/assets/admin_icons/direct-send.svg";
@@ -56,13 +55,6 @@ export default function AdminNavigation(props) {
   {
     title: "Category List",
     link: "/dashboard/category-list",
-    active: false,
-    icon: messages_2,
-  },
-
-    {
-    title: "Update category",
-    link: `/dashboard/update-category/:id`,
     active: false,
     icon: messages_2,
   },

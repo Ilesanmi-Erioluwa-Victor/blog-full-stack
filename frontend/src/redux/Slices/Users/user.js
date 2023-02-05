@@ -21,7 +21,7 @@ export const userRegisterAction = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      rejectWithValue(error);
+     return rejectWithValue(error.response.data);
     }
   }
 );
