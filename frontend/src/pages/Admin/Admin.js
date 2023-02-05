@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 // import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import { Circles } from  'react-loader-spinner'
 import briefcase from "src/assets/admin_icons/briefcase.svg";
 import directsend from "src/assets/admin_icons/direct-send.svg";
@@ -15,14 +15,11 @@ import { Button } from "src/components/atoms";
 import { userLogOutAction } from "src/redux/Slices/Users/user";
 import { Icon } from "src/utils";
 
-// interface headerType {
-//   title: string;
-//   icon?: any;
-//   link: string;
-//   active: boolean;
-// }
 
-let header = [
+
+export default function AdminNavigation(props) {
+
+  let header = [
   {
     title: "Home",
     link: "/dashboard",
@@ -65,13 +62,14 @@ let header = [
 
     {
     title: "Update category",
-    link: "/dashboard/update-category/:id",
+    link: `/dashboard/update-category/:id`,
     active: false,
     icon: messages_2,
   },
 ];
 
-export default function AdminNavigation() {
+
+
   const dispatch = useDispatch();
   const [navSwitch, setNavSwitch] = useState(false);
   const [focused, setFocused] = useState(null);
