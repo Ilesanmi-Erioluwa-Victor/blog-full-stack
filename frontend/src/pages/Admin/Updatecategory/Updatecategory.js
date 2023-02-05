@@ -4,13 +4,13 @@ import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
 import { getCategoryAction, updateCategoryAction, deleteCategoryAction } from "src/redux/Slices/Category/category";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Updatecategory = () => {
   const { id } = useParams();
-
+   const navigate = useNavigate();
     const categorystate = useSelector((state) => state?.category);
-  const { serverError, category, loading } = categorystate;
+  const { serverError, category, loading, deleteCategory } = categorystate;
   const title = category?.title;
   // I want to populate my initial category title to my render title for update
   const [updateTitle, setUpdatetitle] = useState(title);
@@ -33,14 +33,28 @@ const Updatecategory = () => {
       });
     }
      dispatch(updateCategoryAction({title, id}));
+
+      if (deleteCategory?.user) {
+       toast.error("You have succesfully deleted category!!!", {
+        toastId: "create_post_category",
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+      navigate("/dashboard/category-list")
+    }
+
     if (category?.user) {
        toast.success("You have succesfully created category!!!", {
         toastId: "create_post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+       navigate("/dashboard/category-list")
     }
   };
+
+ 
+
   if (serverError) {
     toast.error(`${serverError.message}`, {
       toastId: "post_category",
@@ -74,6 +88,15 @@ const Updatecategory = () => {
       >
         <PlusIcon className="w-6 text-white" />
         {loading ? "loading..." : "Update Post Category"}  
+      </Button>
+
+        <Button
+        onClick={() =>dispatch(deleteCategoryAction(id))}
+        className={
+          "bg-red-700 p-3 text-white text-base rounded-lg self-start flex gap-3 items-center transition-all"
+        }
+      >
+        {loading ? "loading..." : "Delete Post Category"}  
       </Button>
     </form>
   );
