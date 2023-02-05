@@ -174,13 +174,17 @@ export default function AdminNavigation(props) {
             </nav>
           </header>
         </div>
-          <Button
+
+        {
+          navSwitch === true ? <ChevronLeftIcon onClick={() => dispatch(userLogOutAction())} className="w-6 mt-8 cursor-pointer"/> : <Button
                   className={`w-36 h-10  md:w-28 xl:w-36 rounded-md capitalize text-sm 
                 text-dark_blue border border-dark_blue hover:bg-dark_blue hover:text-white  hover:opacity-80`}
                   onClick={() => dispatch(userLogOutAction())}
                 >
                   Logout
                 </Button>
+        }
+          
         <div
           onClick={handleNavSwitch}
           className={`absolute top-16 cursor-pointer hover:bg-light_green ${

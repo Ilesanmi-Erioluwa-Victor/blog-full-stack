@@ -96,27 +96,37 @@ const usersSlices = createSlice({
       state.loading = true;
     });
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
-      state.userAuth = action?.payload;
+      state.registered = action?.payload;
+      state.userAuth  = null;
+      state.loading =false;
+
     });
     builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
-      console.log(action.error);
-      console.log(action.type);
+    state.userAuth =  null;
+    state.registered = null;
+    state.Error.appError = action.error;
+    state.Error.serverError = action.payload.message
     });
     // Login user 
      builder.addCase(userLoginAction.pending, (state) => {
       state.loading = true;
       state.Error.appError = undefined;
       state.Error.serverError = undefined;
+      state.registered = null;
     });
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
       state.userAuth = action?.payload;
       state.registered = null;
+      state.loading= false;
+      state.Error.appError = undefined;
+      state.Error.serverError = undefined;
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
-       state.Error.appError = action?.error
-      state.Error.serverError = action?.payload
+       state.Error.appError = action?.error;
+      state.Error.serverError = action?.payload;
+      state.registered = null;
     });
 
     // Logout user
