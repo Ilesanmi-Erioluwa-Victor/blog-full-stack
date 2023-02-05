@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
-import { getCategoryAction, updateCategoryAction } from "src/redux/Slices/Category/category";
+import { getCategoryAction, updateCategoryAction, deleteCategoryAction } from "src/redux/Slices/Category/category";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
@@ -11,9 +11,9 @@ const Updatecategory = () => {
 
     const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading } = categorystate;
-  console.log( category)
+  const title = category?.title;
   // I want to populate my initial category title to my render title for update
-  const [title, setTitle] = useState("");
+  const [updateTitle, setUpdatetitle] = useState(title);
   const dispatch = useDispatch();
 
   // Get the category id
@@ -25,15 +25,14 @@ const Updatecategory = () => {
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
-    if (!title) {
+    if (!updateTitle) {
        toast.error("Please, add post category!!!", {
         toastId: "post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
     }
-    // dispatch(createC(title));
-    setTitle("")
+     dispatch(updateCategoryAction({title, id}));
     if (category?.user) {
        toast.success("You have succesfully created category!!!", {
         toastId: "create_post_category",
@@ -61,8 +60,8 @@ const Updatecategory = () => {
       <Input
         type="text"
         placeholder="Create Post Category"
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
+        onChange={(e) => setUpdatetitle(e.target.value)}
+        value={updateTitle}
         className={
           "mt-2 focus:border-transparent focus:outline-transparent p-6 pl-8"
         }

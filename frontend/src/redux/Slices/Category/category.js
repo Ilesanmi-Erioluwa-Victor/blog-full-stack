@@ -88,8 +88,9 @@ export const getCategoryAction = createAsyncThunk(
 // Update Category
 export const updateCategoryAction = createAsyncThunk(
   "category/updateCategory",
-  async (id, { rejectWithValue, getState }) => {
+  async (category, { rejectWithValue, getState }) => {
     // getState, for returning all your state in your request
+    console.log(category)
     const user = getState()?.users;
     const { userAuth } = user;
     const config = {
@@ -99,7 +100,7 @@ export const updateCategoryAction = createAsyncThunk(
     };
     //   Api call
     try {
-      const { data } = await axios.put(`${Baseurl}/categorys${id}`, config);
+      const { data } = await axios.put(`${Baseurl}/categorys/${category?.id}`,{title : category?.title}, config);
       return data;
     } catch (error) {
       if (!error.response) {
