@@ -8,6 +8,11 @@ import { useParams } from "react-router-dom";
 
 const Updatecategory = () => {
   const { id } = useParams();
+
+    const categorystate = useSelector((state) => state?.category);
+  const { serverError, category, loading } = categorystate;
+  console.log( category)
+  // I want to populate my initial category title to my render title for update
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
 
@@ -16,8 +21,7 @@ const Updatecategory = () => {
     dispatch(getCategoryAction(id))
   },[dispatch, id])
 
-  const categorystate = useSelector((state) => state?.category);
-  const { serverError, category, loading } = categorystate;
+
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
