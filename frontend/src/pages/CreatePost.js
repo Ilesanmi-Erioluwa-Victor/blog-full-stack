@@ -1,11 +1,12 @@
 import React, { useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 import { Button, Input } from 'src/components/atoms'
 
 
 const CreatePost = () => {
   const dispatch = useDispatch();
-  
+
   const [inputs, setInputs ] = useState( {
     title : "",
     textarea : ""
@@ -21,6 +22,14 @@ const CreatePost = () => {
 
   const handleSubmitCgange = ev => {
     ev.preventDefault();
+    const { title, textarea } = inputs;
+    if(!title || !textarea) {
+      toast.error("Please, add post category!!!", {
+        toastId: "create_post",
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
+    }
     console.log({inputs})
   }
 
