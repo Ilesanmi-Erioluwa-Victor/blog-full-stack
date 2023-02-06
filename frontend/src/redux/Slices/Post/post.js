@@ -25,3 +25,14 @@ export const createPostAction = createAsyncThunk(
     }
   }
 );
+
+// Slices
+const postSlices = createSlice({
+    name : "posts",
+    initialState:{},
+    extraReducers : (builder) => {
+        builder.addCase(createPostAction.pending, (state, action) => {
+            state.loading = true;
+        })
+    }
+})
