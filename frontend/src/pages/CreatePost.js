@@ -1,15 +1,19 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Button, Input } from 'src/components/atoms'
 import Dropdown from 'src/components/atoms/Dropdown/Dropdown'
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category'
 import { createPostAction } from 'src/redux/Slices/Post/post'
-fetchCategoriesAction
+
 
 const CreatePost = () => {
   const dispatch = useDispatch();
 
+    useEffect( () => {
+    fetchCategoriesAction()
+  }, [])
+  
   const [inputs, setInputs ] = useState( {
     title : "",
     textarea : ""
@@ -35,6 +39,8 @@ const CreatePost = () => {
     }
     dispatch(createPostAction({title, description : textarea}))
   }
+
+
 
   return (
     <div className='block relative w-full padding'>
