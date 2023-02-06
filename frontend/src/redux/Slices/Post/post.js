@@ -34,5 +34,21 @@ const postSlices = createSlice({
         builder.addCase(createPostAction.pending, (state, action) => {
             state.loading = true;
         })
+
+        builder.addCase(createPostAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.postCreated = action?.payload;
+              state.appError = undefined;
+            state.serverError = undefined;
+        })
+
+          builder.addCase(createPostAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appError = action?.payload?.message;
+            state.serverError = action?.error?.message
+        })
     }
 })
+
+
+export default postSlices.reducer;
