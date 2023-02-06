@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "src//components/molecules/Footer/Footer";
 import AdminNavigation from "src/pages/Admin/Admin";
 import Navigation from "src/components/molecules/Navigation/Navigation";
-import { Error, Home, Signup, Login } from "src/pages";
+import { Error, Home, Signup, Login, CreatePost } from "src/pages";
 import {
   Post,
   Addcategory,
@@ -30,6 +30,7 @@ function App() {
             <Route element={<Category />} path={"dashboard/category-list"} />
             <Route element={<Updatecategory />} path={"dashboard/update-category/:id"} />
           </Route>
+          <Route element={<CreatePost />} path="/create-post" />
           <Route element={<Home />} path="/" />
           <Route element={<Error />} path="*" />
           <Route element={<Signup />} path="/signup" />
