@@ -5,6 +5,7 @@ import { Button, Input } from 'src/components/atoms'
 import Dropdown from 'src/components/atoms/Dropdown/Dropdown'
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category'
 import { createPostAction } from 'src/redux/Slices/Post/post'
+import { Circles } from  'react-loader-spinner'
 
 
 const CreatePost = () => {
@@ -15,7 +16,7 @@ const CreatePost = () => {
   }, [dispatch])
 
   const category = useSelector ( (state)=> state?.category);
-
+  const loading = category?.loading;
 
  const allCategories = category?.categoryList?.map((items) => {
   console.log(items)
@@ -59,12 +60,27 @@ const CreatePost = () => {
 
 
   return (
-    <div className='block relative w-full padding'>
+    <>
+    {loading ?  
+   <>
+    <Circles
+  height="80"
+  width="80"
+  color="#4fa94d"
+  ariaLabel="circles-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/>
+    </>  :  
+    
+    <>
+      <div className='block relative w-full padding'>
       <div className='sec-flex '>
         <h2 className='self-center text-2xl font-bold'>Create Post</h2>
         <p className='self-center font-medium'>Create post, let's the world know who you are</p>
           <form className='sec-flex gap-5 w-8/12 m-auto p-3' onSubmit={handleSubmitCgange}>
-            <Dropdown options={allCategories} value={value}/>
+            <Dropdown options={allCategories} value={value} id/>
            <Input type='text' 
            className='p-6'
             placeholder='Enter post title'
@@ -84,6 +100,10 @@ const CreatePost = () => {
           </form>
       </div>
     </div>
+    </>
+  }
+    
+    </>
   )
 }
 
