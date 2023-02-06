@@ -15,11 +15,10 @@ const CreatePost = () => {
     dispatch(fetchCategoriesAction())
   }, [dispatch])
 
-  const category = useSelector ( (state)=> state?.category);
-  const loading = category?.loading;
+  const categoryState = useSelector ( (state)=> state?.category);
+  const loading = categoryState?.loading;
 
- const allCategories = category?.categoryList?.map((items) => {
-  console.log(items)
+ const allCategories = categoryState?.categoryList?.map((items) => {
   return {
      label : items?.title,
      value :items?._id
@@ -49,15 +48,22 @@ const CreatePost = () => {
     const { title, textarea } = inputs;
     
     if(!title || !textarea || !dropdownSelect) {
-      toast.error("Please, add Inputs text!!!", {
+      return toast.error("Please, add Inputs text!!!", {
         toastId: "create_post.",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+    } else {
+          dispatch(createPostAction({title, description : textarea, category : dropdownSelect?.label}))
     }
 
     console.log({title, textarea, dropdownSelect})
-    dispatch(createPostAction({title, description : textarea}))
+
+    setInputs({
+      title : "",
+      textarea : ""
+    })
+    setDropdownSelect("");
   }
 
 
