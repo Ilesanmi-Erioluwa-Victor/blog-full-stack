@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate,Link } from "react-router-dom";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Circles } from  'react-loader-spinner'
 import briefcase from "src/assets/admin_icons/briefcase.svg";
 import directsend from "src/assets/admin_icons/direct-send.svg";
@@ -146,7 +146,7 @@ export default function AdminNavigation(props) {
                             {item.title}
                           </span>
                         </div>
-                        {/* {focused === item.title ? (
+                        {focused === item.title ? (
                         <motion.div
                           transition={{
                             layout: {
@@ -157,7 +157,7 @@ export default function AdminNavigation(props) {
                           className="absolute bottom-0 left-0 right-0 w-full h-full text-primary_green bg-light_green px-5 pr-8 m-0 z-0 rounded-lg space-x-0"
                           layoutId="highlight"
                         />
-                      ) : null} */}
+                      ) : null}
                       </span>
                     </Link>
                   </li>
