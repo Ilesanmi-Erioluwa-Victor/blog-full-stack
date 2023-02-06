@@ -1,10 +1,10 @@
 import React from "react";
-import { useAppSelector } from "src/redux/hooks";
-import { RootState } from "src/redux/store";
+import { useDispatch,useSelector } from "react-redux";
+
 
 
 const Footer = () => {
-    const users = useAppSelector((state: RootState) => state.users);
+    const users = useSelector((state) => state?.users);
   const { userAuth } = users;
   return (
     <>

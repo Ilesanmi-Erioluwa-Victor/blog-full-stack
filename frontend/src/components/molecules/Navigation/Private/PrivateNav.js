@@ -3,19 +3,12 @@ import { Bars3Icon, PlusIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/atoms";
 import GeneralLayout from "src/layouts/GeneralLayouts/GeneralLayout";
-import { useAppDispatch, useAppSelector } from "src/redux/hooks";
 import { userLogOutAction } from "src/redux/Slices/Users/user";
-import { RootState } from "src/redux/store";
 import { Icon } from "src/utils";
+import { useSelector, useDispatch } from "react-redux";
 
-interface headerType {
-  title: string;
-  icon?: any;
-  link: string;
-  active: boolean;
-}
 
-let header: headerType[] = [
+let header = [
   {
     title: "Home",
     link: "/",
@@ -40,8 +33,8 @@ let header: headerType[] = [
 ];
 
 const PrivateNav = () => {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector((state: RootState) => state.users);
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state?.users);
 
   // if(!users.userAuth) return <Navigate to={"/login"}/>
 
@@ -60,11 +53,11 @@ const PrivateNav = () => {
     },
   ];
 
-  const changePath = (path: string) => {
+  const changePath = (path) => {
     // router.push(path);
   };
 
-  const handleMenuClick = (item: headerType, index: number) => {
+  const handleMenuClick = (item, index) => {
     header.map((item) => (item.active = false));
     // if (router.pathname === item.link) {
     //   header[index].active = true;
@@ -83,7 +76,7 @@ const PrivateNav = () => {
             </Link>
             <nav className="hidden lg:flex items-center h-full ">
               <ul className="flex lg:space-x-3 xl:space-x-5">
-                {header.map((item: any, index: number) => (
+                {header.map((item, index) => (
                   <Link to={item.link} key={index}>
                     <li
                       onClick={() => handleMenuClick(item, index)}
@@ -125,7 +118,7 @@ const PrivateNav = () => {
               <figure className="relative">
                 <Icon src={""} alt="user" className="" />
                 <ul className="absolute top-10 right-6 w-full">
-                  {userNav.map((items: any, index: number) => (
+                  {userNav.map((items, index) => (
                     <li key={index} className="w-full bg-red-900">
                       <Link to={items.link}>{items.name}</Link>
                     </li>

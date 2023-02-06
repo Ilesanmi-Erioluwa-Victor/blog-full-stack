@@ -6,14 +6,8 @@ import { Button } from "src/components/atoms";
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
 import { Icon } from 'src/utils';
 
-interface headerType {
-  title: string;
-  icon?: any;
-  link: string;
-  active: boolean;
-}
 
-let header: headerType[] = [
+let header = [
   {
     title: "Home",
     link: "/",
@@ -43,11 +37,11 @@ let header: headerType[] = [
 ];
 
 const PublicNav = () => {
-     const changePath = (path: string) => {
+     const changePath = (path) => {
     // router.push(path);
   };
 
-    const handleMenuClick = (item: headerType, index: number) => {
+    const handleMenuClick = (item, index) => {
     header.map((item) => (item.active = false));
     // if (router.pathname === item.link) {
     //   header[index].active = true;
@@ -67,7 +61,7 @@ const PublicNav = () => {
           </Link>
           <nav className="hidden lg:flex items-center h-full ">
             <ul className="flex lg:space-x-3 xl:space-x-5 md:gap-4 lg:gap-6">
-              {header.map((item: any, index: number) => (
+              {header.map((item, index) => (
                 <Link to={item.link} key={index}>
                   <li
                     onClick={() => handleMenuClick(item, index)}
