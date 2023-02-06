@@ -5,7 +5,6 @@ import { Baseurl } from "src/utils/Baseurl";
 //action to redirect
 const resetEditAction = createAction("category/reset");
 const resetDeleteAction = createAction("category/delete-reset");
-const resetCategoryAction = createAction("category/created-reset");
 
 //action
 export const createCategoryAction = createAsyncThunk(
@@ -29,8 +28,6 @@ export const createCategoryAction = createAsyncThunk(
         },
         config
       );
-      //disoatch action
-      dispatch(resetCategoryAction());
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -159,10 +156,6 @@ const categorySlices = createSlice({
     //create
     builder.addCase(createCategoryAction.pending, (state, action) => {
       state.loading = true;
-    });
-    //dispatch action to redirect
-    builder.addCase(resetCategoryAction, (state, action) => {
-      state.isCreated = true;
     });
     builder.addCase(createCategoryAction.fulfilled, (state, action) => {
       state.category = action?.payload;

@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
 import { createCategoryAction } from "src/redux/Slices/Category/category";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Addcategory = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
-
+ const navigate = useNavigate();
   const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading } = categorystate;
 
@@ -29,6 +30,7 @@ const Addcategory = () => {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+       navigate("/dashboard/category-list")
     }
   };
   if (serverError) {
