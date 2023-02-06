@@ -63,6 +63,7 @@ const CreatePost = () => {
     <>
     {loading ?  
    <>
+   <div className='flex justify-center items-center h-screen'>
     <Circles
   height="80"
   width="80"
@@ -72,6 +73,7 @@ const CreatePost = () => {
   wrapperClass=""
   visible={true}
 />
+</div>
     </>  :  
     
     <>
