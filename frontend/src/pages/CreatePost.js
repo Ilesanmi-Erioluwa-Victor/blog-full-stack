@@ -10,9 +10,21 @@ import { createPostAction } from 'src/redux/Slices/Post/post'
 const CreatePost = () => {
   const dispatch = useDispatch();
 
-    useEffect( () => {
-    fetchCategoriesAction()
-  }, [])
+     useEffect( () => {
+    dispatch(fetchCategoriesAction())
+  }, [dispatch])
+
+  const category = useSelector ( (state)=> state?.category);
+
+
+ const allCategories = category?.categoryList?.map((items) => {
+  console.log(items)
+  return {
+
+  }
+ })
+
+   console.log(allCategories)
   
   const [inputs, setInputs ] = useState( {
     title : "",
