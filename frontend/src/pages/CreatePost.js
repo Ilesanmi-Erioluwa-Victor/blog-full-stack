@@ -20,17 +20,17 @@ const CreatePost = () => {
     })
   }
 
-  const handleSubmitCgange = ev => {
+  const handleSubmitCgange = async (ev) => {
     ev.preventDefault();
     const { title, textarea } = inputs;
     if(!title || !textarea) {
-      toast.error("Please, add post category!!!", {
+      toast.error("Please, add Inputs text!!!", {
         toastId: "create_post",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
     }
-    console.log({inputs})
+    dispatch()
   }
 
   return (
