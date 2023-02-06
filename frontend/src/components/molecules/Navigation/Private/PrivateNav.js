@@ -1,9 +1,9 @@
-import React  from "react";
+import React, {useEffect}  from "react";
 import { Bars3Icon, PlusIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "src/components/atoms";
 import GeneralLayout from "src/layouts/GeneralLayouts/GeneralLayout";
-import { userLogOutAction } from "src/redux/Slices/Users/user";
+import user, { userLogOutAction } from "src/redux/Slices/Users/user";
 import { Icon } from "src/utils";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -35,8 +35,14 @@ let header = [
 const PrivateNav = () => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state?.users);
+  const navigate = useNavigate();
+   useEffect( () => {
+      if(!users.userAuth) {
+        navigate(`/login`)
+      }
+    },[users, navigate])
 
-  // if(!users.userAuth) return <Navigate to={"/login"}/>
+  // if() return <Navigate to={"/login"}/>
 
   console.log(users);
 
