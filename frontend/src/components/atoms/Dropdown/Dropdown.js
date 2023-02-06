@@ -7,6 +7,7 @@ const Dropdown = ({options, onChange, }) => {
        <Select 
        options={options}
        onChange={onChange}
+       placeholder= "Select Post Category.."
        />
     </div>
   )

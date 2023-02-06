@@ -2,8 +2,10 @@ import React, { useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Button, Input } from 'src/components/atoms'
+import Dropdown from 'src/components/atoms/Dropdown/Dropdown'
+import { fetchCategoriesAction } from 'src/redux/Slices/Category/category'
 import { createPostAction } from 'src/redux/Slices/Post/post'
-
+fetchCategoriesAction
 
 const CreatePost = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,7 @@ const CreatePost = () => {
         <h2 className='self-center text-2xl font-bold'>Create Post</h2>
         <p className='self-center font-medium'>Create post, let's the world know who you are</p>
           <form className='sec-flex gap-5 w-8/12 m-auto p-3' onSubmit={handleSubmitCgange}>
+            <Dropdown />
            <Input type='text' 
            className='p-6'
             placeholder='Enter post title'
