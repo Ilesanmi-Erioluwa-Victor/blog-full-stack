@@ -24,7 +24,6 @@ const CreatePost = () => {
     };
   });
 
-  console.log(allCategories);
   const value = allCategories?.[0]?.label;
 
   const [inputs, setInputs] = useState({
@@ -61,15 +60,15 @@ const CreatePost = () => {
           category: dropdownSelect?.label,
         })
       );
-    }
-
-    console.log({ title, textarea, dropdownSelect });
-
-    setInputs({
+ setInputs({
       title: "",
       textarea: "",
     });
     setDropdownSelect("");
+
+    }
+   
+    console.log(setDropdownSelect())
   };
 
   return (
