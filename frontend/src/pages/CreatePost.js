@@ -2,6 +2,7 @@ import React, { useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Button, Input } from 'src/components/atoms'
+import { createPostAction } from 'src/redux/Slices/Post/post'
 
 
 const CreatePost = () => {
@@ -25,12 +26,12 @@ const CreatePost = () => {
     const { title, textarea } = inputs;
     if(!title || !textarea) {
       toast.error("Please, add Inputs text!!!", {
-        toastId: "create_post",
+        toastId: "create_post.",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
     }
-    dispatch()
+    dispatch(createPostAction({title, description : textarea}))
   }
 
   return (
