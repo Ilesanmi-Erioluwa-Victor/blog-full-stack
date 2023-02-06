@@ -8,7 +8,6 @@ import {
   Post,
   Addcategory,
   Category,
-  Createpost,
   Updatecategory,
   Authors,
   // Admin
@@ -25,7 +24,6 @@ function App() {
               element={<Navigate to={"/dashboard/authors"} />}
               path={"/dashboard"}
             />
-            <Route element={<Createpost />}  path={"dashboard/create-post"} />
             <Route element={<Post />} path={"dashboard/posts"} />
             <Route element={<Authors />} path={"dashboard/authors"} />
             <Route element={<Addcategory />} path={"dashboard/add-category"} />

@@ -16,6 +16,6 @@
     "incremental": true,
     "baseUrl": "."
   },
-  "include": ["react-app-env.d.ts", "**/*.ts", "**/*.tsx", "components/header/header.jsx", "src/redux/Slices/Users/user.js", "src/pages/auth/Signup.js", "src/pages/auth/Login.js", "src/App.js", "src/index.js", "src/pages/Admin/Addcategory/Addcategory.js", "src/pages/Admin/Category/Category.js", "src/pages/Admin/Admin.js", "src/pages/Home.js", "src/redux/store.js", "src/components/molecules/Navigation/Private/PrivateNav.js", "src/components/molecules/Footer/Footer.js", "src/components/molecules/Navigation/Navigation.js", "src/components/molecules/Navigation/Public/PublicNav.js"],
+  "include": ["react-app-env.d.ts", "**/*.ts", "**/*.tsx", "components/header/header.jsx", "src/redux/Slices/Users/user.js", "src/pages/auth/Signup.js", "src/pages/auth/Login.js", "src/App.js", "src/index.js", "src/pages/Admin/Addcategory/Addcategory.js", "src/pages/Admin/Category/Category.js", "src/pages/Admin/Admin.js", "src/pages/Home.js", "src/redux/store.js", "src/components/molecules/Navigation/Private/PrivateNav.js", "src/components/molecules/Footer/Footer.js", "src/components/molecules/Navigation/Navigation.js", "src/components/molecules/Navigation/Public/PublicNav.js", "src/pages/Admin/index.js"],
   "exclude": ["node_modules"]
 }
