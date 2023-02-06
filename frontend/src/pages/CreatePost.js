@@ -20,7 +20,8 @@ const CreatePost = () => {
  const allCategories = category?.categoryList?.map((items) => {
   console.log(items)
   return {
-
+     label : items?.title,
+     value :items?._id
   }
  })
 
