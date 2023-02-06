@@ -9,17 +9,20 @@ import { useParams, useNavigate } from "react-router-dom";
 const Updatecategory = () => {
   const { id } = useParams();
    const navigate = useNavigate();
+     const dispatch = useDispatch();
+  // Get the category id
+  useEffect( () =>{
+    dispatch(fetchCategoryAction(id))
+  },[dispatch, id])
+
     const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading, deleteCategory } = categorystate;
   const title = category?.title;
   // I want to populate my initial category title to my render title for update
   const [updateTitle, setUpdatetitle] = useState(title);
-  const dispatch = useDispatch();
 
-  // Get the category id
-  useEffect( () =>{
-    dispatch(fetchCategoryAction(id))
-  },[dispatch, id])
+
+
 
 
 
