@@ -21,7 +21,7 @@ const Addcategory = () => {
         autoClose: 1000,
       });
     }
-    dispatch(createCategoryAction(title));
+    dispatch(createCategoryAction({title}));
     setTitle("")
     if (category?.user) {
        toast.success("You have succesfully created category!!!", {

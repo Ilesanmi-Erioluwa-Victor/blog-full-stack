@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Circles } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import DateFormatter from "src/utils/DateFormatter";
-import { getCategoriesAction } from "src/redux/Slices/Category/category";
+import { fetchCategoriesAction } from "src/redux/Slices/Category/category";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
 const Category = () => {
@@ -14,7 +14,7 @@ const Category = () => {
   const { categoryList, loading } = category;
 
   useEffect(() => {
-    dispatch(getCategoriesAction());
+    dispatch(fetchCategoriesAction());
   }, [dispatch]);
 
   return (
