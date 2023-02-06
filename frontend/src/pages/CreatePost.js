@@ -3,7 +3,10 @@ import { Button, Input } from 'src/components/atoms'
 
 
 const CreatePost = () => {
-  const [inputs, setInputs ] = useState
+  const [inputs, setInputs ] = useState( {
+    title : "",
+    textarea : ""
+  })
   return (
     <div className='block relative w-full padding'>
       <div className='sec-flex '>
@@ -13,9 +16,16 @@ const CreatePost = () => {
            <Input type='text' 
            className='p-6'
             placeholder='Enter post title'
+            name='title'
+            value={inputs.title}
             fieldsetClass='w-full self-center mt-6'
            />
-           <textarea placeholder='Enter post Content' className='w-full self-center border rounded-lg p-3 h-40'/>
+           <textarea placeholder='Enter post Content' 
+           className='w-full self-center border rounded-lg p-3 h-40'
+           name='textarea'
+           value={inputs.textarea}
+           onChange={(e) =>setInputs(e.target.value)}
+           />
 
            <Button className={"self-start px-10 py-4 rounded-lg text-white bg-green-800"}>Submit</Button>
           </form>
