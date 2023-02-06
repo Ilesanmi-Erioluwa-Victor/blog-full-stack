@@ -10,19 +10,19 @@ const Updatecategory = () => {
   const { id } = useParams();
    const navigate = useNavigate();
      const dispatch = useDispatch();
-  // Get the category id
-  useEffect( () =>{
-    dispatch(fetchCategoryAction(id))
-  },[dispatch, id])
+
 
     const categorystate = useSelector((state) => state?.category);
-  const { serverError, category, loading, deleteCategory } = categorystate;
+  const { serverError, category, loading, deletedCategory } = categorystate;
   const title = category?.title;
   // I want to populate my initial category title to my render title for update
   const [updateTitle, setUpdatetitle] = useState(title);
 
 
-
+  // Get the category id
+  useEffect( () =>{
+    dispatch(fetchCategoryAction(id))
+  },[dispatch, id])
 
 
 
@@ -37,7 +37,7 @@ const Updatecategory = () => {
     }
      dispatch(updateCategoriesAction({title, id}));
 
-      if (deleteCategory?.user) {
+      if (deletedCategory?.user) {
        toast.error("You have succesfully deleted category!!!", {
         toastId: "create_post_category",
         position: toast.POSITION.TOP_CENTER,
@@ -47,7 +47,7 @@ const Updatecategory = () => {
     }
 
     if (category?.user) {
-       toast.success("You have succesfully created category!!!", {
+       toast.success("You have succesfully Updated category!!!", {
         toastId: "create_post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
