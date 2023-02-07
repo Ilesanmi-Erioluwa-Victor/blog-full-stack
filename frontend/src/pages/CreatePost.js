@@ -51,6 +51,8 @@ const CreatePost = () => {
     ev.preventDefault();
     const { title, textarea } = inputs;
 
+       console.log({img})
+
     if (!title || !textarea || !dropdownSelect) {
       return toast.error("Please, add Inputs text!!!", {
         toastId: "create_post.",
@@ -80,7 +82,7 @@ const CreatePost = () => {
     },
     onDrop: (acceptedFiles) => {
       acceptedFiles.map((file) => {
-        const imgURL = URL.createObjectURL(file);
+        setImg(URL.createObjectURL(file));
         const formData = new FormData();
         formData.append("Post picture", file, file.name);
         // dispatch(imgUploadAction({ imgURL, formData }));
@@ -140,8 +142,8 @@ const CreatePost = () => {
         </div>
       )}
       {img && (
-        <div className="flex flex-col sm:flex-row gap-8 md:gap-24 md:pl-4 items-center py-2 mb-8">
-          <div className="rounded-lg overflow-hidden shadow-sm shadow-indigo-200 w-[200px] h-[200px] relative">
+        <div className="flex flex-col sm:flex-row gap-8 md:gap-24 md:pl-4 items-center py-2 mb-0">
+          <div className="rounded-lg overflow-hidden shadow-sm shadow-indigo-200 w-full relative">
             <Icon
               src={img}
               alt="profile pic"
@@ -153,13 +155,6 @@ const CreatePost = () => {
               <ArrowUpTrayIcon className="w-6 text-slate-100" />
             </div>
           </div>
-          <ul className="list-disc text-gray-500">
-            <li>Choose a high-quality headshot</li>
-            <li>Use a current picture</li>
-            <li>Don&rsquo;t use pictures with busy backgrounds</li>
-            <li>Your face must be well-lit</li>
-            <li>Look pleasant</li>
-          </ul>
         </div>
       )} 
 
