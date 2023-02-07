@@ -82,9 +82,10 @@ const CreatePost = () => {
     },
     onDrop: (acceptedFiles) => {
       acceptedFiles.map((file) => {
+        console.log(file)
         setImg(URL.createObjectURL(file));
         const formData = new FormData();
-        formData.append("Post picture", file, file.name);
+        formData.append("Post picture", file);
         // dispatch(imgUploadAction({ imgURL, formData }));
       });
     },
