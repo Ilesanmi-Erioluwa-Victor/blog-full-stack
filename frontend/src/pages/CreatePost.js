@@ -65,6 +65,7 @@ const CreatePost = () => {
           title,
           description: textarea,
           category: dropdownSelect?.label,
+          image : img
         })
       );
  setInputs({

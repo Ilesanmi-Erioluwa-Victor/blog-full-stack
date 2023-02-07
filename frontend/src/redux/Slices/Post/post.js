@@ -6,6 +6,7 @@ import { Baseurl } from "src/utils/Baseurl";
 export const createPostAction = createAsyncThunk(
   "post/created",
   async (post, { rejectWithValue, getState }) => {
+    console.log(post)
     const user = getState()?.users;
     const { userAuth } = user;
     const config = {
@@ -15,8 +16,14 @@ export const createPostAction = createAsyncThunk(
     };
 
     try {
-      const { data } = await axios.post(`${Baseurl}/posts`, post, config);
-      return data;
+      const formData = new FormData();
+      formData.append("title", post?.title);
+      formData.append("description", post?.description);
+      formData.append("category", post?.category);
+       formData.append("image", post?.image)
+       console.log(formData)
+      // const { data } = await axios.post(`${Baseurl}/posts`, formData, config);
+      // return data;
     } catch (error) {
       if (!error?.response) {
         throw error;
