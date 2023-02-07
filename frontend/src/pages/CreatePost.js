@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
-import Dropzone from "react-dropzone"
+import { useDropzone } from "react-dropzone";
 import { Button, Input } from "src/components/atoms";
 import Dropdown from "src/components/atoms/Dropdown/Dropdown";
 import { fetchCategoriesAction } from "src/redux/Slices/Category/category";
 import { createPostAction } from "src/redux/Slices/Post/post";
 import { Circles } from "react-loader-spinner";
+import { Icon } from "src/utils";
+
 
 const CreatePost = () => {
   const dispatch = useDispatch();
@@ -32,6 +35,7 @@ const CreatePost = () => {
     textarea: "",
   });
 
+  const [img , setImg ] = useState("");
   const [dropdownSelect, setDropdownSelect] = useState("");
 
   const handleInputsChange = (ev) => {
@@ -68,9 +72,21 @@ const CreatePost = () => {
     setDropdownSelect("");
 
     }
-   
-    console.log(setDropdownSelect())
   };
+
+   const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [".jpeg", ".png", ".svg"],
+    },
+    onDrop: (acceptedFiles) => {
+      acceptedFiles.map((file) => {
+        const imgURL = URL.createObjectURL(file);
+        const formData = new FormData();
+        formData.append("Post picture", file, file.name);
+        // dispatch(imgUploadAction({ imgURL, formData }));
+      });
+    },
+  });
 
   return (
     <>
@@ -107,6 +123,46 @@ const CreatePost = () => {
                   name={"select"}
                   defaultValue={inputs.select}
                 />
+
+                {/* Post Img */}
+       {!img && (
+        <div
+          className="py-16 md:py-24 px-12 border-2 border-gray-500 border-dashed rounded-md mb-8"
+          {...getRootProps()}
+        >
+          <input {...getInputProps()} />
+          <p className="text-center">
+            Drag & drop your files here or
+            <span className="font-semibold underline cursor-pointer">
+              browse
+            </span>
+          </p>
+        </div>
+      )}
+      {img && (
+        <div className="flex flex-col sm:flex-row gap-8 md:gap-24 md:pl-4 items-center py-2 mb-8">
+          <div className="rounded-lg overflow-hidden shadow-sm shadow-indigo-200 w-[200px] h-[200px] relative">
+            <Icon
+              src={img}
+              alt="profile pic"
+            />
+            <div
+              className="absolute bottom-1 right-2 bg-indigo-500 bg-opacity-50 p-1 rounded-md cursor-pointer"
+              {...getRootProps()}
+            >
+              <ArrowUpTrayIcon className="w-6 text-slate-100" />
+            </div>
+          </div>
+          <ul className="list-disc text-gray-500">
+            <li>Choose a high-quality headshot</li>
+            <li>Use a current picture</li>
+            <li>Don&rsquo;t use pictures with busy backgrounds</li>
+            <li>Your face must be well-lit</li>
+            <li>Look pleasant</li>
+          </ul>
+        </div>
+      )} 
+
                 <Input
                   type="text"
                   className="p-6"
