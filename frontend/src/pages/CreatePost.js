@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import Dropzone from "react-dropzone"
 import { Button, Input } from "src/components/atoms";
 import Dropdown from "src/components/atoms/Dropdown/Dropdown";
 import { fetchCategoriesAction } from "src/redux/Slices/Category/category";
