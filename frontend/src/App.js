@@ -10,7 +10,6 @@ import {
   Category,
   Updatecategory,
   Authors,
-  // Admin
 } from "src/pages/Admin";
 
 function App() {
