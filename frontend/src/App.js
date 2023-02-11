@@ -9,7 +9,7 @@ import {
   Addcategory,
   Category,
   Updatecategory,
-  Authors,
+   Authors,
 } from "src/pages/Admin";
 
 function App() {
