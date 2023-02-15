@@ -78,7 +78,7 @@ const postSlices = createSlice({
 
         builder.addCase(fetchPostsAction.fulfilled, (state, action) => {
             state.loading = false;
-            state.postCreated = action?.payload;
+            state.postLists = action?.payload;
               state.appError = undefined;
             state.serverError = undefined;
         })
