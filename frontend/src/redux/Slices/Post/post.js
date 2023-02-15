@@ -53,6 +53,7 @@ const postSlices = createSlice({
     name : "posts",
     initialState:{},
     extraReducers : (builder) => {
+      // Create post
         builder.addCase(createPostAction.pending, (state, action) => {
             state.loading = true;
         })
@@ -65,6 +66,24 @@ const postSlices = createSlice({
         })
 
           builder.addCase(createPostAction.rejected, (state, action) => {
+            state.loading = false;
+            state.appError = action?.payload?.message;
+            state.serverError = action?.error?.message
+        })
+
+        // Get posts
+              builder.addCase(fetchPostsAction.pending, (state, action) => {
+            state.loading = true;
+        })
+
+        builder.addCase(fetchPostsAction.fulfilled, (state, action) => {
+            state.loading = false;
+            state.postCreated = action?.payload;
+              state.appError = undefined;
+            state.serverError = undefined;
+        })
+
+          builder.addCase(fetchPostsAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message
