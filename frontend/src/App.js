@@ -23,6 +23,7 @@ function App() {
               element={<Navigate to={"/dashboard/authors"} />}
               path={"/dashboard"}
             />
+            <Route element={<Post />} path={"dashboard/posts"} />
             <Route element={<Authors />} path={"dashboard/authors"} />
             <Route element={<Addcategory />} path={"dashboard/add-category"} />
             <Route element={<Category />} path={"dashboard/category-list"} />
@@ -31,7 +32,6 @@ function App() {
               path={"dashboard/update-category/:id"}
             />
           </Route>
-           <Route element={<Post />} path={"dashboard/posts"} />
           <Route element={<CreatePost />} path="/create-post" />
           <Route element={<Home />} path="/" />
           <Route element={<Error />} path="*" />

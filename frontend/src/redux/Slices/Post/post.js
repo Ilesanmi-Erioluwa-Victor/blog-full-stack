@@ -32,6 +32,36 @@ export const createPostAction = createAsyncThunk(
   }
 );
 
+// Fetch all post
+export const fetchPostsAction = createAsyncThunk(
+  "post/created",
+  async (post, { rejectWithValue, getState }) => {
+    console.log(post)
+    const user = getState()?.users;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
+
+    try {
+      const formData = new FormData();
+      formData.append("title", post?.title);
+      formData.append("description", post?.description);
+      formData.append("category", post?.category);
+       formData.append("image", post?.image)
+      const { data } = await axios.post(`${Baseurl}/posts`, formData, config);
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // Slices
 const postSlices = createSlice({
     name : "posts",
