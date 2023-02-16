@@ -10,7 +10,9 @@ const PostList = () => {
    dispatch(fetchPostsAction())
   }, [dispatch])
 
-  const post = useSelector( (state) =>state.post)
+  const post = useSelector( (state) =>state?.post)
+
+  const { loading, postLists, appError, serverError}
   console.log(post)
   return (
      <section>
