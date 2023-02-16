@@ -23,6 +23,9 @@ const PostList = () => {
   // Select post
   const post = useSelector( (state) =>state?.post)
 
+    // Select category
+  const category = useSelector( (state) =>state?.category)
+
   const { loading, postLists, appError, serverError} = post;
   console.log(post)
   return (
