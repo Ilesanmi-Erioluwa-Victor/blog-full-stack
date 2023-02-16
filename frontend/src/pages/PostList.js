@@ -1,5 +1,5 @@
 import React, { useEffect} from 'react'
-import { ThumbDownIcon } from "@heroicons/react/solid"
+import { HandThumbDownIcon } from "@heroicons/react/24/outline";
 import {Link } from "react-router-dom"
 import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
@@ -43,7 +43,7 @@ const PostList = () => {
                   <h4 className="mb-4 text-gray-500 font-bold uppercase">
                     Categories
                   </h4>
-                  <ul>
+                  {/* <ul>
                     {catLoading ? (
                       <LoadingComponent />
                     ) : catAppErr || catServerErr ? (
@@ -68,13 +68,13 @@ const PostList = () => {
                         </li>
                       ))
                     )}
-                  </ul>
+                  </ul> */}
                 </div>
               </div>
               <div class="w-full lg:w-3/4 px-3">
                 {/* Post goes here */}
 
-                {appErr || serverErr ? (
+                {appError || serverError ? (
                   <h1 className="text-yellow-600 text-center text-lg ">
                     {serverError} {appError}
                   </h1>
