@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import {Link } from "react-router-dom"
-import { fetchPostsAction } from "src/redux/Slices/Post"
+import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
 
 const PostList = () => {
   const dispatch  = useDispatch();
+
+  useEffect( () => {
+
+  }, [])
 
   return (
      <section>
