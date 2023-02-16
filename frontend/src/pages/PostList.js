@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react'
+import { ThumbDownIcon } from "@heroicons/react/solid"
 import {Link } from "react-router-dom"
 import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
@@ -7,8 +8,8 @@ const PostList = () => {
   const dispatch  = useDispatch();
 
   useEffect( () => {
-
-  }, [])
+   dispatch(fetchPostsAction())
+  }, [dispatch])
 
   return (
      <section>
