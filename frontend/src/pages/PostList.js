@@ -1,8 +1,10 @@
 import React, { useEffect} from 'react'
-import { HandThumbDownIcon } from "@heroicons/react/24/outline";
+import { HandThumbDownIcon, HandThumbUpIcon, EyeIcon } from "@heroicons/react/24/outline";
 import {Link } from "react-router-dom"
 import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
+import DateFormatter from 'src/utils/DateFormatter';
+
 const PostList = () => {
   const dispatch  = useDispatch();
 
@@ -103,9 +105,11 @@ const PostList = () => {
                           <div className="flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1">
                             {/* Togle like  */}
                             <div className="">
-                              <ThumbUpIcon
-                                onClick={() =>
-                                  dispatch(toggleAddLikesToPost(post?._id))
+                              <HandThumbUpIcon
+                                onClick={ ""
+                                  
+                                  // () =>
+                                  // dispatch(toggleAddLikesToPost(post?._id))
                                 }
                                 className="h-7 w-7 text-indigo-600 cursor-pointer"
                               />
@@ -117,9 +121,11 @@ const PostList = () => {
                           {/* Dislike */}
                           <div className="flex flex-row  justify-center items-center ml-4 mr-4 pb-2 pt-1">
                             <div>
-                              <ThumbDownIcon
-                                onClick={() =>
-                                  dispatch(toggleAddDisLikesToPost(post?._id))
+                              <HandThumbDownIcon
+                                onClick={
+                                  ""
+                                  // () =>
+                                  // dispatch(toggleAddDisLikesToPost(post?._id))
                                 }
                                 className="h-7 w-7 cursor-pointer text-gray-600"
                               />
