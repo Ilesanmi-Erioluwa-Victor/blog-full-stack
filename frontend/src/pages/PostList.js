@@ -1,9 +1,9 @@
 import React, { useEffect} from 'react'
 import { HandThumbDownIcon, HandThumbUpIcon, EyeIcon } from "@heroicons/react/24/outline";
 import {Link } from "react-router-dom"
-import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
 import DateFormatter from 'src/utils/DateFormatter';
+import { fetchPostsAction } from 'src/redux/Slices/Post/post';
 
 const PostList = () => {
   const dispatch  = useDispatch();
