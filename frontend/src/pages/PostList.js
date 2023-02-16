@@ -106,10 +106,7 @@ const PostList = () => {
                             {/* Togle like  */}
                             <div className="">
                               <HandThumbUpIcon
-                                onClick={ ""
-                                  
-                                  // () =>
-                                  // dispatch(toggleAddLikesToPost(post?._id))
+                                onClick={() =>dispatch(toggleAddLikesToPost(post?._id))
                                 }
                                 className="h-7 w-7 text-indigo-600 cursor-pointer"
                               />
@@ -122,10 +119,7 @@ const PostList = () => {
                           <div className="flex flex-row  justify-center items-center ml-4 mr-4 pb-2 pt-1">
                             <div>
                               <HandThumbDownIcon
-                                onClick={
-                                  ""
-                                  // () =>
-                                  // dispatch(toggleAddDisLikesToPost(post?._id))
+                                onClick={() =>dispatch(toggleAddDisLikesToPost(post?._id))
                                 }
                                 className="h-7 w-7 cursor-pointer text-gray-600"
                               />
