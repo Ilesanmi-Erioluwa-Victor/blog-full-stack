@@ -34,7 +34,7 @@ function App() {
           </Route>
           <Route element={<CreatePost />} path="/create-post" />
           <Route element={<Home />} path="/" />
-           <Route element={<Home />} path="/posts" />
+           <Route element={<PostList />} path="/posts" />
           <Route element={<Error />} path="*" />
           <Route element={<Signup />} path="/signup" />
           <Route element={<Login />} path="/login" />
