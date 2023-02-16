@@ -4,6 +4,7 @@ import {Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import DateFormatter from 'src/utils/DateFormatter';
 import { fetchPostsAction } from 'src/redux/Slices/Post/post';
+import { Icon } from 'src/utils';
 
 const PostList = () => {
   const dispatch  = useDispatch();
@@ -93,7 +94,7 @@ const PostList = () => {
                       <div className="mb-10  w-full lg:w-1/4 ">
                         <Link>
                           {/* Post image */}
-                          <img
+                          <Icon
                             className="w-full h-full object-cover rounded"
                             src={post?.image}
                             alt=""
