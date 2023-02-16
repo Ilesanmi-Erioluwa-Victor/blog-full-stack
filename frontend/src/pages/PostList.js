@@ -39,7 +39,7 @@ const PostList = () => {
     appError: catError,
     serverError: cateserverError,
   } = category;
-  console.log(post);
+  console.log( category);
   return (
     <section>
       <div className="py-20 bg-gray-900 min-h-screen radius-for-skewed">
@@ -88,7 +88,7 @@ const PostList = () => {
                     <h1>
                       {cateserverError} {catError}
                     </h1>
-                  ) : categoryList?.length <= 0 ? (
+                  ) : !categoryList?.length ? (
                     <h1 className="text-yellow-400 text-lg text-center">
                       No Category Found
                     </h1>
@@ -101,7 +101,7 @@ const PostList = () => {
                           }
                           className="block cursor-pointer py-2 px-3 mb-4 rounded text-yellow-500 font-bold bg-gray-500"
                         >
-                          {category?.title}
+                          {/* {category?.title} */}
                         </p>
                       </li>
                     ))
@@ -109,7 +109,7 @@ const PostList = () => {
                 </ul>
               </div>
             </div>
-            <div class="w-full lg:w-3/4 px-3">
+            <div className="w-full lg:w-3/4 px-3">
               {/* Post goes here */}
 
               {appError || serverError ? (
@@ -131,7 +131,7 @@ const PostList = () => {
                         {/* Post image */}
                         <Icon
                           className="w-full h-full object-cover rounded"
-                          src={post?.image}
+                          // src={post?.image}
                           alt=""
                         />
                       </Link>
@@ -143,13 +143,13 @@ const PostList = () => {
                           <div className="">
                             <HandThumbUpIcon
                               onClick={() =>
-                                dispatch(toggleAddLikesToPost(post?._id))
+                                dispatch()
                               }
                               className="h-7 w-7 text-indigo-600 cursor-pointer"
                             />
                           </div>
                           <div className="pl-2 text-gray-600">
-                            {post?.likes?.length}
+                            {/* {post?.likes?.length} */}
                           </div>
                         </div>
                         {/* Dislike */}
@@ -157,13 +157,13 @@ const PostList = () => {
                           <div>
                             <HandThumbDownIcon
                               onClick={() =>
-                                dispatch(toggleAddDisLikesToPost(post?._id))
+                                dispatch()
                               }
                               className="h-7 w-7 cursor-pointer text-gray-600"
                             />
                           </div>
                           <div className="pl-2 text-gray-600">
-                            {post?.disLikes?.length}
+                            {/* {post?.disLikes?.length} */}
                           </div>
                         </div>
                         {/* Views */}
@@ -172,45 +172,45 @@ const PostList = () => {
                             <EyeIcon className="h-7 w-7  text-gray-400" />
                           </div>
                           <div className="pl-2 text-gray-600">
-                            {post?.numViews}
+                            {/* {post?.numViews} */}
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="w-full lg:w-3/4 px-3">
-                      <Link className="hover:underline">
-                        <h3 className="mb-1 text-2xl text-green-400 font-bold font-heading">
+                      {/* <Link className="hover:underline">
+                        <h3 className="mb-1 text-2xl text-green-400 font-bold font-heading"> */}
                           {/* {capitalizeWord(post?.title)} */}
-                          {post?.title}
+                          {/* {post?.title}
                         </h3>
-                      </Link>
+                      </Link> */}
                       <p className="text-gray-300">{post?.description}</p>
                       {/* Read more */}
-                      <Link
+                      {/* <Link
                         to={`/posts/${post?._id}`}
                         className="text-indigo-500 hover:underline"
                       >
                         Read More..
-                      </Link>
+                      </Link> */}
                       {/* User Avatar */}
                       <div className="mt-6 flex items-center">
                         <div className="flex-shrink-0">
-                          <Link>
+                          {/* <Link>
                             <img
                               className="h-10 w-10 rounded-full"
                               src={post?.user?.profilePhoto}
                               alt=""
                             />
-                          </Link>
+                          </Link> */}
                         </div>
                         <div className="ml-3">
                           <p className="text-sm font-medium text-gray-900">
-                            <Link
+                            {/* <Link
                               to={`/profile/${post?.user?._id}`}
                               className="text-yellow-400 hover:underline "
                             >
                               {post?.user?.firstName} {post?.user?.lastName}
-                            </Link>
+                            </Link> */}
                           </p>
                           <div className="flex space-x-1 text-sm text-green-500">
                             <time>
@@ -233,23 +233,23 @@ const PostList = () => {
         </div>
       </div>
       <div className="bg-gray-900">
-        <div class="skew bg-green-500 skew-bottom mr-for-radius">
-          <svg
+        <div className="skew bg-green-500 skew-bottom mr-for-radius">
+          {/* <svg
             class="h-8 md:h-12 lg:h-10 w-full text-gray-900"
             viewBox="0 0 10 10"
             preserveAspectRatio="none"
           >
             <polygon fill="currentColor" points="0 0 10 0 0 10"></polygon>
-          </svg>
+          </svg> */}
         </div>
-        <div class="skew bg-gray-500  skew-bottom ml-for-radius">
-          <svg
+        <div className="skew bg-gray-500  skew-bottom ml-for-radius">
+          {/* <svg
             class="h-8 bg-gray-500 md:h-12 lg:h-20 w-full text-gray-900"
             viewBox="0 0 10 10"
             preserveAspectRatio="none"
           >
             <polygon fill="currentColor" points="0 0 10 0 10 10"></polygon>
-          </svg>
+          </svg> */}
         </div>
       </div>
     </section>
