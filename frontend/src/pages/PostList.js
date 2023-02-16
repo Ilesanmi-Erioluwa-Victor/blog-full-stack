@@ -12,7 +12,7 @@ const PostList = () => {
 
   const post = useSelector( (state) =>state?.post)
 
-  const { loading, postLists, appError, serverError}
+  const { loading, postLists, appError, serverError} = post;
   console.log(post)
   return (
      <section>
@@ -76,7 +76,7 @@ const PostList = () => {
 
                 {appErr || serverErr ? (
                   <h1 className="text-yellow-600 text-center text-lg ">
-                    {serverErr} {appErr}
+                    {serverError} {appError}
                   </h1>
                 ) : !postLists?.length  ? (
                   <h1 className="text-yellow-400 text-lg text-center">
