@@ -28,7 +28,7 @@ const PostList = () => {
 
   const { loading, postLists, appError, serverError} = post;
 
-    const { categoryList} = category;
+    const { loading:{catLoading}, categoryList, appError:{catError}, serverError:{cateserverError}} = category;
   console.log(post)
   return (
      <section>
