@@ -5,14 +5,22 @@ import { useDispatch, useSelector } from "react-redux"
 import DateFormatter from 'src/utils/DateFormatter';
 import { fetchPostsAction } from 'src/redux/Slices/Post/post';
 import { Icon } from 'src/utils';
+import { fetchCategoriesAction } from 'src/redux/Slices/Category/category';
 
 const PostList = () => {
   const dispatch  = useDispatch();
 
+  // Fetch post
   useEffect( () => {
    dispatch(fetchPostsAction())
   }, [dispatch])
 
+  // Fetch Categories
+  useEffect( () => {
+   dispatch(fetchCategoriesAction())
+  }, [dispatch])
+
+  // Select post
   const post = useSelector( (state) =>state?.post)
 
   const { loading, postLists, appError, serverError} = post;
