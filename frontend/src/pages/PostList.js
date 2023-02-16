@@ -3,7 +3,6 @@ import { ThumbDownIcon } from "@heroicons/react/solid"
 import {Link } from "react-router-dom"
 import { fetchPostsAction } from "../redux/Slices/Post/post"
 import { useDispatch, useSelector } from "react-redux"
-
 const PostList = () => {
   const dispatch  = useDispatch();
 
@@ -11,6 +10,8 @@ const PostList = () => {
    dispatch(fetchPostsAction())
   }, [dispatch])
 
+  const post = useSelector( (state) =>state.post)
+  console.log(post)
   return (
      <section>
         <div className="py-20 bg-gray-900 min-h-screen radius-for-skewed">
