@@ -27,6 +27,8 @@ const PostList = () => {
   const category = useSelector( (state) =>state?.category)
 
   const { loading, postLists, appError, serverError} = post;
+
+    const { categoryList} = category;
   console.log(post)
   return (
      <section>
