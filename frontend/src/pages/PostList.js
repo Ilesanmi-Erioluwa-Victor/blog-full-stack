@@ -39,7 +39,7 @@ const PostList = () => {
     appError: catError,
     serverError: cateserverError,
   } = category;
-  console.log( category);
+  console.log(categoryList);
   return (
     <section>
       <div className="py-20 bg-gray-900 min-h-screen radius-for-skewed">
