@@ -1,4 +1,5 @@
 export { default as Button } from "./Button/Button"
+export { default as Loader } from "./Loader"
 export { default as Search } from "./Search/Search"
 export { default as Input } from "./Input/Input"
 export { default as RoundedInput } from "./Input/RoundedInput"

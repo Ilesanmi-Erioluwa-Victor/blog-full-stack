@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Circles } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import DateFormatter from "src/utils/DateFormatter";
 import { fetchCategoriesAction } from "src/redux/Slices/Category/category";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import { Loader } from "src/components/atoms";
 
 const Category = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Category = () => {
   const category = useSelector((state) => state?.category);
 
   const { categoryList, loading } = category;
-
+  console.log(categoryList);
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
@@ -21,17 +21,7 @@ const Category = () => {
     <>
       {loading ? (
         <>
-          <Circles
-            height="100"
-            width="100"
-            color="#4fa94d"
-            ariaLabel="circles-loading"
-            wrapperStyle={{
-              display: "flex",
-            }}
-            wrapperClass=""
-            visible={true}
-          />
+          <Loader />
         </>
       ) : !categoryList ? (
         <h2 className="text-center text-3xl text-green-800">
@@ -73,7 +63,10 @@ const Category = () => {
                   </thead>
                   <tbody>
                     {categoryList?.map((category, index) => (
-                      <tr className="bg-gray-50" key={index}>
+                      <tr
+                        className="bg-gray-50"
+                        key={index}
+                      >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10">
@@ -101,7 +94,9 @@ const Category = () => {
                           {<DateFormatter date={category?.createdAt} />}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <Link to={`/dashboard/update-category/${category?._id}`}>
+                          <Link
+                            to={`/dashboard/update-category/${category?._id}`}
+                          >
                             <PencilIcon className="h-5 text-indigo-500" />
                           </Link>
                         </td>

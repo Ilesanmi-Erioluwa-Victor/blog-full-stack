@@ -9,28 +9,29 @@ import { useNavigate } from "react-router-dom";
 const Addcategory = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
- const navigate = useNavigate();
+  const navigate = useNavigate();
   const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading } = categorystate;
 
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
     if (!title) {
-       toast.error("Please, add post category!!!", {
+      toast.error("Please, add post category!!!", {
         toastId: "post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
-    }
-    dispatch(createCategoryAction({title}));
-    setTitle("")
-    if (category?.user) {
-       toast.success("You have succesfully created category!!!", {
+      return
+    } else {
+      dispatch(createCategoryAction({ title }));
+     toast.success("You have succesfully created category!!!", {
         toastId: "create_post_category",
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
-       navigate("/dashboard/category-list")
+
+      setTitle("");
+      navigate("/dashboard/category-list");
     }
   };
   if (serverError) {
@@ -42,7 +43,10 @@ const Addcategory = () => {
   }
 
   return (
-    <form className="sec-flex" onSubmit={handleFormSubmit}>
+    <form
+      className="sec-flex"
+      onSubmit={handleFormSubmit}
+    >
       <h2 className="text-2xl font-semibold">Add New Post Category</h2>
       <p className="">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, voluptas
@@ -65,7 +69,7 @@ const Addcategory = () => {
         }
       >
         <PlusIcon className="w-6 text-white" />
-        {loading ? "loading..." : "Add Post Category"}  
+        {loading ? "loading..." : "Add Post Category"}
       </Button>
     </form>
   );

@@ -85,4 +85,33 @@
    }
 }
 
+.loading {
+  height: 40px;
+  width: 40px;
+  padding: 7px;
+  border: 2px solid var(--yellow);
+  border-right-color: var(--black);
+  border-left-color: red;
+  border-bottom-color: purple;
+  border-radius: 22px;
+  animation: rotate 1s infinite linear;
+}
+
+.center {
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes rotate {
+  0% {
+    border-right-color: green;
+  border-left-color: white;
+  border-bottom-color: green;
+    border: 2px solid green;
+    transform: rotate(-360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
