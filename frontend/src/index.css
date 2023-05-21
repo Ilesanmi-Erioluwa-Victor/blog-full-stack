@@ -86,11 +86,11 @@
 }
 
 .loading {
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
   padding: 7px;
-  border: 2px solid var(--yellow);
-  border-right-color: var(--black);
+  border: 2px solid yellow;
+  border-right-color: white;
   border-left-color: red;
   border-bottom-color: purple;
   border-radius: 22px;
@@ -115,3 +115,11 @@
   }
 }
 
+.posts {
+  margin: 3rem auto;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  padding: 1rem;
+  background : red;
+}

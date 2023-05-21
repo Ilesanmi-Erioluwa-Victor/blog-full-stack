@@ -17,19 +17,28 @@ const Post = () => {
   }
 
   if (loading || !postLists) {
-    body = <Loader />;
+    body = (
+      <div className="text-center">
+        {" "}
+        <Loader />{" "}
+      </div>
+    );
   }
 
   if (postLists) {
     body = postLists.map((data) => (
-      data.category
+      // const { } = data;
+      <div className="bg-green-600">
+        {data.category}
+      </div>
+      
     ))
   }
   useEffect(() => {
     dispatch(fetchPostsAction());
   }, [dispatch]);
 
-  return <div> { body}</div>;
+  return <div className="posts"> { body}</div>;
 };
 
 export default Post;

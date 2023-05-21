@@ -113,7 +113,8 @@ const usersSlices = createSlice({
       state.loading = true;
       state.Error.appError = undefined;
       state.Error.serverError = undefined;
-      state.registered = null;
+       state.registered = null;
+       state.userAuth = null;
     });
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
       state.userAuth = action?.payload;
@@ -124,6 +125,7 @@ const usersSlices = createSlice({
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
+      state.userAuth = null;
        state.Error.appError = action?.error;
       state.Error.serverError = action?.payload;
       state.registered = null;

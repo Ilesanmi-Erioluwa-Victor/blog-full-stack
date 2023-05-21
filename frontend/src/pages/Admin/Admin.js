@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { Outlet, useNavigate, Link, NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import briefcase from "src/assets/admin_icons/briefcase.svg";
 import directsend from "src/assets/admin_icons/direct-send.svg";
@@ -82,10 +82,10 @@ export default function AdminNavigation(props) {
         </>
       ) : (
         <>
-          <div className="flex w-full bg-red-600">
+          <div className="flex w-full bg-gray-150">
             {/* Sidebar */}
             <section
-              className={`${
+              className={`shadow-sm ${
                 navSwitch === true ? "w-max" : "w-[17%]"
               } h-screen relative px-5 z-50`}
             >
@@ -116,14 +116,14 @@ export default function AdminNavigation(props) {
                           <Link to={item.link}>
                             <span
                               onMouseEnter={() => setFocused(item.title)}
-                              className={`text-sm  flex capitalize cursor-pointer relative ${
+                              className={`text-sm  flex capitalize cursor-pointer relative hover:bg-green-600 ${
                                 navSwitch === true ? "px-3" : "px-5 pr-4"
                               } py-2 rounded-lg ${
                                 // router.pathname === item.route &&
                                 "text-primary_green bg-light_green"
                               }`}
                             >
-                              <div className="flex space-x-2 items-center z-10">
+                              <div className="flex space-x-2 items-center justify-between text-sm z-10 text-black hover:text-white">
                                 <span>
                                   <Icon
                                     alt={item.title}
@@ -131,8 +131,8 @@ export default function AdminNavigation(props) {
                                   />
                                 </span>
                                 <span
-                                  className={`${
-                                    navSwitch === true ? "hidden" : ""
+                                  className={`  ${
+                                    navSwitch === true ? "hidden " : ""
                                   }`}
                                 >
                                   {item.title}
@@ -140,12 +140,9 @@ export default function AdminNavigation(props) {
                               </div>
                               {focused === item.title ? (
                                 <motion.div
-                                  transition={{
-                                    layout: {
-                                      duration: 0.2,
-                                      ease: "easeOut",
-                                    },
-                                  }}
+                                  initial={{ y: 100 }}
+                                  whileInView={{ y: 0 }}
+                                  transition={{ duration: 0.8 }}
                                   className="absolute bottom-0 left-0 right-0 w-full h-full text-primary_green bg-light_green px-5 pr-8 m-0 z-0 rounded-lg space-x-0"
                                   layoutId="highlight"
                                 />
