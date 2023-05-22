@@ -5,7 +5,7 @@ import AdminNavigation from "src/pages/Admin/Admin";
 import Navigation from "src/components/molecules/Navigation/Navigation";
 import { Error, Home, Signup, Login, CreatePost, PostList } from "src/pages";
 import {
-  Post,
+  Posts,
   Addcategory,
   Category,
   Updatecategory,
@@ -23,7 +23,7 @@ function App() {
               element={<Navigate to={"/dashboard/authors"} />}
               path={"/dashboard"}
             />
-            <Route element={<Post />} path={"dashboard/posts"} />
+            <Route element={<Posts />} path={"dashboard/posts"} />
             <Route element={<Authors />} path={"dashboard/authors"} />
             <Route element={<Addcategory />} path={"dashboard/add-category"} />
             <Route element={<Category />} path={"dashboard/category-list"} />

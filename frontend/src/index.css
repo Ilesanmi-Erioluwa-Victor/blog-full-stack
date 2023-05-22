@@ -121,5 +121,9 @@
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   padding: 1rem;
-  background : red;
+}
+
+.gray {
+  background-color: #1d2226;
+  border-radius: 5px;
 }
