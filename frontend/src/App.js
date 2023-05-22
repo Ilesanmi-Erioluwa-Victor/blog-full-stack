@@ -14,31 +14,64 @@ import {
 
 function App() {
   return (
-    <div className="containergrid">
-      <div className="overall-layout">
+    <div className='containergrid'>
+      <div className='overall-layout'>
         <Navigation />
         <Routes>
           <Route element={<AdminNavigation />}>
             <Route
-              element={<Navigate to={"/dashboard/authors"} />}
-              path={"/dashboard"}
+              element={<Navigate to={'/dashboard/authors'} />}
+              path={'/dashboard'}
             />
-            <Route element={<Posts />} path={"dashboard/posts"} />
-            <Route element={<Authors />} path={"dashboard/authors"} />
-            <Route element={<Addcategory />} path={"dashboard/add-category"} />
-            <Route element={<Category />} path={"dashboard/category-list"} />
+            <Route
+              element={<Posts />}
+              path={'dashboard/posts'}
+            />
+            <Route
+              element={<Authors />}
+              path={'dashboard/authors'}
+            />
+            <Route
+              element={<Addcategory />}
+              path={'dashboard/add-category'}
+            />
+            <Route
+              element={<Category />}
+              path={'dashboard/category-list'}
+            />
             <Route
               element={<Updatecategory />}
-              path={"dashboard/update-category/:id"}
+              path={'dashboard/update-category/:id'}
             />
           </Route>
-          <Route element={<CreatePost />} path="/create-post" />
-          <Route element={<Home />} path="/" />
-           <Route element={<PostList />} path="/posts" />
-          <Route element={<Error />} path="*" />
-          <Route element={<Signup />} path="/signup" />
-          <Route element={<Login />} path="/login" />
-          <Route element={<Profile />} path="/profile/:id" />
+          <Route
+            element={<CreatePost />}
+            path='/create-post'
+          />
+          <Route
+            element={<Home />}
+            path='/'
+          />
+          <Route
+            element={<PostList />}
+            path='/posts'
+          />
+          <Route
+            element={<Error />}
+            path='*'
+          />
+          <Route
+            element={<Signup />}
+            path='/signup'
+          />
+          <Route
+            element={<Login />}
+            path='/login'
+          />
+          <Route
+            element={<Profile />}
+            path={`profile/:id`}
+          />
         </Routes>
 
         <Footer />
