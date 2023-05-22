@@ -55,6 +55,7 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log(userAuth)
     if (userAuth) {
       navigate("/profile")
     }
