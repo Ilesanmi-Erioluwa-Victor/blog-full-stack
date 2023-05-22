@@ -57,7 +57,7 @@ const Login = () => {
   useEffect(() => {
     console.log(userAuth)
     if (userAuth) {
-      navigate("/profile")
+      navigate(`/profile/${userAuth?._id}`)
     }
    
     if (userAuth?.isAdmin === true) {
@@ -65,11 +65,6 @@ const Login = () => {
     }
   }, [navigate, userAuth])
 
-
-
-  const lofinForm = () => {
-    
-  }
 
   return (
     <>

@@ -35,6 +35,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+    const state=  useSelector((state) => state);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -65,7 +66,7 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
     }
-
+console.log(state)
   };
 
   return (
