@@ -9,14 +9,26 @@ const Profile = () => {
   console.log(user);
   const { id } = useParams();
   return (
-    <section>
-      <main className='bg-gray-600'>
-        <div className='w-[70%] mx-auto bg-red-700 h-[30rem] rounded p-4'>
+    <section className='bg-gray-900'>
+      <main className=' w-[70%] mx-auto flex'>
+        <div className='h-[25rem] rounded'>
           <Icon
             src={user?.profilePhoto}
-            className='block max-width-[auto]'
+            className='block max-width-[100%] max-h-[100%] object-center object-cover w-[100%] shadow-2xl'
             alt={user?.firstName - user?.lastName}
           />
+        </div>
+
+        <div
+          className='h-[10rem] w-[10rem] rounded-[50%] pt-6 bg-red-800'
+          style={{ backgroundImage: `url(${user?.profilePhoto})`, backgroundRepeat:"no-repeat", backgroundPosition: "center" }}
+        >
+          {/* <Icon
+            sty
+            src={user?.profilePhoto}
+            className='block max-width-[100%] max-h-[100%] object-center object-cover w-[5rem] h-[5rem] shadow-2xl'
+            alt={user?.firstName - user?.lastName}
+          /> */}
         </div>
       </main>
     </section>
