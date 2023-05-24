@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   EnvelopeIcon,
   EyeSlashIcon,
   EyeIcon,
   LockClosedIcon,
-} from "@heroicons/react/24/outline";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import google from "src/assets/svg/google.svg";
-import { Button, Input, Loader } from "src/components/atoms";
-import { userLoginAction } from "src/redux/Slices/Users/user";
-import { Icon } from "src/utils";
+} from '@heroicons/react/24/outline';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import google from 'src/assets/svg/google.svg';
+import { Button, Input, Loader } from 'src/components/atoms';
+import { userLoginAction } from 'src/redux/Slices/Users/user';
+import { Icon } from 'src/utils';
 
 const Login = () => {
   const [passwordFieldType, setPasswordFieldType] = useState(false);
   const [loginUser, setLoginUser] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const { userAuth, Error: { appError, serverError }, loading } = useSelector((state) => state?.users);
+  const { userAuth, Error, loading } = useSelector((state) => state?.users);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -36,40 +36,43 @@ const Login = () => {
     const { email, password } = loginUser;
 
     if (!email || !password) {
-      return toast.error("Please, fill up all inputs !!!", {
-        toastId: "fill_inputs",
+      return toast.error('Please, fill up all inputs !!!', {
+        toastId: 'fill_inputs',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
     }
+
     dispatch(userLoginAction(loginUser));
-    if (appError || serverError) {
-      return toast.error(`${serverError} - ${appError.message}`, {
-        toastId: "login_failed",
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 1000,
-      });
-      
+
+    if (Error?.appError?.message && Error?.serverError) {
+      return toast.error(
+        `${Error?.appError?.message} - ${Error?.serverError}`,
+        {
+          toastId: 'Error',
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 1000,
+        }
+      );
     }
-        
   };
 
-  useEffect(() => {
-    console.log(userAuth)
-    if (userAuth) {
-      navigate(`/profile/${userAuth?._id}`)
-    }
-   
-    if (userAuth?.isAdmin === true) {
-      navigate("/dashboard")
-    }
-  }, [navigate, userAuth])
 
+  useEffect(() => {
+    console.log(userAuth);
+    if (userAuth) {
+      navigate(`/profile/${userAuth?._id}`);
+    }
+
+    if (userAuth?.isAdmin === true) {
+      navigate('/dashboard');
+    }
+  }, [navigate, userAuth]);
 
   return (
     <>
       {loading ? (
-       <Loader />
+        <Loader />
       ) : (
         <>
           <section className='paddingLogin bg-transparent'>
@@ -200,6 +203,5 @@ const Login = () => {
       )}
     </>
   );
-
-}
+};
 export default Login;

@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { EnvelopeIcon } from '@heroicons/react/24/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Icon } from 'src/utils';
 
 
 const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state?.users?.userAuth);
-    const post = useSelector((state) => state?.post);
+  const post = useSelector((state) => state?.post);
+  
+  const navigate = useNavigate();
+  
   console.log(user);
   console.log(post)
   const { id } = useParams();
+
+     useEffect( () => {
+      if(user === null) {
+      navigate("/login")
+      }
+
+      console.log(user)
+     }, [user, navigate])
+  
   return (
     <section className='bg-gray-900'>
       <main className=' w-[70%] mx-auto flex flex-col'>

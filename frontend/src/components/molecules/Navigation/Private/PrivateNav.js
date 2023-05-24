@@ -1,6 +1,6 @@
 import React, {useEffect}  from "react";
 import { Bars3Icon, PlusIcon } from "@heroicons/react/24/outline";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "src/components/atoms";
 import GeneralLayout from "src/layouts/GeneralLayouts/GeneralLayout";
 import  { userLogOutAction } from "src/redux/Slices/Users/user";
@@ -48,7 +48,7 @@ const PrivateNav = () => {
 
   // if() 
 
-  console.log(users);
+  console.log(users?.userAuth);
 
 
   const userNav = [
