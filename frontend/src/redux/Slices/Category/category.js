@@ -11,7 +11,7 @@ export const createCategoryAction = createAsyncThunk(
     const { userAuth } = user;
     const config = {
       headers: {
-        Authorization: `Bearer ${userAuth?.toke}`,
+        Authorization: `Bearer ${userAuth?.token}`,
       },
     };
     //http call

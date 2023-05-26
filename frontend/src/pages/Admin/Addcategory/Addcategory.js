@@ -71,9 +71,10 @@ const Addcategory = () => {
         className={
           'bg-green-700 p-3 text-white text-base rounded-lg self-start flex gap-3 items-center transition-all hover:bg-green-500'
         }
+        disabled = {loading}
       >
         <PlusIcon className='w-6 text-white' />
-        {loading ? 'loading...' : 'Add Post Category'}
+        Add Post Category
       </Button>
     </form>
   );
