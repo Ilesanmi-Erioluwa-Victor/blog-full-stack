@@ -60,7 +60,7 @@ export const fetchCategoriesAction = createAsyncThunk(
 );
 
 //Update
-export const updateCategoriesAction = createAsyncThunk(
+export const updateCategoryAction = createAsyncThunk(
   'category/update',
   async (category, { rejectWithValue, getState, dispatch }) => {
     //get user token
@@ -145,6 +145,7 @@ const categorySlices = createSlice({
     category: "All",
     appErr: undefined,
     serverErr: undefined,
+    updateCategory : null,
   },
   extraReducers: (builder) => {
     //create
@@ -182,18 +183,19 @@ const categorySlices = createSlice({
       state.serverErr = action?.error?.message;
     });
     //update
-    builder.addCase(updateCategoriesAction.pending, (state, action) => {
+    builder.addCase(updateCategoryAction.pending, (state, action) => {
       state.loading = true;
     });
 
-    builder.addCase(updateCategoriesAction.fulfilled, (state, action) => {
+    builder.addCase(updateCategoryAction.fulfilled, (state, action) => {
       state.updateCategory = action?.payload;
       state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(updateCategoriesAction.rejected, (state, action) => {
+    builder.addCase(updateCategoryAction.rejected, (state, action) => {
       state.loading = false;
+      state.updateCategory = null;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
