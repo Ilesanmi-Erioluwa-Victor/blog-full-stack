@@ -11,7 +11,7 @@ export const createCategoryAction = createAsyncThunk(
     const { userAuth } = user;
     const config = {
       headers: {
-        Authorization: `Bearer ${userAuth?.token}`,
+        Authorization: `Bearer ${userAuth?.toke}`,
       },
     };
     //http call
@@ -142,7 +142,7 @@ const categorySlices = createSlice({
   name: 'category',
   initialState: {
     loading: false,
-    category: null,
+    category: "All",
     appErr: undefined,
     serverErr: undefined,
   },
@@ -150,16 +150,15 @@ const categorySlices = createSlice({
     //create
     builder.addCase(createCategoryAction.pending, (state, action) => {
       state.loading = true;
-      state.loading = false;
-      state.appErr = undefined;
-      state.serverErr = undefined;
+      state.appErr = null;
+      state.serverErr = null;
       state.category = null;
     });
     builder.addCase(createCategoryAction.fulfilled, (state, action) => {
       state.category = action?.payload;
       state.loading = false;
-      state.appErr = undefined;
-      state.serverErr = undefined;
+      state.appErr = null;
+      state.serverErr = null;
     });
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
