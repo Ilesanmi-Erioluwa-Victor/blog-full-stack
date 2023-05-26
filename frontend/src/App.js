@@ -1,16 +1,24 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Footer from "src//components/molecules/Footer/Footer";
-import AdminNavigation from "src/pages/Admin/Admin";
-import Navigation from "src/components/molecules/Navigation/Navigation";
-import { Error, Home, Signup, Login, CreatePost, PostList, Profile } from "src/pages";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Footer from 'src//components/molecules/Footer/Footer';
+import AdminNavigation from 'src/pages/Admin/Admin';
+import Navigation from 'src/components/molecules/Navigation/Navigation';
+import {
+  Error,
+  Home,
+  Signup,
+  Login,
+  CreatePost,
+  PostList,
+  Profile,
+} from 'src/pages';
 import {
   Posts,
   Addcategory,
   Category,
   Updatecategory,
-   Authors,
-} from "src/pages/Admin";
+  Authors,
+} from 'src/pages/Admin';
 
 function App() {
   return (

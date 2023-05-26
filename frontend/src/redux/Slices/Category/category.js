@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { Baseurl } from "src/utils/Baseurl";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Baseurl } from 'src/utils/Baseurl';
 
 //action
 export const createCategoryAction = createAsyncThunk(
-  "category/create",
+  'category/create',
   async (category, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
@@ -36,7 +36,7 @@ export const createCategoryAction = createAsyncThunk(
 
 //fetch all action
 export const fetchCategoriesAction = createAsyncThunk(
-  "category/fetch",
+  'category/fetch',
   async (category, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
@@ -61,7 +61,7 @@ export const fetchCategoriesAction = createAsyncThunk(
 
 //Update
 export const updateCategoriesAction = createAsyncThunk(
-  "category/update",
+  'category/update',
   async (category, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
@@ -90,7 +90,7 @@ export const updateCategoriesAction = createAsyncThunk(
 
 //delete
 export const deleteCategoriesAction = createAsyncThunk(
-  "category/delete",
+  'category/delete',
   async (id, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
@@ -102,10 +102,7 @@ export const deleteCategoriesAction = createAsyncThunk(
     };
     //http call
     try {
-      const { data } = await axios.delete(
-        `${Baseurl}/categorys/${id}`,
-        config
-      );
+      const { data } = await axios.delete(`${Baseurl}/categorys/${id}`, config);
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -118,7 +115,7 @@ export const deleteCategoriesAction = createAsyncThunk(
 
 //fetch details
 export const fetchCategoryAction = createAsyncThunk(
-  "category/details",
+  'category/details',
   async (id, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
@@ -142,12 +139,21 @@ export const fetchCategoryAction = createAsyncThunk(
 );
 
 const categorySlices = createSlice({
-  name: "category",
-  initialState: {},
-  extraReducers: builder => {
+  name: 'category',
+  initialState: {
+    loading: false,
+    category: null,
+    appErr: undefined,
+    serverErr: undefined,
+  },
+  extraReducers: (builder) => {
     //create
     builder.addCase(createCategoryAction.pending, (state, action) => {
       state.loading = true;
+      state.loading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      state.category = null;
     });
     builder.addCase(createCategoryAction.fulfilled, (state, action) => {
       state.category = action?.payload;
@@ -157,6 +163,7 @@ const categorySlices = createSlice({
     });
     builder.addCase(createCategoryAction.rejected, (state, action) => {
       state.loading = false;
+      state.category = null;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
@@ -166,7 +173,7 @@ const categorySlices = createSlice({
     });
     builder.addCase(fetchCategoriesAction.fulfilled, (state, action) => {
       state.categoryList = action?.payload;
-       state.loading = false;
+      state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
@@ -179,7 +186,7 @@ const categorySlices = createSlice({
     builder.addCase(updateCategoriesAction.pending, (state, action) => {
       state.loading = true;
     });
-  
+
     builder.addCase(updateCategoriesAction.fulfilled, (state, action) => {
       state.updateCategory = action?.payload;
       state.loading = false;
