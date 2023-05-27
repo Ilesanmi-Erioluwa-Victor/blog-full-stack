@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";
 import { Input, Button } from "src/components/atoms";
-import { deleteCategoriesAction, updateCategoriesAction, fetchCategoryAction } from "src/redux/Slices/Category/category";
+import { deleteCategoryAction, updateCategoryAction, fetchCategoryAction } from "src/redux/Slices/Category/category";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -35,7 +35,7 @@ const Updatecategory = () => {
         autoClose: 1000,
       });
     }
-     dispatch(updateCategoriesAction({title, id}));
+     dispatch(updateCategoryAction({title, id}));
 
       if (deletedCategory?.user) {
        toast.error("You have succesfully deleted category!!!", {
@@ -94,7 +94,7 @@ const Updatecategory = () => {
       </Button>
 
         <Button
-        onClick={() =>dispatch(deleteCategoriesAction(id))}
+        onClick={() =>dispatch(deleteCategoryAction(id))}
         className={
           "bg-red-700 p-3 text-white text-base rounded-lg self-start flex gap-3 items-center transition-all"
         }

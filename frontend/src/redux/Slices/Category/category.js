@@ -89,7 +89,7 @@ export const updateCategoryAction = createAsyncThunk(
 );
 
 //delete
-export const deleteCategoriesAction = createAsyncThunk(
+export const deleteCategoryAction = createAsyncThunk(
   'category/delete',
   async (id, { rejectWithValue, getState, dispatch }) => {
     //get user token
@@ -145,7 +145,8 @@ const categorySlices = createSlice({
     category: "All",
     appErr: undefined,
     serverErr: undefined,
-    updateCategory : null,
+    updateCategory: null,
+     deletedCategory : null,
   },
   extraReducers: (builder) => {
     //create
@@ -201,19 +202,20 @@ const categorySlices = createSlice({
     });
 
     //delete
-    builder.addCase(deleteCategoriesAction.pending, (state, action) => {
+    builder.addCase(deleteCategoryAction.pending, (state, action) => {
       state.loading = true;
     });
-    builder.addCase(deleteCategoriesAction.fulfilled, (state, action) => {
+    builder.addCase(deleteCategoryAction.fulfilled, (state, action) => {
       state.deletedCategory = action?.payload;
       state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(deleteCategoriesAction.rejected, (state, action) => {
+    builder.addCase(deleteCategoryAction.rejected, (state, action) => {
       state.loading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
+       state.deletedCategory = null;
     });
 
     //fetch details
