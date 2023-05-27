@@ -9,10 +9,10 @@ import { Loader } from "src/components/atoms";
 const Category = () => {
   const dispatch = useDispatch();
 
-  const category = useSelector((state) => state?.category);
+  const {categories, loading} = useSelector((state) => state?.category);
 
-  const { categoryList, loading } = category;
-  console.log(categoryList);
+  
+  console.log(categories);
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
@@ -23,7 +23,7 @@ const Category = () => {
         <>
           <Loader />
         </>
-      ) : !categoryList ? (
+      ) : !categories ? (
         <h2 className="text-center text-3xl text-green-800">
           No category Found
         </h2>
@@ -62,7 +62,7 @@ const Category = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {categoryList?.map((category, index) => (
+                    {categories?.map((category, index) => (
                       <tr
                         className="bg-gray-50"
                         key={index}

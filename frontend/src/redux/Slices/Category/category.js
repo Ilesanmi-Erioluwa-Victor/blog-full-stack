@@ -62,7 +62,8 @@ export const fetchCategoriesAction = createAsyncThunk(
 //Update
 export const updateCategoryAction = createAsyncThunk(
   'category/update',
-  async (category, { rejectWithValue, getState, dispatch }) => {
+  async ({ updateTitle, id }, { rejectWithValue, getState, dispatch }) => {
+    console.log({ updateTitle, id });
     //get user token
     const user = getState()?.users;
     const { userAuth } = user;
@@ -74,8 +75,8 @@ export const updateCategoryAction = createAsyncThunk(
     //http call
     try {
       const { data } = await axios.put(
-        `${Baseurl}/categorys/${category?.id}`,
-        { title: category?.title },
+        `${Baseurl}/categorys/${id}`,
+        { title: updateTitle },
         config
       );
       return data;
@@ -143,6 +144,7 @@ const categorySlices = createSlice({
   initialState: {
     loading: false,
     category: "All",
+    categories : [],
     appErr: undefined,
     serverErr: undefined,
     updateCategory: null,
@@ -173,7 +175,7 @@ const categorySlices = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchCategoriesAction.fulfilled, (state, action) => {
-      state.categoryList = action?.payload;
+      state.categories = action?.payload;
       state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
