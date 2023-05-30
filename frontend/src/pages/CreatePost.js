@@ -49,7 +49,7 @@ const CreatePost = () => {
     ev.preventDefault();
     const { title, textarea } = inputs;
 
-    console.log( img.path );
+    console.log(img.path);
 
     if (!title || !textarea || !dropdownSelect || !img) {
       return toast.error('Please, add Inputs text!!!', {
@@ -66,11 +66,18 @@ const CreatePost = () => {
           image: img?.path,
         })
       );
+
       setInputs({
         title: '',
         textarea: '',
       });
       setDropdownSelect('');
+      setImg('');
+      return toast.success('Post created successfully', {
+        toastId: 'create_post_success.',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      });
     }
   };
 
