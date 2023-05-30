@@ -129,7 +129,7 @@ const CreatePost = () => {
                   value={value}
                   onChange={setDropdownSelect}
                   name={'select'}
-                  defaultValue={inputs.select}
+                  // defaultValue={inputs.select}
                 />
 
                 {/* Post Img */}

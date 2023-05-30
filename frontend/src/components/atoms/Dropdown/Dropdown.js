@@ -9,7 +9,7 @@ const Dropdown = ({ options, onChange, name, defaultValue }) => {
         onChange={onChange}
         placeholder="Select Post Category.."
         name={name}
-        defaultValue={defaultValue}
+        // defaultValue={defaultValue}
       />
     </div>
   );
