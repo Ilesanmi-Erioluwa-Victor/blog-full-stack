@@ -81,6 +81,7 @@ export const updateCategoryAction = createAsyncThunk(
         { title: updateTitle },
         config
       );
+      dispatch(redirectAction())
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -190,6 +191,10 @@ const categorySlices = createSlice({
     //update
     builder.addCase(updateCategoryAction.pending, (state, action) => {
       state.loading = true;
+    });
+     
+    builder.addCase(redirectAction, (state, action) => {
+      state.isEdited = true;
     });
 
     builder.addCase(updateCategoryAction.fulfilled, (state, action) => {
