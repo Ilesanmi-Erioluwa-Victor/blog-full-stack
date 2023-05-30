@@ -19,7 +19,7 @@ const CreatePost = () => {
   const categoryState = useSelector((state) => state?.category);
   const loading = categoryState?.loading;
 
-  const allCategories = categoryState?.categoryList?.map((items) => {
+  const allCategories = categoryState?.categories?.map((items) => {
     return {
       label: items?.title,
       value: items?._id,

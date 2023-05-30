@@ -40,6 +40,10 @@ function App() {
               path={'dashboard/authors'}
             />
             <Route
+              element={<CreatePost />}
+              path={'dashboard/create-post'}
+            />
+            <Route
               element={<Addcategory />}
               path={'dashboard/add-category'}
             />
