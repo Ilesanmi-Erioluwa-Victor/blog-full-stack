@@ -10,13 +10,14 @@ const Home = () => {
   const isAdmin = userAuth;
 
   useEffect (() => {
+    
+        if (userAuth) {
+          navigate(`/`)
+    }
+    
     if(userAuth && isAdmin) {
       navigate(`/dashboard/authors`)
     } 
-
-    if (userAuth) {
-      navigate(`/`)
-    }
     
   }, [userAuth, isAdmin, navigate])
 

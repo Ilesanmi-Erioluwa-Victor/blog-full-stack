@@ -1,7 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Baseurl } from 'src/utils/Baseurl';
 
+// action for redirecting..
+const redirectAction = createAction("category/reset");
 //action
 export const createCategoryAction = createAsyncThunk(
   'category/create',

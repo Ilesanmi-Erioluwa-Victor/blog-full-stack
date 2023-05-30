@@ -10,28 +10,24 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const Updatecategory = (props) => {
+const Updatecategory = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log( {id, props})
+  console.log({ id });
 
   const categorystate = useSelector((state) => state?.category);
   const { serverError, category, loading, deletedCategory } = categorystate;
   const title = category?.title;
-  // I want to populate my initial category title to my render title for update
-  const [updateTitle, setUpdateTitle] = useState(title);
- console.log(title)
-  // Get the category id
+  console.log(title);
+  //   // Get the category id
   useEffect(() => {
     dispatch(fetchCategoryAction(id));
   }, [dispatch, id]);
 
-  const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setUpdateTitle({ ...updateTitle, [name]: value });
-  }
+  //   // I want to populate my initial category title to my render title for update
+  const [updateTitle, setUpdateTitle] = useState(category?.title);
+
   const handleFormSubmit = async (ev) => {
     ev.preventDefault();
     if (!updateTitle) {
@@ -41,13 +37,16 @@ const Updatecategory = (props) => {
         autoClose: 1000,
       });
     }
-    dispatch(updateCategoryAction({
-      updateTitle
-      , id
-    }));
+    dispatch(
+      updateCategoryAction({
+        updateTitle,
+        id,
+      })
+    );
 
+    console.log(updateTitle);
     if (deletedCategory?.user) {
-      toast.error('You have succesfully deleted category!!!', {
+      toast.warn('You have succesfully deleted category!!!', {
         toastId: 'create_post_category',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
@@ -87,7 +86,7 @@ const Updatecategory = (props) => {
       <Input
         type='text'
         placeholder='Create Post Category'
-        onChange={handleChange}
+        onChange={(e) => setUpdateTitle(e.target.value)}
         value={updateTitle}
         className={
           'mt-2 focus:border-transparent focus:outline-transparent p-6 pl-8'
