@@ -39,7 +39,7 @@ const PostList = () => {
     appError: catError,
     serverError: cateserverError,
   } = category;
-  console.log(categoryList);
+  console.log(post);
   return (
     <section>
       <div className="py-20 bg-gray-900 min-h-screen radius-for-skewed">
@@ -56,7 +56,7 @@ const PostList = () => {
             <div className=" block text-right w-1/2">
               {/* View All */}
               <button
-                onClick={() => dispatch(fetchPostsAction(""))}
+                // onClick={() => dispatch(fetchPostsAction(""))}
                 className="inline-block py-2 px-6 rounded-l-xl rounded-t-xl bg-green-600 hover:bg-green-700 text-gray-50 font-bold leading-loose transition duration-200"
               >
                 View All Posts
@@ -101,7 +101,7 @@ const PostList = () => {
                           }
                           className="block cursor-pointer py-2 px-3 mb-4 rounded text-yellow-500 font-bold bg-gray-500"
                         >
-                          {/* {category?.title} */}
+                          {category?.title}
                         </p>
                       </li>
                     ))
@@ -127,11 +127,11 @@ const PostList = () => {
                     className="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6"
                   >
                     <div className="mb-10  w-full lg:w-1/4 ">
-                      <Link>
+                     <Link to={`posts/${id}`}> 
                         {/* Post image */}
                         <Icon
                           className="w-full h-full object-cover rounded"
-                          // src={post?.image}
+                          src={post?.image}
                           alt=""
                         />
                       </Link>
