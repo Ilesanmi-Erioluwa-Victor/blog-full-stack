@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 import { Button, Input } from 'src/components/atoms';
 import Dropdown from 'src/components/atoms/Dropdown/Dropdown';
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category';
@@ -11,12 +12,14 @@ import DropzoneImage from 'src/components/atoms/Dropzone/Dropzone';
 
 const CreatePost = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
   }, [dispatch]);
 
   const categoryState = useSelector((state) => state?.category);
+  const posts = useSelector((state) => state?.post)
   const loading = categoryState?.loading;
 
   const allCategories = categoryState?.categories?.map((items) => {
@@ -67,13 +70,18 @@ const CreatePost = () => {
     ev.preventDefault();
     const { title, textarea } = inputs;
 
+    //  if (posts?.postCreated) {
+    //    navigate(`dashboard/posts`);
+    //  }
+
     if (!title || !textarea || !dropdownSelect || !image) {
       return toast.error('Please, add Inputs text!!!', {
         toastId: 'create_post.',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
-    } else {
+    } 
+     else {
       dispatch(
         createPostAction({
           title,
@@ -88,12 +96,16 @@ const CreatePost = () => {
       });
       setDropdownSelect('');
       setImage('');
+      navigate(`/dashboard/posts`);
       return toast.success('Post created successfully', {
         toastId: 'create_post_success.',
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+      
     }
+
+   
   };
 
   //  const { getRootProps, getInputProps } = useDropzone({

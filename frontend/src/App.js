@@ -33,27 +33,27 @@ function App() {
             />
             <Route
               element={<Posts />}
-              path={'dashboard/posts'}
+              path={'/dashboard/posts'}
             />
             <Route
               element={<Authors />}
-              path={'dashboard/authors'}
+              path={'/dashboard/authors'}
             />
             <Route
               element={<CreatePost />}
-              path={'dashboard/create-post'}
+              path={'/dashboard/create-post'}
             />
             <Route
               element={<Addcategory />}
-              path={'dashboard/add-category'}
+              path={'/dashboard/add-category'}
             />
             <Route
               element={<Category />}
-              path={'dashboard/category-list'}
+              path={'/dashboard/category-list'}
             />
             <Route
               element={<Updatecategory />}
-              path={'dashboard/update-category/:id'}
+              path={'/dashboard/update-category/:id'}
             />
           </Route>
           <Route
