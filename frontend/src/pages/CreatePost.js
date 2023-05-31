@@ -87,6 +87,7 @@ const CreatePost = () => {
           title,
           description: textarea,
           category: dropdownSelect?.label,
+          url
         })
       );
 
