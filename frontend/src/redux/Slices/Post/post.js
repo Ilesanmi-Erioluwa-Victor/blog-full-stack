@@ -20,7 +20,7 @@ export const createPostAction = createAsyncThunk(
       formData.append("title", post?.title);
       formData.append("description", post?.description);
       formData.append("category", post?.category);
-       formData.append("image", post?.image)
+      //  formData.append("image", post?.image)
       const { data } = await axios.post(`${Baseurl}/posts`, formData, config);
       return data;
     } catch (error) {

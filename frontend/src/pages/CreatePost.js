@@ -33,7 +33,8 @@ const CreatePost = () => {
     textarea: '',
   });
 
-  const [img, setImg] = useState('');
+  const [image, setImage] = useState('');
+  const [url, setUrl] = useState('');
   const [dropdownSelect, setDropdownSelect] = useState('');
 
   const handleInputsChange = (ev) => {
@@ -45,13 +46,28 @@ const CreatePost = () => {
     });
   };
 
+    const uploadImage = () => {
+  const data = new FormData()
+  data.append("file", image)
+  data.append("upload_preset", "Eric_collection");
+  data.append("cloud_name", "dprzlxu1r");
+  fetch("  https://api.cloudinary.com/v1_1/dprzlxu1r/image/upload", {
+    method: "post",
+    body: data,
+  })
+    .then((resp) => resp.json())
+    .then((data) => {
+      setUrl(data.url);
+      console.log(data)
+    })
+    .catch((err) => console.log(err));
+    }
+
   const handleSubmitChange = async (ev) => {
     ev.preventDefault();
     const { title, textarea } = inputs;
 
-    console.log(img.path);
-
-    if (!title || !textarea || !dropdownSelect || !img) {
+    if (!title || !textarea || !dropdownSelect || !image) {
       return toast.error('Please, add Inputs text!!!', {
         toastId: 'create_post.',
         position: toast.POSITION.TOP_CENTER,
@@ -63,7 +79,6 @@ const CreatePost = () => {
           title,
           description: textarea,
           category: dropdownSelect?.label,
-          image: img?.path,
         })
       );
 
@@ -72,7 +87,7 @@ const CreatePost = () => {
         textarea: '',
       });
       setDropdownSelect('');
-      setImg('');
+      setImage('');
       return toast.success('Post created successfully', {
         toastId: 'create_post_success.',
         position: toast.POSITION.TOP_CENTER,
@@ -133,9 +148,19 @@ const CreatePost = () => {
                 />
 
                 {/* Post Img */}
-                <DropzoneImage
+                {/* <DropzoneImage
                   setImg={setImg}
                   img={img}
+                /> */}
+                <input
+                  type='file'
+                  onChange={(e) => setImage(e.target.files[0])}
+                ></input>
+
+                <img
+                  src={url}
+                  alt={url}
+                  width={'100%'}
                 />
 
                 <Input
@@ -159,6 +184,7 @@ const CreatePost = () => {
                   className={
                     'self-start px-10 py-4 rounded-lg text-white bg-green-800'
                   }
+                  onClick={uploadImage}
                 >
                   Submit
                 </Button>
