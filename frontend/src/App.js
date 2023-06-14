@@ -11,6 +11,7 @@ import {
   CreatePost,
   PostList,
   Profile,
+  Post
 } from 'src/pages';
 import {
   Posts,
@@ -68,6 +69,12 @@ function App() {
             element={<PostList />}
             path='/posts'
           />
+
+          <Route
+            element={<Post />}
+            path='post/:id'
+          />
+
           <Route
             element={<Error />}
             path='*'
