@@ -127,7 +127,7 @@ const PostList = () => {
                     className="flex flex-wrap bg-gray-900 -mx-3  lg:mb-6"
                   >
                     <div className="mb-10  w-full lg:w-1/4 ">
-                     <Link to={`posts/${id}`}> 
+                     <Link to={`posts/${post[0]?.id}`}> 
                         {/* Post image */}
                         <Icon
                           className="w-full h-full object-cover rounded"
