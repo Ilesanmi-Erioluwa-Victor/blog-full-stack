@@ -1,12 +1,9 @@
 import React, { useEffect } from 'react';
-
 import { Circles } from 'react-loader-spinner';
-
 import { useDispatch, useSelector } from 'react-redux';
-import DateFormatter from 'src/utils/DateFormatter';
 import { fetchPostsAction } from 'src/redux/Slices/Post/post';
-import { Icon } from 'src/utils';
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category';
+import PostCard from "src/pages/Post/PostCard"
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -38,6 +35,7 @@ const PostList = () => {
   console.log(post);
   return (
     <section>
+      
       <div className='py-20 bg-gray-900 min-h-screen radius-for-skewed'>
         <div className='container mx-auto px-4'>
           <div className='mb-16 flex flex-wrap items-center'>
@@ -134,6 +132,7 @@ const PostList = () => {
           </div>
         </div>
       </div>
+
       <div className='bg-gray-900'>
         <div className='skew bg-green-500 skew-bottom mr-for-radius'>
           {/* <svg

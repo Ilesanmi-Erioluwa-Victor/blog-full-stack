@@ -1,14 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import {
   HandThumbDownIcon,
   HandThumbUpIcon,
   EyeIcon,
 } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import DateFormatter from 'src/utils/DateFormatter';
+import { Icon } from 'src/utils';
 
-const PostCard = ({
-
-}) => {
+const PostCard = () => {
   return (
     <div>
       <div className='mb-10  w-full lg:w-1/4 '>
