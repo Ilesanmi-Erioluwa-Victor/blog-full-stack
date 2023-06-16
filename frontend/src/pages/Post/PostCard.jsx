@@ -9,10 +9,11 @@ import DateFormatter from 'src/utils/DateFormatter';
 import { Icon } from 'src/utils';
 
 const PostCard = ({post}) => {
+  console.log(post)
   return (
     <div>
       <div className='mb-10  w-full lg:w-1/4 '>
-        <Link to={`post/${post?._id}`}>
+        <Link to={`/post/${post?._id}`}>
           {/* Post image */}
           <Icon
             className='w-full h-full object-cover rounded'

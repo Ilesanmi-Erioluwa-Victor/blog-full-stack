@@ -122,7 +122,7 @@ const PostList = () => {
                       key={post.id}
                       className='flex flex-wrap bg-gray-900 -mx-3  lg:mb-6'
                     >
-                      <PostCard {...post} />
+                      <PostCard post ={post} />
                     </section>
                   );
                 })

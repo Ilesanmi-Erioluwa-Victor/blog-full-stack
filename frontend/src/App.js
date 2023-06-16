@@ -72,7 +72,7 @@ function App() {
 
           <Route
             element={<Post />}
-            path='post/:postId'
+            path='/post/:postId'
           />
 
           <Route
