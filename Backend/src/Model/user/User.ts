@@ -1,27 +1,63 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
-// User Schema
-const userSchema = new mongoose.Schema(
+import mongoose, { Document, Model, Schema } from 'mongoose';
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+
+interface IUser extends Document {
+  firstName: string;
+  lastName: string;
+  profilePhoto: string;
+  email: string;
+  bio?: string;
+  password: string;
+  postCount: number;
+  isBlocked: boolean;
+  isAdmin: boolean;
+  role: 'Admin' | 'Blogger' | 'Guest';
+  isFollowing: boolean;
+  isUnFollowing: boolean;
+  isAccountVerified: boolean;
+  accountVerificationToken?: string;
+  accountVerificationTokenExpires?: Date;
+  viewedBy: mongoose.Types.ObjectId[];
+  followers: mongoose.Types.ObjectId[];
+  following: mongoose.Types.ObjectId[];
+  passwordChangeAt?: Date;
+  passwordResetToken?: string;
+  passwordResetExpires?: Date;
+  active: boolean;
+
+  // Virtual method
+  posts: any[];
+  // Custom methods
+  createAccountVerificationToken: () => Promise<string>;
+  isPasswordMatched: (userPassword: string) => Promise<boolean>;
+  createPasswordResetToken: () => Promise<string>;
+}
+
+interface IUserModel extends Model<IUser> {
+  emailTaken: (email: string) => Promise<boolean>;
+}
+
+const userSchema = new Schema<IUser, IUserModel>(
   {
     firstName: {
-      required: [true, "First name is required"],
+      required: [true, 'First name is required'],
       type: String,
     },
 
     lastName: {
-      required: [true, "Last name is required"],
+      required: [true, 'Last name is required'],
       type: String,
     },
 
     profilePhoto: {
       type: String,
       default:
-        "https://cdn.pixabay.com/photo/2016/04/01/10/04/amusing-1299756_960_720.png",
+        'https://cdn.pixabay.com/photo/2016/04/01/10/04/amusing-1299756_960_720.png',
     },
     email: {
       type: String,
-      required: [true, "Email is required"],
+      required: [true, 'Email is required'],
       unique: true,
     },
 
@@ -31,7 +67,7 @@ const userSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: [true, 'Password is required'],
     },
 
     postCount: {
@@ -51,7 +87,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["Admin", "Blogger", "Guest"],
+      enum: ['Admin', 'Blogger', 'Guest'],
     },
 
     isFollowing: {
@@ -79,30 +115,27 @@ const userSchema = new mongoose.Schema(
 
     viewedBy: {
       type: [
-        //  Referencing..,
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: 'User',
         },
       ],
     },
 
     followers: {
       type: [
-        //  Referencing..,
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: 'User',
         },
       ],
     },
 
     following: {
       type: [
-        //  Referencing..,
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
+          ref: 'User',
         },
       ],
     },
@@ -123,7 +156,6 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  // Object used here for populating the referenced users above
   {
     toJSON: {
       virtuals: true,
@@ -135,69 +167,57 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.virtual('posts', {
+  ref: 'Post',
+  foreignField: 'user',
+  localField: '_id',
+});
 
-// Virtual Methods to populate created post 
-userSchema.virtual("posts", {
-  //  ref for referencing your schema
-  ref : "Post",
-  foreignField : "user",
-  localField : "_id"
-})
-
-// Hashing of Password
-userSchema.pre("save", async function (next) {
-  // isModified mongoose function
-  // Check for if password !isModified, run the below code if yes, run this code
-  if (!this.isModified("password")) {
+userSchema.pre<IUser>('save', async function (next) {
+  if (!this.isModified('password')) {
     next();
+    return;
   }
-  //   Hash Password
   const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  const hashedPassword = await bcrypt.hash(this.password, salt);
+  this.password = hashedPassword;
   next();
 });
 
-// Email taken...
-userSchema.statics.emailTaken = async function(email) {
-  const user = await this.findOne({email});
+userSchema.statics.emailTaken = async function (email: string) {
+  const user = await this.findOne({ email });
   return !!user;
-}
-// Verify account method...
-userSchema.methods.createAccountVerificationToken = async function () {
-  // create a token
-  const verificationToken = crypto.randomBytes(32).toString("hex");
-  this.accountVerificationToken = crypto
-    .createHash("sha256")
-    .update(verificationToken)
-    .digest("hex");
+};
 
-  // Token expires in 10 minutes.
+userSchema.methods.createAccountVerificationToken = async function () {
+  const verificationToken = crypto.randomBytes(32).toString('hex');
+  this.accountVerificationToken = crypto
+    .createHash('sha256')
+    .update(verificationToken)
+    .digest('hex');
+
   this.accountVerificationTokenExpires = Date.now() + 30 * 60 * 1000;
 
   return verificationToken;
 };
-// Method for Password checking
-// This method is available in all this model..
-userSchema.methods.isPasswordMatched = async function (userPassword) {
+
+userSchema.methods.isPasswordMatched = async function (userPassword: string) {
   return await bcrypt.compare(userPassword, this.password);
 };
 
-// Forget Password / Reset
 userSchema.methods.createPasswordResetToken = async function () {
-  // Create a token for password reset
-  const resetToken = crypto.randomBytes(32).toString("hex");
+  const resetToken = crypto.randomBytes(32).toString('hex');
   this.passwordResetToken = crypto
-    .createHash("sha256")
+    .createHash('sha256')
     .update(resetToken)
-    .digest("hex");
+    .digest('hex');
 
-  // Token expires in 10 minutes.
   this.passwordResetExpires = Date.now() + 30 * 60 * 1000;
 
   return resetToken;
 };
 
-// Compile Schema into Model
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+export const User: IUserModel = mongoose.model<IUser, IUserModel>(
+  'User',
+  userSchema
+);

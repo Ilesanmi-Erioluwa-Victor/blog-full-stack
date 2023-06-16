@@ -1,21 +1,22 @@
 import express from "express";
 import cors from "cors"
 // const sgMail = require("@sendgrid/mail")
-const app = express();
 import dbConnect from "./config/db/dbConnect";
+
+const app = express();
 import dotenv from "dotenv";
 dotenv.config();
-import { ErrorHandler, NotFound } from "./middlewares/error/ErrorHandler";
+import { ErrorHandler, NotFound } from "./middlewares/error/middleware";
 
 // DB
 dbConnect();
 
 // Routes
-const usersRoutes = require("./Routes/users/usersRoute");
-const postRoute = require("./Routes/posts/postRoute");
-const commentRoutes = require("./Routes/comments/commentRoutes");
-const emailRoutes = require("./Routes/sendMail/sendMail");
-const categoryRoute = require("./Routes/categorys/categoryRoute");
+import usersRoutes from "./Routes/users/usersRoute";
+import postRoute from "./Routes/posts/postRoute";
+import commentRoutes from "./Routes/comments/commentRoutes";
+import emailRoutes from "./Routes/sendMail/sendMail";
+import categoryRoute from "./Routes/categorys/categoryRoute";
 
 // Middleware
 app.use(express.json());
@@ -47,7 +48,13 @@ app.use(NotFound);
 app.use(ErrorHandler);
 
 // Server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log(`Your server is running on : ${PORT}`));
+
+dbConnect().then(() => { 
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+        console.log(`Your server is running on : ${PORT}`);
+    });
+    
+})
 
 //

@@ -8,12 +8,13 @@ const dbConnect = async () => {
   try {
     if (MONGOOSE_STRING === undefined) {
       throw new Error('MongoDB keys not set');
+    } else {
+      mongoose.set('strictQuery', false);
+      return await mongoose.connect(MONGOOSE_STRING, {});
     }
-    mongoose.set('strictQuery', false);
-    await mongoose.connect(MONGOOSE_STRINGS, {});
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message);
   }
 };
 
-module.exports = dbConnect;
+export default dbConnect;

@@ -1,27 +1,28 @@
-const expressAsyncHandler = require("express-async-handler");
-const User = require("../../Model/user/User");
-const sgMail = require("@sendgrid/mail");
-const fs = require("fs");
-const generateToken = require("../../config/token/generateToken");
-const ValidateMongoDbId = require("../../../Utils/ValidateMongoDbId");
-const crypto = require("crypto");
-const cloudinaryUploadImage = require("../../../Utils/Cloudinary");
+import expressAsyncHandler from 'express-async-handler';
+import { User } from '../../Model/user/User';
+import sgMail from '@sendgrid/mail';
+import fs from 'fs';
+import dotenv from 'dotenv';
+import generateToken from '../../config/token/generateToken';
+import ValidateMongoDbId from '../../Utils/ValidateMongoDbId';
+import crypto from 'crypto';
+// import cloudinaryUploadImage from '../../Utils/Cloudinary';
 
-// SendGrid api config..
+dotenv.config();
+
+if (!process.env.SENDGRID_API_KEY)
+  throw new Error('SENDGRID_API_KEY is required');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// expressAsyncHandler for error Handling..
-//_______________________________Register Ctrol
-const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
+export const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
   const { email } = req?.body;
-
-  // Register user
   try {
-    // Avoid Duplicate Registration
-       if (await User.emailTaken(email)) {
-      throw new Error("You are already registered, just log in to your account");
+    if (await User?.emailTaken(email)) {
+      throw new Error(
+        'You are already registered, just log in to your account'
+      );
     }
-    
+
     const user = await User.create({
       firstName: req?.body?.firstName,
       lastName: req?.body?.lastName,
@@ -29,18 +30,16 @@ const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
       password: req?.body?.password,
     });
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.json(`sorry, ${error.message}`);
   }
 });
 
-//_______________________________Login Ctrol
-const LoginUserCtrl = expressAsyncHandler(async (req, res) => {
+export const LoginUserCtrl = expressAsyncHandler(async (req, res) => {
   const { email, password } = req?.body;
   try {
     const userFound = await User.findOne({ email });
 
-    //  check if user is found and the isPasswordMatched method is also true with user password
     if (userFound && (await userFound.isPasswordMatched(password))) {
       res.json({
         _id: userFound?._id,
@@ -55,63 +54,55 @@ const LoginUserCtrl = expressAsyncHandler(async (req, res) => {
       res.status(401);
       throw new Error(`Login Failed, invalid credentials..`);
     }
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________getAllUsers Ctrol
-const GetAllUsersCtrl = expressAsyncHandler(async (req, res) => {
+export const GetAllUsersCtrl = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.find({});
     res.json(users);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________Delete User Ctrol
-const DeleteUserCtrl = expressAsyncHandler(async (req, res) => {
+export const DeleteUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
-  // Check if Id is valid before deleting..
   ValidateMongoDbId(id);
   try {
     const DeletedUser = await User.findByIdAndDelete(id);
     res.json(DeletedUser);
-  } catch (error) {
+  } catch (error: any) {
     res.json(`${error.message}`);
   }
 });
 
-//_______________________________Get a particular Userdetails Ctrol
-const GetUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
+export const GetUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
     const user = await User.findById(id);
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________User Profile Ctrl
-const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
+export const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
-    const userProfile = await User.findById(id).populate("posts");
+    const userProfile = await User.findById(id).populate('posts');
     res.json(userProfile);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________Update UserProfile ctrl
-const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
-  // Got the user _id from req.user._id because
-  // in my Authmidllware function, we pass in the login user along the function too
-  const { _id } = req?.user;
+export const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
+  const _id = req?.AuthId;
   ValidateMongoDbId(_id);
   try {
     const userProfile = await User.findByIdAndUpdate(
@@ -126,42 +117,35 @@ const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
     );
 
     res.json(userProfile);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________Update User Passord ctrl
-const UpdatePasswordCtrl = expressAsyncHandler(async (req, res) => {
-  //destructure the login user
-  const { _id } = req.user;
+export const UpdatePasswordCtrl = expressAsyncHandler(async (req, res) => {
+  const _id = req?.AuthId;
   const { password } = req.body;
   ValidateMongoDbId(_id);
-  //Find the user by _id
   const user = await User.findById(_id);
 
   if (password) {
-    user.password = password;
-    const updatedUser = await user.save();
+    const updatedUser = await user?.save();
     res.json(updatedUser);
   } else {
     res.json(user);
   }
 });
 
-//_______________________________Following ctrl
-const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
-  // 1. Find the  user you want to follow and update it's following field..
-  const { followId } = req?.body;
-  const loginUserId = req?.user?.id;
-  //  Find the targetuser and check if he/she is already following, to avoid dupliacte users
+export const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
+  const { followId } = req.body;
+  const loginUserId = req?.AuthId;
   const targetUser = await User.findById(followId);
 
   const alReadyFollowing = targetUser?.followers?.find(
     (user) => user?.toString() === loginUserId.toString()
   );
 
-  if (alReadyFollowing) throw new Error("User alreday follows..");
+  if (alReadyFollowing) throw new Error('User already follows..');
 
   await User.findByIdAndUpdate(
     followId,
@@ -171,8 +155,6 @@ const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
     },
     { new: true }
   );
-
-  // 2. Update the login user following field..
   await User.findByIdAndUpdate(
     loginUserId,
     {
@@ -184,10 +166,9 @@ const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
   res.send(`You have successfully followed this user`);
 });
 
-//_______________________________UnFollowing ctrl
-const UnfollowUserCtrl = expressAsyncHandler(async (req, res) => {
+export const UnfollowUserCtrl = expressAsyncHandler(async (req, res) => {
   const { unFollowId } = req?.body;
-  const loginUserId = req?.user?.id;
+  const loginUserId = req?.AuthId;
 
   await User.findByIdAndUpdate(
     unFollowId,
@@ -205,11 +186,10 @@ const UnfollowUserCtrl = expressAsyncHandler(async (req, res) => {
     },
     { new: true }
   );
-  res.json("You have successfully unfollow this user");
+  res.json('You have successfully unfollow this user');
 });
 
-//_______________________________Block User ctrl
-const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
+export const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
@@ -222,13 +202,12 @@ const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
     );
 
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________UnBlock User ctrl
-const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
+export const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
 
@@ -244,51 +223,45 @@ const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   } catch (error) {}
 });
 
-//_______________________________Generate Email Verification Token (Send Mail) ctrl
-const GenerateVerificationCtrl = expressAsyncHandler(async (req, res) => {
-  const loginUserId = req.user.id;
+export const GenerateVerificationCtrl = expressAsyncHandler(
+  async (req, res) => {
+    const loginUserId = req?.AuthId;
 
-  const user = await User.findById(loginUserId);
-  console.log(user);
-  try {
-    // Generate token
-    const verificationToken = await user.createAccountVerificationToken();
-    // save user
-    await user.save();
-    console.log(verificationToken);
-    // Send Message
-    const resetUrl = `If you were requetsed to verify your account, verify now, otherwise ignore this message
+    const user = await User.findById(loginUserId);
+    try {
+      const verificationToken = await user?.createAccountVerificationToken();
+      await user?.save();
+      console.log(verificationToken);
+      const resetUrl = `If you were requested to verify your account, verify now, otherwise ignore this message
      <a href="http://localhost:3000/verify-account/${verificationToken}">Click to verify..</a>
     `;
-    const msg = {
-      to: "ifedayo1452@gmail.com", // Change to your recipient
-      from: "ericjay1452@gmail.com", // Change to your verified sender
-      subject: "Sending with SendGrid is Fun",
-      text: "and easy to do anywhere, even with Node.js",
-      html: resetUrl,
-    };
+      const msg = {
+        to: 'ifedayo1452@gmail.com', // Change to your recipient
+        from: 'ericjay1452@gmail.com', // Change to your verified sender
+        subject: 'Sending with SendGrid is Fun',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: resetUrl,
+      };
 
-    await sgMail.send(msg).then(() => {
-      res.json(resetUrl);
-    });
-  } catch (error) {
-    res.json(error.message);
+      await sgMail.send(msg).then(() => {
+        res.json(resetUrl);
+      });
+    } catch (error: any) {
+      res.json(error.message);
+    }
   }
-});
+);
 
-//_______________________________Account Verification ctrl
-const AccountVerificationCtrl = expressAsyncHandler(async (req, res) => {
+export const AccountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   const { token } = req?.body;
-  const hashToken = crypto.createHash("sha256").update(token).digest("hex");
+  const hashToken = crypto.createHash('sha256').update(token).digest('hex');
 
-  // Find user by token
   const userFound = await User.findOne({
     accountVerificationToken: hashToken,
     accountVerificationTokenExpires: { $gt: new Date() },
   });
 
-  if (!userFound) throw new Error("Token expired, try agin...");
-  // update this propert( isAccountVerified to true)
+  if (!userFound) throw new Error('Token expired, try agin...');
   userFound.isAccountVerified = true;
   userFound.accountVerificationToken = undefined;
   userFound.accountVerificationTokenExpires = undefined;
@@ -297,103 +270,71 @@ const AccountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   res.json(userFound);
 });
 
-//_______________________________Forgetpassword Token Generator ctrl
-const ForgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
-  // 1.Find user by email
+export const ForgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   const { email } = req?.body;
   const user = await User.findOne({ email });
-  if (!user) throw new Error("No user found..");
+  if (!user) throw new Error('No user found..');
 
   try {
     const token = await user.createPasswordResetToken();
     await user.save();
 
-    // Send Message
     const resetUrl = `If you were requetsed to reset your account password, reset now, otherwise ignore this message
      <a href="http://localhost:3000/verify-account/${token}">Click to verify..</a>
     `;
     const msg = {
       to: email,
-      from: "ericjay1452@gmail.com",
-      subject: "Verify your email",
+      from: 'ericjay1452@gmail.com',
+      subject: 'Verify your email',
       html: resetUrl,
     };
     const sendMsg = await sgMail.send(msg);
     res.json({
       message: `A successful message has been sent to ${user?.email},${resetUrl}`,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________PasswordResetctrl
-const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
+export const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
   const { token, password } = req?.body;
 
   try {
-    const hashToken = crypto.createHash("sha256").update(token).digest("hex");
-    // Find this user by token;
+    const hashToken = crypto.createHash('sha256').update(token).digest('hex');
     const user = await User.findOne({
       passwordResetToken: hashToken,
       passwordResetExpires: { $gt: Date.now() },
     });
-    if (!user) throw new Error("Token expired, try again later...");
+    if (!user) throw new Error('Token expired, try again later...');
 
-    //  Update/ Change user password
     user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
 
-//_______________________________Profile Photo uploadctrl
-const ProfilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  // Find login user
-  const { _id } = req?.user;
+export const ProfilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
+  const _id = req?.AuthId;
   ValidateMongoDbId(_id);
-  // Get path to image
-  const localPath = `public/images/profile/${req.file.filename}`;
+  // const localPath = `public/images/profile/${req.file.filename}`;
 
-  // Upload image to Cloudinary...
   try {
-    const UploadImg = await cloudinaryUploadImage(localPath);
+    // const UploadImg = await cloudinaryUploadImage(localPath);
     const user = await User.findByIdAndUpdate(
       _id,
-      {
-        profilePhoto: UploadImg?.url,
-      },
+      // {
+      //   profilePhoto: UploadImg?.url,
+      // },
       { new: true }
     );
-
-    // Remove Uploaded img
-    fs.unlinkSync(localPath);
+    // fs.unlinkSync(localPath);
     res.json(user);
-  } catch (error) {
+  } catch (error: any) {
     res.json(error.message);
   }
 });
-module.exports = {
-  UserRegisterCtrl,
-  LoginUserCtrl,
-  GetAllUsersCtrl,
-  DeleteUserCtrl,
-  GetUserDetailsCtrl,
-  UserProfileCtrl,
-  UpdateUserProfileCtrl,
-  UpdatePasswordCtrl,
-  FollowingUserCtrl,
-  UnfollowUserCtrl,
-  BlockUserCtrl,
-  UnBlockUserCtrl,
-  GenerateVerificationCtrl,
-  AccountVerificationCtrl,
-  ForgetPasswordTokenCtrl,
-  PasswordResetCtrl,
-  PasswordResetCtrl,
-  ProfilePhotoUploadCtrl,
-};

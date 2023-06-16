@@ -1,62 +1,68 @@
-const mongoose = require("mongoose");
+import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 
-const postSchema = new mongoose.Schema(
+interface IPost extends Document {
+  title: string;
+  category: string;
+  isLiked: boolean;
+  isDisliked: boolean;
+  numViews: number;
+  likes: Types.ObjectId[];
+  dislikes: Types.ObjectId[];
+  user: Types.ObjectId;
+  description: string;
+  image: string;
+}
+
+interface IPostModel extends Model<IPost> {}
+
+const postSchema = new Schema<IPost, IPostModel>(
   {
     title: {
       type: String,
-      required: [true, "Title is required.."],
+      required: [true, 'Title is required..'],
       trim: true,
     },
-    //   Only admin can create category
     category: {
       type: String,
-      required: [true, "Post category is required.."],
-      // default: "All",
+      required: [true, 'Post category is required..'],
     },
-
     isLiked: {
       type: Boolean,
       default: false,
     },
-
-    isDisLiked: {
+    isDisliked: {
       type: Boolean,
       default: false,
     },
-
     numViews: {
       type: Number,
       default: 0,
     },
-    //   Referencing to User Model
     likes: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: Schema.Types.ObjectId,
+        ref: 'User',
       },
     ],
-
-    //   Referencing to User Model
-    disLikes: [
+    dislikes: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: Schema.Types.ObjectId,
+        ref: 'User',
       },
     ],
-
     user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Post Author is required.. "],
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'Post Author is required..'],
     },
     description: {
       type: String,
-      required: [true, "Post description is required.. "],
+      required: [true, 'Post description is required..'],
     },
     image: {
       type: String,
       default:
-        "https://cdn.pixabay.com/photo/2023/01/10/07/12/cat-7709087_960_720.jpg",
+        'https://cdn.pixabay.com/photo/2023/01/10/07/12/cat-7709087_960_720.jpg',
     },
   },
   {
@@ -70,7 +76,6 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-// Compile to form Model
-const Post = mongoose.model("Post", postSchema);
+const Post: IPostModel = mongoose.model<IPost, IPostModel>('Post', postSchema);
 
-module.exports = Post;
+export default Post;
