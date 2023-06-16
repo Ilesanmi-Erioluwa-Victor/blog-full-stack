@@ -1,11 +1,11 @@
-const express = require("express");
-const cors = require("cors")
+import express from "express";
+import cors from "cors"
 // const sgMail = require("@sendgrid/mail")
 const app = express();
-const dbConnect = require("./config/db/dbConnect");
-const dotenv = require("dotenv");
+import dbConnect from "./config/db/dbConnect";
+import dotenv from "dotenv";
 dotenv.config();
-const { ErrorHandler, NotFound } = require("./middlewares/error/ErrorHandler");
+import { ErrorHandler, NotFound } from "./middlewares/error/ErrorHandler";
 
 // DB
 dbConnect();
