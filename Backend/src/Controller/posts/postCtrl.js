@@ -1,10 +1,10 @@
-const expressAsyncHandler = require("express-async-handler");
-const Filter = require("bad-words");
-const fs = require("fs");
-const Post = require("../../Model/post/Post");
-const ValidateMongoDbId = require("../../Utils/ValidateMongoDbId");
-const User = require("../../Model/user/User");
-const cloudinaryUploadImage = require("../../Utils/Cloudinary");
+const expressAsyncHandler = require('express-async-handler');
+const Filter = require('bad-words');
+const fs = require('fs');
+const Post = require('../../Model/post/Post');
+const ValidateMongoDbId = require('../../Utils/ValidateMongoDbId');
+const User = require('../../Model/user/User');
+const cloudinaryUploadImage = require('../../Utils/Cloudinary');
 
 // _____________________________________create postCtrl
 const CreatePostCtrl = expressAsyncHandler(async (req, res) => {
@@ -27,7 +27,7 @@ const CreatePostCtrl = expressAsyncHandler(async (req, res) => {
       { new: true }
     );
     throw new Error(
-      "You have been blocked because, your posts contains Profane words.."
+      'You have been blocked because, your posts contains Profane words..'
     );
   }
 
@@ -37,14 +37,17 @@ const CreatePostCtrl = expressAsyncHandler(async (req, res) => {
 
     // Upload img to Cloudinary
     const UploadImg = await cloudinaryUploadImage(localPath);
-
+    console.log(UploadImg);
     //  Passing in my post and image with the user..
     const post = await Post.create({
       ...req?.body,
-      image: UploadImg.url,
+      // image: UploadImg.url,
       user: _id,
     });
-    res.json(post);
+    console.log(image);
+    res.json({
+      msg: 'Okay',
+    });
     // Remove Uploaded img
     fs.unlinkSync(localPath);
   } catch (error) {
@@ -55,7 +58,7 @@ const CreatePostCtrl = expressAsyncHandler(async (req, res) => {
 // _____________________________________Get all postsCtrl
 const GetAllPostsCtrl = expressAsyncHandler(async (req, res) => {
   try {
-    const posts = await Post.find({}).populate("user");
+    const posts = await Post.find({}).populate('user');
     res.json(posts);
   } catch (error) {
     res.json(error.message);
@@ -67,7 +70,10 @@ const GetPostCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   ValidateMongoDbId(id);
   try {
-    const post = await Post.findById(id).populate("user").populate("disLikes").populate("likes");
+    const post = await Post.findById(id)
+      .populate('user')
+      .populate('disLikes')
+      .populate('likes');
     // Update number of views of this post
     await Post.findByIdAndUpdate(
       id,
@@ -108,7 +114,7 @@ const DeletPostCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   ValidateMongoDbId(id);
   try {
-    const post =  await Post.findByIdAndDelete(id);
+    const post = await Post.findByIdAndDelete(id);
     res.json(post);
   } catch (error) {
     res.json(error.message);
@@ -116,7 +122,7 @@ const DeletPostCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 // _____________________________________LikePost Ctrl
-const LikePostCtrl = expressAsyncHandler (async (req, res) => {
+const LikePostCtrl = expressAsyncHandler(async (req, res) => {
   //1.Find the post to be liked
   const { postId } = req.body;
   const post = await Post.findById(postId);
@@ -126,7 +132,7 @@ const LikePostCtrl = expressAsyncHandler (async (req, res) => {
   const isLiked = post?.isLiked;
   //4.Chech if this user has dislikes this post
   const alreadyDisliked = post?.disLikes?.find(
-    userId => userId?.toString() === loginUserId?.toString()
+    (userId) => userId?.toString() === loginUserId?.toString()
   );
   //5.remove the user from dislikes array if exists
   if (alreadyDisliked) {
@@ -167,8 +173,8 @@ const LikePostCtrl = expressAsyncHandler (async (req, res) => {
 });
 
 // _____________________________________DisLikePost Ctrl
-const DislikePostCtrl = expressAsyncHandler(async(req, res) => {
-    //1.Find the post to be disLiked
+const DislikePostCtrl = expressAsyncHandler(async (req, res) => {
+  //1.Find the post to be disLiked
   const { postId } = req.body;
   const post = await Post.findById(postId);
   //2.Find the login user
@@ -177,7 +183,7 @@ const DislikePostCtrl = expressAsyncHandler(async(req, res) => {
   const isDisLiked = post?.isDisLiked;
   //4. Check if already like this post
   const alreadyLiked = post?.likes?.find(
-    userId => userId.toString() === loginUserId?.toString()
+    (userId) => userId.toString() === loginUserId?.toString()
   );
   //Remove this user from likes array if it exists
   if (alreadyLiked) {
@@ -189,7 +195,7 @@ const DislikePostCtrl = expressAsyncHandler(async(req, res) => {
       },
       { new: true }
     );
-     res.json(post);
+    res.json(post);
   }
   //Toggling
   //Remove this user from dislikes if already disliked
@@ -214,8 +220,7 @@ const DislikePostCtrl = expressAsyncHandler(async(req, res) => {
     );
     res.json(post);
   }
-
-})
+});
 
 module.exports = {
   CreatePostCtrl,
@@ -224,5 +229,5 @@ module.exports = {
   UpadatePostCtrl,
   DeletPostCtrl,
   LikePostCtrl,
-  DislikePostCtrl
+  DislikePostCtrl,
 };

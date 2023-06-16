@@ -3,9 +3,9 @@ const User = require("../../Model/user/User");
 const sgMail = require("@sendgrid/mail");
 const fs = require("fs");
 const generateToken = require("../../config/token/generateToken");
-const ValidateMongoDbId = require("../../Utils/ValidateMongoDbId");
+const ValidateMongoDbId = require("../../../Utils/ValidateMongoDbId");
 const crypto = require("crypto");
-const cloudinaryUploadImage = require("../../Utils/Cloudinary");
+const cloudinaryUploadImage = require("../../../Utils/Cloudinary");
 
 // SendGrid api config..
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
