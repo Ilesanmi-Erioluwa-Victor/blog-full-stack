@@ -8,7 +8,7 @@ import {
 import DateFormatter from 'src/utils/DateFormatter';
 import { Icon } from 'src/utils';
 
-const PostCard = () => {
+const PostCard = ({post}) => {
   return (
     <div>
       <div className='mb-10  w-full lg:w-1/4 '>
@@ -24,10 +24,10 @@ const PostCard = () => {
         <div className='flex flex-row bg-gray-300  justify-center w-full  items-center '>
           {/* Likes */}
           <div className='flex flex-row justify-center items-center ml-4 mr-4 pb-2 pt-1'>
-            {/* Togle like  */}
+            {/* Toggle like  */}
             <div className=''>
               <HandThumbUpIcon
-                onClick={() => dispatch()}
+                // onClick={() => dispatch()}
                 className='h-7 w-7 text-indigo-600 cursor-pointer'
               />
             </div>
@@ -39,7 +39,7 @@ const PostCard = () => {
           <div className='flex flex-row  justify-center items-center ml-4 mr-4 pb-2 pt-1'>
             <div>
               <HandThumbDownIcon
-                onClick={() => dispatch()}
+                // onClick={() => dispatch()}
                 className='h-7 w-7 cursor-pointer text-gray-600'
               />
             </div>

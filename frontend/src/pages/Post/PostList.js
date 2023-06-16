@@ -3,7 +3,7 @@ import { Circles } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostsAction } from 'src/redux/Slices/Post/post';
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category';
-import PostCard from "src/pages/Post/PostCard"
+import PostCard from 'src/pages/Post/PostCard';
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,6 @@ const PostList = () => {
   console.log(post);
   return (
     <section>
-      
       <div className='py-20 bg-gray-900 min-h-screen radius-for-skewed'>
         <div className='container mx-auto px-4'>
           <div className='mb-16 flex flex-wrap items-center'>
@@ -115,15 +114,15 @@ const PostList = () => {
                   No Post Found
                 </h1>
               ) : (
-                    postLists?.map((post) => {
-                      const  id  = post[0]?.user;
-                      console.log(id)
+                postLists?.map((post) => {
+                  const id = post[0]?.user;
+                  console.log(id);
                   return (
                     <section
                       key={post.id}
                       className='flex flex-wrap bg-gray-900 -mx-3  lg:mb-6'
                     >
-                   <PostCard />
+                      <PostCard {...post} />
                     </section>
                   );
                 })
