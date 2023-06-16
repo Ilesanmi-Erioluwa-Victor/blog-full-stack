@@ -7,19 +7,21 @@ const Home = () => {
   const navigate = useNavigate()
   const users = useSelector((state) => state?.users);
   const { userAuth } = users;
-  const isAdmin = userAuth;
+  const isAdmin = userAuth.isAdmin;
+
+  console.log('>>>>>  Isadmin ', userAuth.isAdmin);
 
   useEffect (() => {
     
-        if (userAuth) {
-          navigate(`/`)
+    if (isAdmin) {
+      navigate(`/dashboard/authors`);
+    } else if (!isAdmin) {
+      navigate(`/`);
+    } else {
+      navigate("/")
     }
     
-    if(userAuth && isAdmin) {
-      navigate(`/dashboard/authors`)
-    } 
-    
-  }, [userAuth, isAdmin, navigate])
+  }, [isAdmin, navigate])
 
   return (
     <div>

@@ -17,7 +17,7 @@ const Profile = () => {
   const { id } = useParams();
 
      useEffect( () => {
-      if(user === null) {
+      if(!user) {
       navigate("/login")
       }
 
