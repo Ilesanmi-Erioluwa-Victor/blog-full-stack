@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const Post = () => {
-    const { id } = useParams;
-    console.log(id)
+  const { postId } = useParams();
+  console.log(postId);
   return <div>Hello from Post</div>;
 };
 
