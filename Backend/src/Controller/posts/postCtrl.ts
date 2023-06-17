@@ -108,7 +108,7 @@ export const LikePostCtrl = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.AuthId;
   const isLiked = post?.isLiked;
   const alreadyDisliked = post?.dislikes?.find(
-    (userId: string) => userId?.toString() === loginUserId?.toString()
+    (userId: any) => userId.toString() === loginUserId.toString()
   );
 
   if (alreadyDisliked) {
@@ -152,7 +152,7 @@ export const DislikePostCtrl = expressAsyncHandler(async (req, res) => {
   const loginUserId = req.AuthId;
   const isDisLiked = post?.isDisliked;
   const alreadyLiked = post?.likes?.find(
-    (userId: string) => userId.toString() === loginUserId?.toString()
+    (userId: any) => userId.toString() === loginUserId.toString()
   );
   if (alreadyLiked) {
     const post = await Post.findOneAndUpdate(

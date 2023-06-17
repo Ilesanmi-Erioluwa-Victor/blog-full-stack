@@ -3,8 +3,8 @@ import {
   CreatePostCtrl,
   GetAllPostsCtrl,
   GetPostCtrl,
-  UpadatePostCtrl,
-  DeletPostCtrl,
+  UpdatePostCtrl,
+  DeletePostCtrl,
   LikePostCtrl,
   DislikePostCtrl,
 } from '../../Controller/posts/postCtrl';
@@ -17,7 +17,7 @@ postRoute.put('/likes', AuthMiddleWare, LikePostCtrl);
 postRoute.put('/dislikes', AuthMiddleWare, DislikePostCtrl);
 postRoute.get('/', GetAllPostsCtrl);
 postRoute.get('/:id', GetPostCtrl);
-postRoute.put('/:id', AuthMiddleWare, UpadatePostCtrl);
-postRoute.delete('/:id', AuthMiddleWare, DeletPostCtrl);
+postRoute.put('/:id', AuthMiddleWare, UpdatePostCtrl);
+postRoute.delete('/:id', AuthMiddleWare, DeletePostCtrl);
 
-module.exports = postRoute;
+export default postRoute;

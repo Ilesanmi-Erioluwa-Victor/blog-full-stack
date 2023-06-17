@@ -102,7 +102,7 @@ export const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 export const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req?.AuthId;
+  const _id = req.AuthId;
   ValidateMongoDbId(_id);
   try {
     const userProfile = await User.findByIdAndUpdate(
@@ -123,7 +123,7 @@ export const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 export const UpdatePasswordCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req?.AuthId;
+  const _id = req.AuthId;
   const { password } = req.body;
   ValidateMongoDbId(_id);
   const user = await User.findById(_id);
@@ -138,7 +138,7 @@ export const UpdatePasswordCtrl = expressAsyncHandler(async (req, res) => {
 
 export const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
   const { followId } = req.body;
-  const loginUserId = req?.AuthId;
+  const loginUserId = req.AuthId;
   const targetUser = await User.findById(followId);
 
   const alReadyFollowing = targetUser?.followers?.find(
@@ -168,7 +168,7 @@ export const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
 
 export const UnfollowUserCtrl = expressAsyncHandler(async (req, res) => {
   const { unFollowId } = req?.body;
-  const loginUserId = req?.AuthId;
+  const loginUserId = req.AuthId;
 
   await User.findByIdAndUpdate(
     unFollowId,
@@ -225,7 +225,7 @@ export const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
 
 export const GenerateVerificationCtrl = expressAsyncHandler(
   async (req, res) => {
-    const loginUserId = req?.AuthId;
+    const loginUserId = req.AuthId;
 
     const user = await User.findById(loginUserId);
     try {
@@ -319,7 +319,7 @@ export const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 export const ProfilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req?.AuthId;
+  const _id = req.AuthId;
   ValidateMongoDbId(_id);
   // const localPath = `public/images/profile/${req.file.filename}`;
 

@@ -1,13 +1,7 @@
-const express = require("express");
-const {
-  CreateCommentCtrl,
-  GetAllCommentsCtrl,
-  GetCommentDetailCtrl,
-  UpdateCommentCtrl,
-  DeleteCommentCtrl
-} = require("../../Controller/comments/commentCtrl");
+import express from "express";
+import { CreateCommentCtrl, GetAllCommentsCtrl, GetCommentDetailCtrl, UpdateCommentCtrl, DeleteCommentCtrl } from "../../Controller/comments/commentCtrl";
 
-const AuthMiddleWare = require("../../middlewares/Auth/AuthMiddleware");
+import { AuthMiddleWare } from "../../middlewares/Auth/AuthMiddleware";
 
 const commentRoutes = express.Router();
 
@@ -17,4 +11,4 @@ commentRoutes.get("/:id", AuthMiddleWare, GetCommentDetailCtrl);
 commentRoutes.put("/:id", AuthMiddleWare, UpdateCommentCtrl);
 commentRoutes.delete("/:id", AuthMiddleWare, DeleteCommentCtrl);
 
-module.exports = commentRoutes;
+export default commentRoutes;
