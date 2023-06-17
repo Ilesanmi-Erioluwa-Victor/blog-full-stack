@@ -8,7 +8,7 @@ interface CustomRequest extends Request {
   AuthId?: string;
 }
 
-export const SendEmailCtrl = expressAsyncHandler(async (req, res) => {
+export const SendEmailCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   console.log(req);
   const { to, subject, message } = req.body;
   const emailMessage = `${subject} ${message}`;
