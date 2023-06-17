@@ -17,7 +17,7 @@ import {
   ForgetPasswordTokenCtrl,
   PasswordResetCtrl,
   ProfilePhotoUploadCtrl,
-} from '../../Controller/users/UsersCtrl';
+} from '../../Model/user/UsersCtrl';
 import { AuthMiddleWare } from '../../middlewares/Auth/AuthMiddleware';
 
 const usersRoutes = express.Router();

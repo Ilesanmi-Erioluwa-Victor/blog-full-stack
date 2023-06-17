@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const UsersCtrl_1 = require("../../Controller/users/UsersCtrl");
+const UsersCtrl_1 = require("../../Model/user/UsersCtrl");
 const AuthMiddleware_1 = require("../../middlewares/Auth/AuthMiddleware");
 const usersRoutes = express_1.default.Router();
 usersRoutes.post('/register', UsersCtrl_1.UserRegisterCtrl);

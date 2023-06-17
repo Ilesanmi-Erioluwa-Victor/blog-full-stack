@@ -1,6 +1,6 @@
 import expressAsyncHandler from 'express-async-handler';
 import { Request } from 'express';
-import { User } from '../../Model/user/User';
+import { User } from './User';
 import sgMail from '@sendgrid/mail';
 import fs from 'fs';
 import dotenv from 'dotenv';
@@ -152,7 +152,7 @@ export const FollowingUserCtrl = expressAsyncHandler(
     const targetUser = await User.findById(followId);
 
     const alReadyFollowing = targetUser?.followers?.find(
-      (user) => user?.toString() === loginUserId?.toString() as string
+      (user) => user?.toString() === (loginUserId?.toString() as string)
     );
 
     if (alReadyFollowing) throw new Error('User already follows..');

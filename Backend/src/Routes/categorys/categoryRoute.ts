@@ -5,7 +5,7 @@ import {
   GetCategoryCtrl,
   UpdateCategory,
   DeleteCategoryCtrl,
-} from '../../Controller/category/categoryCtrl';
+} from '../../Model/category/categoryCtrl';
 import { AuthMiddleWare } from '../../middlewares/Auth/AuthMiddleware';
 
 const categoryRoute = express.Router();

@@ -1,5 +1,5 @@
 import express from 'express';
-import { SendEmailCtrl } from '../../Controller/emailMsg/emailMsgCtrl';
+import { SendEmailCtrl } from '../../Model/EmailMsg/emailMsgCtrl';
 import { AuthMiddleWare } from '../../middlewares/Auth/AuthMiddleware';
 const emailRoutes = express.Router();
 

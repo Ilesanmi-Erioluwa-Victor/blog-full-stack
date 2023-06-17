@@ -1,23 +1,25 @@
 import expressAsyncHandler from 'express-async-handler';
 import { Request } from 'express';
-import Category from '../../Model/category/Category';
+import Category from './Category';
 import ValidateMongoDbId from '../../Utils/ValidateMongoDbId';
 
 interface CustomRequest extends Request {
   AuthId?: string;
 }
 
-export const CreateCategoryCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
-  try {
-    const category = await Category.create({
-      user: req.AuthId,
-      title: req?.body?.title,
-    });
-    res.json(category);
-  } catch (error: any) {
-    res.json(error.message);
+export const CreateCategoryCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    try {
+      const category = await Category.create({
+        user: req.AuthId,
+        title: req?.body?.title,
+      });
+      res.json(category);
+    } catch (error: any) {
+      res.json(error.message);
+    }
   }
-});
+);
 
 export const GetAllCategoryCtrl = expressAsyncHandler(async (req, res) => {
   try {

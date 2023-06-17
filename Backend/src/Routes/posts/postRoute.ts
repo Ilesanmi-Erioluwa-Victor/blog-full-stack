@@ -7,7 +7,7 @@ import {
   DeletePostCtrl,
   LikePostCtrl,
   DislikePostCtrl,
-} from '../../Controller/posts/postCtrl';
+} from '../../Model/post/postCtrl';
 import { AuthMiddleWare } from '../../middlewares/Auth/AuthMiddleware';
 
 const postRoute = express.Router();
