@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProfilePhotoUploadCtrl = exports.PasswordResetCtrl = exports.ForgetPasswordTokenCtrl = exports.AccountVerificationCtrl = exports.GenerateVerificationCtrl = exports.UnBlockUserCtrl = exports.BlockUserCtrl = exports.UnfollowUserCtrl = exports.FollowingUserCtrl = exports.UpdatePasswordCtrl = exports.UpdateUserProfileCtrl = exports.UserProfileCtrl = exports.GetUserDetailsCtrl = exports.DeleteUserCtrl = exports.GetAllUsersCtrl = exports.LoginUserCtrl = exports.UserRegisterCtrl = void 0;
+exports.Profile_photo_upload = exports.Password_reset = exports.Forget_password_token = exports.Account_verification = exports.Generate_verification = exports.Unblock_user = exports.Block_user = exports.Un_follow_user = exports.Following_user = exports.Update_password = exports.Update_user_profile = exports.User_profile = exports.Get_user = exports.Delete_user = exports.Get_users = exports.Login = exports.Create_user = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const User_1 = require("./User");
 const mail_1 = __importDefault(require("@sendgrid/mail"));
@@ -16,7 +16,7 @@ dotenv_1.default.config();
 if (!process.env.SENDGRID_API_KEY)
     throw new Error('SENDGRID_API_KEY is required');
 mail_1.default.setApiKey(process.env.SENDGRID_API_KEY);
-exports.UserRegisterCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Create_user = (0, express_async_handler_1.default)(async (req, res) => {
     var _a, _b, _c, _d;
     const { email } = req === null || req === void 0 ? void 0 : req.body;
     try {
@@ -35,7 +35,7 @@ exports.UserRegisterCtrl = (0, express_async_handler_1.default)(async (req, res)
         res.json(`sorry, ${error.message}`);
     }
 });
-exports.LoginUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Login = (0, express_async_handler_1.default)(async (req, res) => {
     const { email, password } = req === null || req === void 0 ? void 0 : req.body;
     try {
         const userFound = await User_1.User.findOne({ email });
@@ -59,7 +59,7 @@ exports.LoginUserCtrl = (0, express_async_handler_1.default)(async (req, res) =>
         res.json(error.message);
     }
 });
-exports.GetAllUsersCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Get_users = (0, express_async_handler_1.default)(async (req, res) => {
     try {
         const users = await User_1.User.find({});
         res.json(users);
@@ -68,7 +68,7 @@ exports.GetAllUsersCtrl = (0, express_async_handler_1.default)(async (req, res) 
         res.json(error.message);
     }
 });
-exports.DeleteUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Delete_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { id } = req === null || req === void 0 ? void 0 : req.params;
     (0, ValidateMongoDbId_1.default)(id);
     try {
@@ -79,7 +79,7 @@ exports.DeleteUserCtrl = (0, express_async_handler_1.default)(async (req, res) =
         res.json(`${error.message}`);
     }
 });
-exports.GetUserDetailsCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Get_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { id } = req === null || req === void 0 ? void 0 : req.params;
     (0, ValidateMongoDbId_1.default)(id);
     try {
@@ -90,7 +90,7 @@ exports.GetUserDetailsCtrl = (0, express_async_handler_1.default)(async (req, re
         res.json(error.message);
     }
 });
-exports.UserProfileCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.User_profile = (0, express_async_handler_1.default)(async (req, res) => {
     const { id } = req === null || req === void 0 ? void 0 : req.params;
     (0, ValidateMongoDbId_1.default)(id);
     try {
@@ -101,7 +101,7 @@ exports.UserProfileCtrl = (0, express_async_handler_1.default)(async (req, res) 
         res.json(error.message);
     }
 });
-exports.UpdateUserProfileCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Update_user_profile = (0, express_async_handler_1.default)(async (req, res) => {
     var _a, _b, _c, _d;
     const _id = req === null || req === void 0 ? void 0 : req.AuthId;
     (0, ValidateMongoDbId_1.default)(_id);
@@ -118,7 +118,7 @@ exports.UpdateUserProfileCtrl = (0, express_async_handler_1.default)(async (req,
         res.json(error.message);
     }
 });
-exports.UpdatePasswordCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Update_password = (0, express_async_handler_1.default)(async (req, res) => {
     const _id = req === null || req === void 0 ? void 0 : req.AuthId;
     const { password } = req.body;
     (0, ValidateMongoDbId_1.default)(_id);
@@ -131,7 +131,7 @@ exports.UpdatePasswordCtrl = (0, express_async_handler_1.default)(async (req, re
         res.json(user);
     }
 });
-exports.FollowingUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Following_user = (0, express_async_handler_1.default)(async (req, res) => {
     var _a;
     const { followId } = req.body;
     const loginUserId = req.AuthId;
@@ -148,7 +148,7 @@ exports.FollowingUserCtrl = (0, express_async_handler_1.default)(async (req, res
     }, { new: true });
     res.send(`You have successfully followed this user`);
 });
-exports.UnfollowUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Un_follow_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { unFollowId } = req === null || req === void 0 ? void 0 : req.body;
     const loginUserId = req.AuthId;
     await User_1.User.findByIdAndUpdate(unFollowId, {
@@ -160,7 +160,7 @@ exports.UnfollowUserCtrl = (0, express_async_handler_1.default)(async (req, res)
     }, { new: true });
     res.json('You have successfully unfollow this user');
 });
-exports.BlockUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Block_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { id } = req === null || req === void 0 ? void 0 : req.params;
     (0, ValidateMongoDbId_1.default)(id);
     try {
@@ -173,7 +173,7 @@ exports.BlockUserCtrl = (0, express_async_handler_1.default)(async (req, res) =>
         res.json(error.message);
     }
 });
-exports.UnBlockUserCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Unblock_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { id } = req === null || req === void 0 ? void 0 : req.params;
     (0, ValidateMongoDbId_1.default)(id);
     try {
@@ -184,7 +184,7 @@ exports.UnBlockUserCtrl = (0, express_async_handler_1.default)(async (req, res) 
     }
     catch (error) { }
 });
-exports.GenerateVerificationCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Generate_verification = (0, express_async_handler_1.default)(async (req, res) => {
     const loginUserId = req.AuthId;
     const user = await User_1.User.findById(loginUserId);
     try {
@@ -209,7 +209,7 @@ exports.GenerateVerificationCtrl = (0, express_async_handler_1.default)(async (r
         res.json(error.message);
     }
 });
-exports.AccountVerificationCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Account_verification = (0, express_async_handler_1.default)(async (req, res) => {
     const { token } = req === null || req === void 0 ? void 0 : req.body;
     const hashToken = crypto_1.default.createHash('sha256').update(token).digest('hex');
     const userFound = await User_1.User.findOne({
@@ -224,7 +224,7 @@ exports.AccountVerificationCtrl = (0, express_async_handler_1.default)(async (re
     await userFound.save();
     res.json(userFound);
 });
-exports.ForgetPasswordTokenCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Forget_password_token = (0, express_async_handler_1.default)(async (req, res) => {
     const { email } = req === null || req === void 0 ? void 0 : req.body;
     const user = await User_1.User.findOne({ email });
     if (!user)
@@ -232,7 +232,7 @@ exports.ForgetPasswordTokenCtrl = (0, express_async_handler_1.default)(async (re
     try {
         const token = await user.createPasswordResetToken();
         await user.save();
-        const resetUrl = `If you were requetsed to reset your account password, reset now, otherwise ignore this message
+        const resetUrl = `If you were requested to reset your account password, reset now, otherwise ignore this message
      <a href="http://localhost:3000/verify-account/${token}">Click to verify..</a>
     `;
         const msg = {
@@ -250,7 +250,7 @@ exports.ForgetPasswordTokenCtrl = (0, express_async_handler_1.default)(async (re
         res.json(error.message);
     }
 });
-exports.PasswordResetCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Password_reset = (0, express_async_handler_1.default)(async (req, res) => {
     const { token, password } = req === null || req === void 0 ? void 0 : req.body;
     try {
         const hashToken = crypto_1.default.createHash('sha256').update(token).digest('hex');
@@ -270,7 +270,7 @@ exports.PasswordResetCtrl = (0, express_async_handler_1.default)(async (req, res
         res.json(error.message);
     }
 });
-exports.ProfilePhotoUploadCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+exports.Profile_photo_upload = (0, express_async_handler_1.default)(async (req, res) => {
     const _id = req === null || req === void 0 ? void 0 : req.AuthId;
     (0, ValidateMongoDbId_1.default)(_id);
     // const localPath = `public/images/profile/${req.file.filename}`;

@@ -19,7 +19,7 @@ if (!process.env.SENDGRID_API_KEY)
   throw new Error('SENDGRID_API_KEY is required');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
+export const Create_user = expressAsyncHandler(async (req, res) => {
   const { email } = req?.body;
   try {
     if (await User?.emailTaken(email)) {
@@ -40,7 +40,7 @@ export const UserRegisterCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const LoginUserCtrl = expressAsyncHandler(async (req, res) => {
+export const Login = expressAsyncHandler(async (req, res) => {
   const { email, password } = req?.body;
   try {
     const userFound = await User.findOne({ email });
@@ -64,7 +64,7 @@ export const LoginUserCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const GetAllUsersCtrl = expressAsyncHandler(async (req, res) => {
+export const Get_users = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.find({});
     res.json(users);
@@ -73,7 +73,7 @@ export const GetAllUsersCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const DeleteUserCtrl = expressAsyncHandler(async (req, res) => {
+export const Delete_user = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
@@ -84,7 +84,7 @@ export const DeleteUserCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const GetUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
+export const Get_user = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
@@ -95,7 +95,7 @@ export const GetUserDetailsCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
+export const User_profile = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
@@ -106,7 +106,7 @@ export const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UpdateUserProfileCtrl = expressAsyncHandler(
+export const Update_user_profile = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const _id = req?.AuthId as string;
     ValidateMongoDbId(_id);
@@ -129,7 +129,7 @@ export const UpdateUserProfileCtrl = expressAsyncHandler(
   }
 );
 
-export const UpdatePasswordCtrl = expressAsyncHandler(
+export const Update_password = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const _id = req?.AuthId as string;
     const { password } = req.body;
@@ -145,7 +145,7 @@ export const UpdatePasswordCtrl = expressAsyncHandler(
   }
 );
 
-export const FollowingUserCtrl = expressAsyncHandler(
+export const Following_user = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const { followId } = req.body;
     const loginUserId = req.AuthId;
@@ -177,7 +177,7 @@ export const FollowingUserCtrl = expressAsyncHandler(
   }
 );
 
-export const UnfollowUserCtrl = expressAsyncHandler(
+export const Un_follow_user = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const { unFollowId } = req?.body;
     const loginUserId = req.AuthId;
@@ -202,7 +202,7 @@ export const UnfollowUserCtrl = expressAsyncHandler(
   }
 );
 
-export const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
+export const Block_user = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
@@ -220,7 +220,7 @@ export const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
+export const Unblock_user = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
 
@@ -236,7 +236,7 @@ export const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
   } catch (error) {}
 });
 
-export const GenerateVerificationCtrl = expressAsyncHandler(
+export const Generate_verification = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const loginUserId = req.AuthId;
 
@@ -265,7 +265,7 @@ export const GenerateVerificationCtrl = expressAsyncHandler(
   }
 );
 
-export const AccountVerificationCtrl = expressAsyncHandler(async (req, res) => {
+export const Account_verification = expressAsyncHandler(async (req, res) => {
   const { token } = req?.body;
   const hashToken = crypto.createHash('sha256').update(token).digest('hex');
 
@@ -283,7 +283,7 @@ export const AccountVerificationCtrl = expressAsyncHandler(async (req, res) => {
   res.json(userFound);
 });
 
-export const ForgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
+export const Forget_password_token = expressAsyncHandler(async (req, res) => {
   const { email } = req?.body;
   const user = await User.findOne({ email });
   if (!user) throw new Error('No user found..');
@@ -292,7 +292,7 @@ export const ForgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
     const token = await user.createPasswordResetToken();
     await user.save();
 
-    const resetUrl = `If you were requetsed to reset your account password, reset now, otherwise ignore this message
+    const resetUrl = `If you were requested to reset your account password, reset now, otherwise ignore this message
      <a href="http://localhost:3000/verify-account/${token}">Click to verify..</a>
     `;
     const msg = {
@@ -310,7 +310,7 @@ export const ForgetPasswordTokenCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
+export const Password_reset = expressAsyncHandler(async (req, res) => {
   const { token, password } = req?.body;
 
   try {
@@ -331,7 +331,7 @@ export const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const ProfilePhotoUploadCtrl = expressAsyncHandler(
+export const Profile_photo_upload = expressAsyncHandler(
   async (req: CustomRequest, res) => {
     const _id = req?.AuthId as string;
     ValidateMongoDbId(_id);
