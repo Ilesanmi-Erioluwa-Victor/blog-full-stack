@@ -1,10 +1,15 @@
+import { Request } from 'express';
 import dotenv from 'dotenv';
 import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-export const AuthMiddleWare = expressAsyncHandler(async (req, res, next) => {
+interface CustomRequest extends Request {
+  AuthId?: string;
+}
+
+export const AuthMiddleWare = expressAsyncHandler(async (req: CustomRequest, res, next) => {
   let token;
 
   try {
@@ -21,7 +26,7 @@ export const AuthMiddleWare = expressAsyncHandler(async (req, res, next) => {
           id: string;
         };
         req.AuthId = decoded.id;
-        console.log(req.AuthId);
+        console.log(req?.AuthId);
         next();
       } else {
         throw new Error('Error verifying JWT');

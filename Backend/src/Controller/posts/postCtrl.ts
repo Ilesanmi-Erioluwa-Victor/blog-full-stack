@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import Filter from 'bad-words';
 import fs from 'fs';
@@ -6,7 +7,11 @@ import ValidateMongoDbId from '../../Utils/ValidateMongoDbId';
 import { User } from '../../Model/user/User';
 // import cloudinaryUploadImage from '../../Utils/Cloudinary';
 
-export const CreatePostCtrl = expressAsyncHandler(async (req, res) => {
+interface CustomRequest extends Request {
+  AuthId?: string;
+}
+
+export const CreatePostCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   const _id = req.AuthId;
   const filter = new Filter();
   const profaneWord = filter.isProfane(req?.body?.title);
@@ -73,7 +78,7 @@ export const GetPostCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UpdatePostCtrl = expressAsyncHandler(async (req, res) => {
+export const UpdatePostCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   const { id } = req.params;
   ValidateMongoDbId(id);
   try {
@@ -102,13 +107,13 @@ export const DeletePostCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const LikePostCtrl = expressAsyncHandler(async (req, res) => {
+export const LikePostCtrl = expressAsyncHandler(async (req:CustomRequest, res) => {
   const { postId } = req.body;
   const post = await Post.findById(postId);
   const loginUserId = req.AuthId;
   const isLiked = post?.isLiked;
   const alreadyDisliked = post?.dislikes?.find(
-    (userId: any) => userId.toString() === loginUserId.toString()
+    (userId: any) => userId.toString() === loginUserId?.toString() as string
   );
 
   if (alreadyDisliked) {
@@ -146,13 +151,13 @@ export const LikePostCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const DislikePostCtrl = expressAsyncHandler(async (req, res) => {
+export const DislikePostCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   const { postId } = req.body;
   const post = await Post.findById(postId);
   const loginUserId = req.AuthId;
   const isDisLiked = post?.isDisliked;
   const alreadyLiked = post?.likes?.find(
-    (userId: any) => userId.toString() === loginUserId.toString()
+    (userId: any) => userId.toString() === loginUserId?.toString() as string
   );
   if (alreadyLiked) {
     const post = await Post.findOneAndUpdate(

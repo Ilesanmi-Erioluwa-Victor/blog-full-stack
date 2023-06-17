@@ -9,7 +9,6 @@ const bad_words_1 = __importDefault(require("bad-words"));
 const Post_1 = __importDefault(require("../../Model/post/Post"));
 const ValidateMongoDbId_1 = __importDefault(require("../../Utils/ValidateMongoDbId"));
 const User_1 = require("../../Model/user/User");
-// import cloudinaryUploadImage from '../../Utils/Cloudinary';
 exports.CreatePostCtrl = (0, express_async_handler_1.default)(async (req, res) => {
     var _a, _b;
     const _id = req.AuthId;
@@ -90,7 +89,7 @@ exports.LikePostCtrl = (0, express_async_handler_1.default)(async (req, res) => 
     const post = await Post_1.default.findById(postId);
     const loginUserId = req.AuthId;
     const isLiked = post === null || post === void 0 ? void 0 : post.isLiked;
-    const alreadyDisliked = (_a = post === null || post === void 0 ? void 0 : post.dislikes) === null || _a === void 0 ? void 0 : _a.find((userId) => userId.toString() === loginUserId.toString());
+    const alreadyDisliked = (_a = post === null || post === void 0 ? void 0 : post.dislikes) === null || _a === void 0 ? void 0 : _a.find((userId) => userId.toString() === (loginUserId === null || loginUserId === void 0 ? void 0 : loginUserId.toString()));
     if (alreadyDisliked) {
         const post = await Post_1.default.findByIdAndUpdate(postId, {
             $pull: { dislikes: loginUserId },
@@ -119,7 +118,7 @@ exports.DislikePostCtrl = (0, express_async_handler_1.default)(async (req, res) 
     const post = await Post_1.default.findById(postId);
     const loginUserId = req.AuthId;
     const isDisLiked = post === null || post === void 0 ? void 0 : post.isDisliked;
-    const alreadyLiked = (_a = post === null || post === void 0 ? void 0 : post.likes) === null || _a === void 0 ? void 0 : _a.find((userId) => userId.toString() === loginUserId.toString());
+    const alreadyLiked = (_a = post === null || post === void 0 ? void 0 : post.likes) === null || _a === void 0 ? void 0 : _a.find((userId) => userId.toString() === (loginUserId === null || loginUserId === void 0 ? void 0 : loginUserId.toString()));
     if (alreadyLiked) {
         const post = await Post_1.default.findOneAndUpdate(postId, {
             $pull: { likes: loginUserId },

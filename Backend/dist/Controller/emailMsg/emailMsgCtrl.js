@@ -9,6 +9,7 @@ const mail_1 = __importDefault(require("@sendgrid/mail"));
 const bad_words_1 = __importDefault(require("bad-words"));
 const EmailMsg_1 = __importDefault(require("../../Model/EmailMsg/EmailMsg"));
 exports.SendEmailCtrl = (0, express_async_handler_1.default)(async (req, res) => {
+    console.log(req);
     const { to, subject, message } = req.body;
     const emailMessage = `${subject} ${message}`;
     const filter = new bad_words_1.default();
@@ -24,8 +25,8 @@ exports.SendEmailCtrl = (0, express_async_handler_1.default)(async (req, res) =>
         };
         await mail_1.default.send(msg);
         await EmailMsg_1.default.create({
-            sentBy: req.AuthId,
-            from: req.AuthId.email,
+            sentBy: req === null || req === void 0 ? void 0 : req.AuthId,
+            // from: req?.AuthId,
             to,
             message,
             subject,

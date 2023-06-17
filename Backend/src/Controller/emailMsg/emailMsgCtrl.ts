@@ -1,9 +1,15 @@
+import { Request } from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import SgMail from '@sendgrid/mail';
 import Filter from 'bad-words';
 import EmailMsg from '../../Model/EmailMsg/EmailMsg';
 
+interface CustomRequest extends Request {
+  AuthId?: string;
+}
+
 export const SendEmailCtrl = expressAsyncHandler(async (req, res) => {
+  console.log(req);
   const { to, subject, message } = req.body;
   const emailMessage = `${subject} ${message}`;
   const filter = new Filter();
@@ -20,8 +26,8 @@ export const SendEmailCtrl = expressAsyncHandler(async (req, res) => {
     };
     await SgMail.send(msg);
     await EmailMsg.create({
-      sentBy: req.AuthId,
-      from: req.AuthId.email,
+      sentBy: req?.AuthId,
+      // from: req?.AuthId,
       to,
       message,
       subject,

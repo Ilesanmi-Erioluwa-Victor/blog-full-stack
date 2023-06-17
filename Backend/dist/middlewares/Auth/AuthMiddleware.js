@@ -21,7 +21,7 @@ exports.AuthMiddleWare = (0, express_async_handler_1.default)(async (req, res, n
             if (token) {
                 const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_KEY);
                 req.AuthId = decoded.id;
-                console.log(req.AuthId);
+                console.log(req === null || req === void 0 ? void 0 : req.AuthId);
                 next();
             }
             else {

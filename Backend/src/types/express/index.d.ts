@@ -2,7 +2,7 @@ export { }
 
 
 interface AuthId {
-    AuthId:string
+    AuthId?:string
 }
 
 declare global {

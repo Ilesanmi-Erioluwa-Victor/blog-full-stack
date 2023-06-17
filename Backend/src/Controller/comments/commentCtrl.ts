@@ -1,8 +1,13 @@
 import expressAsyncHandler from 'express-async-handler';
+import { Request } from 'express';
 import Comment from '../../Model/comment/Comment';
 import ValidateMongoDbId from '../../Utils/ValidateMongoDbId';
 
-export const CreateCommentCtrl = expressAsyncHandler(async (req, res) => {
+interface CustomRequest extends Request {
+  AuthId?: string;
+}
+
+export const CreateCommentCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   const user = req.AuthId;
   const { postId } = req?.body;
   ValidateMongoDbId(postId);
@@ -38,7 +43,7 @@ export const GetCommentDetailCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UpdateCommentCtrl = expressAsyncHandler(async (req, res) => {
+export const UpdateCommentCtrl = expressAsyncHandler(async (req: CustomRequest, res) => {
   const { id } = req?.params;
   ValidateMongoDbId(id);
   try {
