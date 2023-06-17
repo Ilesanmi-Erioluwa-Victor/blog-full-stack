@@ -1,4 +1,5 @@
 import expressAsyncHandler from 'express-async-handler';
+import { Request } from 'express';
 import { User } from '../../Model/user/User';
 import sgMail from '@sendgrid/mail';
 import fs from 'fs';
@@ -9,6 +10,10 @@ import crypto from 'crypto';
 // import cloudinaryUploadImage from '../../Utils/Cloudinary';
 
 dotenv.config();
+
+interface CustomRequest extends Request {
+  AuthId?: string;
+}
 
 if (!process.env.SENDGRID_API_KEY)
   throw new Error('SENDGRID_API_KEY is required');
@@ -101,93 +106,101 @@ export const UserProfileCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const UpdateUserProfileCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req.AuthId;
-  ValidateMongoDbId(_id);
-  try {
-    const userProfile = await User.findByIdAndUpdate(
-      _id,
-      {
-        firstName: req?.body?.firstName,
-        lastName: req?.body?.lastName,
-        email: req?.body?.email,
-        bio: req?.body?.bio,
-      },
-      { new: true, runValidators: true }
+export const UpdateUserProfileCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    const _id = req?.AuthId as string;
+    ValidateMongoDbId(_id);
+    try {
+      const userProfile = await User.findByIdAndUpdate(
+        _id,
+        {
+          firstName: req?.body?.firstName,
+          lastName: req?.body?.lastName,
+          email: req?.body?.email,
+          bio: req?.body?.bio,
+        },
+        { new: true, runValidators: true }
+      );
+
+      res.json(userProfile);
+    } catch (error: any) {
+      res.json(error.message);
+    }
+  }
+);
+
+export const UpdatePasswordCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    const _id = req?.AuthId as string;
+    const { password } = req.body;
+    ValidateMongoDbId(_id);
+    const user = await User.findById(_id);
+
+    if (password) {
+      const updatedUser = await user?.save();
+      res.json(updatedUser);
+    } else {
+      res.json(user);
+    }
+  }
+);
+
+export const FollowingUserCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    const { followId } = req.body;
+    const loginUserId = req.AuthId;
+    const targetUser = await User.findById(followId);
+
+    const alReadyFollowing = targetUser?.followers?.find(
+      (user) => user?.toString() === loginUserId?.toString() as string
     );
 
-    res.json(userProfile);
-  } catch (error: any) {
-    res.json(error.message);
+    if (alReadyFollowing) throw new Error('User already follows..');
+
+    await User.findByIdAndUpdate(
+      followId,
+      {
+        $push: { followers: loginUserId },
+        isFollowing: true,
+      },
+      { new: true }
+    );
+    await User.findByIdAndUpdate(
+      loginUserId,
+      {
+        $push: { following: followId },
+      },
+      { new: true }
+    );
+
+    res.send(`You have successfully followed this user`);
   }
-});
+);
 
-export const UpdatePasswordCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req.AuthId;
-  const { password } = req.body;
-  ValidateMongoDbId(_id);
-  const user = await User.findById(_id);
+export const UnfollowUserCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    const { unFollowId } = req?.body;
+    const loginUserId = req.AuthId;
 
-  if (password) {
-    const updatedUser = await user?.save();
-    res.json(updatedUser);
-  } else {
-    res.json(user);
+    await User.findByIdAndUpdate(
+      unFollowId,
+      {
+        $pull: { followers: loginUserId },
+        isFollowing: false,
+      },
+      { new: true }
+    );
+
+    await User.findByIdAndUpdate(
+      loginUserId,
+      {
+        $pull: { following: unFollowId },
+      },
+      { new: true }
+    );
+    res.json('You have successfully unfollow this user');
   }
-});
-
-export const FollowingUserCtrl = expressAsyncHandler(async (req, res) => {
-  const { followId } = req.body;
-  const loginUserId = req.AuthId;
-  const targetUser = await User.findById(followId);
-
-  const alReadyFollowing = targetUser?.followers?.find(
-    (user) => user?.toString() === loginUserId.toString()
-  );
-
-  if (alReadyFollowing) throw new Error('User already follows..');
-
-  await User.findByIdAndUpdate(
-    followId,
-    {
-      $push: { followers: loginUserId },
-      isFollowing: true,
-    },
-    { new: true }
-  );
-  await User.findByIdAndUpdate(
-    loginUserId,
-    {
-      $push: { following: followId },
-    },
-    { new: true }
-  );
-
-  res.send(`You have successfully followed this user`);
-});
-
-export const UnfollowUserCtrl = expressAsyncHandler(async (req, res) => {
-  const { unFollowId } = req?.body;
-  const loginUserId = req.AuthId;
-
-  await User.findByIdAndUpdate(
-    unFollowId,
-    {
-      $pull: { followers: loginUserId },
-      isFollowing: false,
-    },
-    { new: true }
-  );
-
-  await User.findByIdAndUpdate(
-    loginUserId,
-    {
-      $pull: { following: unFollowId },
-    },
-    { new: true }
-  );
-  res.json('You have successfully unfollow this user');
-});
+);
 
 export const BlockUserCtrl = expressAsyncHandler(async (req, res) => {
   const { id } = req?.params;
@@ -224,7 +237,7 @@ export const UnBlockUserCtrl = expressAsyncHandler(async (req, res) => {
 });
 
 export const GenerateVerificationCtrl = expressAsyncHandler(
-  async (req, res) => {
+  async (req: CustomRequest, res) => {
     const loginUserId = req.AuthId;
 
     const user = await User.findById(loginUserId);
@@ -318,23 +331,25 @@ export const PasswordResetCtrl = expressAsyncHandler(async (req, res) => {
   }
 });
 
-export const ProfilePhotoUploadCtrl = expressAsyncHandler(async (req, res) => {
-  const _id = req.AuthId;
-  ValidateMongoDbId(_id);
-  // const localPath = `public/images/profile/${req.file.filename}`;
+export const ProfilePhotoUploadCtrl = expressAsyncHandler(
+  async (req: CustomRequest, res) => {
+    const _id = req?.AuthId as string;
+    ValidateMongoDbId(_id);
+    // const localPath = `public/images/profile/${req.file.filename}`;
 
-  try {
-    // const UploadImg = await cloudinaryUploadImage(localPath);
-    const user = await User.findByIdAndUpdate(
-      _id,
-      // {
-      //   profilePhoto: UploadImg?.url,
-      // },
-      { new: true }
-    );
-    // fs.unlinkSync(localPath);
-    res.json(user);
-  } catch (error: any) {
-    res.json(error.message);
+    try {
+      // const UploadImg = await cloudinaryUploadImage(localPath);
+      const user = await User.findByIdAndUpdate(
+        _id,
+        // {
+        //   profilePhoto: UploadImg?.url,
+        // },
+        { new: true }
+      );
+      // fs.unlinkSync(localPath);
+      res.json(user);
+    } catch (error: any) {
+      res.json(error.message);
+    }
   }
-});
+);
