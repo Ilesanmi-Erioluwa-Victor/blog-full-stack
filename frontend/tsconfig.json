@@ -21,7 +21,7 @@
     "**/*.ts",
     "**/*.tsx",
     "components/header/header.jsx",
-    "src/redux/Slices/Users/user.js",
+    "src/redux/Slices/users/user.tsx",
     "src/pages/auth/Signup.js",
     "src/pages/auth/Login.js",
     "src/App.js",

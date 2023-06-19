@@ -10,7 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import google from 'src/assets/svg/google.svg';
 import { Button, Input, Loader } from 'src/components/atoms';
-import { userLoginAction } from 'src/redux/Slices/Users/user';
+import { userLoginAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
 
 const Login = () => {
@@ -56,7 +56,6 @@ const Login = () => {
       );
     }
   };
-
 
   useEffect(() => {
     console.log(userAuth);

@@ -10,7 +10,7 @@ import messages from 'src/assets/admin_icons/messages.svg';
 import setting_3 from 'src/assets/admin_icons/setting-3.svg';
 import user from 'src/assets/admin_icons/user.svg';
 import { Button, Loader } from 'src/components/atoms';
-import { userLogOutAction } from 'src/redux/Slices/Users/user';
+import { userLogOutAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
 
 export default function AdminNavigation(props) {
@@ -60,7 +60,7 @@ export default function AdminNavigation(props) {
   const [navSwitch, setNavSwitch] = useState(false);
   const [focused, setFocused] = useState(null);
   const navigate = useNavigate();
-    const location = useLocation();
+  const location = useLocation();
   const users = useSelector((state) => state.users);
   const { userAuth, loading } = users;
   const isAdmin = userAuth?.isAdmin;

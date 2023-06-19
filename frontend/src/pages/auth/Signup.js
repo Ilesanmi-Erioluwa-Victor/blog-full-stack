@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import ErrorImg from 'src/assets/authentication/errorpage.svg';
 import google from 'src/assets/svg/google.svg';
 import { Button, Input } from 'src/components/atoms';
-import { userRegisterAction } from 'src/redux/Slices/Users/user';
+import { userRegisterAction } from 'src/redux/Slices/users/user';
 // import { RootState } from "src/redux/store";
 import { Icon } from 'src/utils';
 
@@ -35,7 +35,7 @@ const Signup = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-    const state=  useSelector((state) => state);
+  const state = useSelector((state) => state);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
@@ -55,18 +55,17 @@ const Signup = () => {
           autoClose: 1000,
         });
       }
-       dispatch(userRegisterAction(userInfo));
+      dispatch(userRegisterAction(userInfo));
 
       if (userInfo) {
         setTimeout(() => {
           navigate(`/login`);
         }, 500);
-        
       }
     } catch (error) {
       console.log(error);
     }
-console.log(state)
+    console.log(state);
   };
 
   return (
