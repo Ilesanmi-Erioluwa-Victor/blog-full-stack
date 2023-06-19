@@ -36,9 +36,9 @@ exports.Create_user = (0, express_async_handler_1.default)(async (req, res) => {
     }
 });
 exports.Login = (0, express_async_handler_1.default)(async (req, res) => {
-    const { email, password } = req === null || req === void 0 ? void 0 : req.body;
+    const { email, password } = req.body;
     try {
-        const userFound = await User_1.User.findOne({ email });
+        const userFound = await User_1.User.findOne({ email: email });
         if (userFound && (await userFound.isPasswordMatched(password))) {
             res.json({
                 _id: userFound === null || userFound === void 0 ? void 0 : userFound._id,

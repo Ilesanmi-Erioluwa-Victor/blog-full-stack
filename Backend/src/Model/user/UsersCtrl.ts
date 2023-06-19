@@ -41,9 +41,10 @@ export const Create_user = expressAsyncHandler(async (req, res) => {
 });
 
 export const Login = expressAsyncHandler(async (req, res) => {
-  const { email, password } = req?.body;
+  const { email, password } = req.body;
   try {
-    const userFound = await User.findOne({ email });
+    const userFound = await User.findOne({ email: email });
+  
 
     if (userFound && (await userFound.isPasswordMatched(password))) {
       res.json({
