@@ -1,16 +1,15 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import { Baseurl } from "src/utils/Baseurl";
-
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Baseurl } from 'src/utils/Baseurl';
 
 // Register User
 export const userRegisterAction = createAsyncThunk(
-  "users/register",
+  'users/register',
   async (user, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       };
 
@@ -20,56 +19,53 @@ export const userRegisterAction = createAsyncThunk(
         config
       );
       return response.data;
-    } catch (error) {
-     return rejectWithValue(error.response.data);
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-
 export const userLoginAction = createAsyncThunk(
-  "users/login",
+  'users/login',
   async (user, { rejectWithValue }) => {
-        const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
     try {
-     const response = await axios.post(
-        `${Baseurl}/users/login`,
-        user,
-        config
-      );
+      const response = await axios.post(`${Baseurl}/users/login`, user, config);
       // save user to local storage
-      localStorage.setItem("userInfo", JSON.stringify(response.data))
+      localStorage.setItem('userInfo', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       if (error instanceof Error) {
-          return rejectWithValue(error.message);
-        }
-        return console.log('ERROR', error);
+        return rejectWithValue(error.message);
+      }
+      return console.log('ERROR', error);
     }
   }
 );
 
 // Logout user
 export const userLogOutAction = createAsyncThunk(
-  "users/logout",
+  'users/logout',
   async (payload, { rejectWithValue }) => {
     try {
-         localStorage.removeItem("userInfo");
+      localStorage.removeItem('userInfo');
     } catch (error) {
       if (error instanceof Error) {
-          return rejectWithValue(error.message);
-        }
-        return console.log('ERROR', error);
+        return rejectWithValue(error.message);
+      }
+      return console.log('ERROR', error);
     }
   }
 );
 
-const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")): null;
+const getUserFromLocalStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo') as any)
+  : null;
 
 // interface initialState {
 //   Error: string | unknown;
@@ -79,60 +75,59 @@ const getUserFromLocalStorage  = localStorage.getItem("userInfo") ? JSON.parse(l
 // }
 
 const usersSlices = createSlice({
-  name: "users",
+  name: 'users',
   initialState: {
     userAuth: getUserFromLocalStorage,
     registered: {},
     loading: false,
     Error: {
-      appError : "",
-      serverError : ""
+      appError: '',
+      serverError: '',
     },
   },
   reducers: {},
   extraReducers: (builder) => {
     // Register user
-        builder.addCase(userRegisterAction.pending, (state) => {
+    builder.addCase(userRegisterAction.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
       state.registered = action?.payload;
-      state.userAuth  = null;
-      state.loading =false;
-
+      state.userAuth = null;
+      state.loading = false;
     });
     builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
-    state.userAuth =  null;
-    state.registered = null;
-    state.Error.appError = action.error;
-    state.Error.serverError = action.payload.message
+      state.userAuth = null;
+      state.registered = null;
+      state.Error.appError = action.error;
+      state.Error.serverError = action.payload.message;
     });
-    // Login user 
-     builder.addCase(userLoginAction.pending, (state) => {
+    // Login user
+    builder.addCase(userLoginAction.pending, (state) => {
       state.loading = true;
       state.Error.appError = undefined;
       state.Error.serverError = undefined;
-       state.registered = null;
-       state.userAuth = null;
+      state.registered = null;
+      state.userAuth = null;
     });
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
       state.userAuth = action?.payload;
       state.registered = null;
-      state.loading= false;
+      state.loading = false;
       state.Error.appError = undefined;
       state.Error.serverError = undefined;
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
       state.userAuth = null;
-       state.Error.appError = action?.error;
+      state.Error.appError = action?.error;
       state.Error.serverError = action?.payload;
       state.registered = null;
     });
 
     // Logout user
-         builder.addCase(userLogOutAction.pending, (state) => {
+    builder.addCase(userLogOutAction.pending, (state) => {
       state.loading = false;
     });
     builder.addCase(userLogOutAction.fulfilled, (state, action) => {
@@ -147,9 +142,7 @@ const usersSlices = createSlice({
       console.log(action.error);
       console.log(action.type);
     });
-
   },
-  
 });
 
 export default usersSlices.reducer;
