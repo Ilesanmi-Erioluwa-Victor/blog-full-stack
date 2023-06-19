@@ -44,7 +44,7 @@ export const userLogOutAction = createAsyncThunk(
   'users/logout',
   async (payload, { rejectWithValue }) => {
     try {
-      localStorage.removeItem('userInfo');
+      localStorage.removeItem('blog_user');
     } catch (error) {
       if (error instanceof Error) {
         return rejectWithValue(error.message);
@@ -77,10 +77,10 @@ const usersSlices = createSlice({
     },
   } as initialStateProps,
   reducers: {},
+
   extraReducers: (builder) => {
-    // Register user
     builder.addCase(userRegisterAction.pending, (state) => {
-      state.loading = true;
+      state.isLoading = true;
     });
     builder.addCase(userRegisterAction.fulfilled, (state, action) => {
       state.registered = action?.payload;
