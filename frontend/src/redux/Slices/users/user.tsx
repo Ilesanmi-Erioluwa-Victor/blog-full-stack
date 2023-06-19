@@ -67,24 +67,24 @@ const getUserFromLocalStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo') as any)
   : null;
 
-// interface initialState {
-//   Error: string | unknown;
-//   userAuth: object;
-//   registered: object;
-//   loading: boolean;
-// }
+interface initialStateProps {
+  Error: string | unknown;
+  userAuth: null;
+  registered: null;
+  loading: boolean;
+}
 
 const usersSlices = createSlice({
   name: 'users',
   initialState: {
     userAuth: getUserFromLocalStorage,
-    registered: {},
+    registered: null,
     loading: false,
     Error: {
       appError: '',
       serverError: '',
     },
-  },
+  } as initialStateProps,
   reducers: {},
   extraReducers: (builder) => {
     // Register user
