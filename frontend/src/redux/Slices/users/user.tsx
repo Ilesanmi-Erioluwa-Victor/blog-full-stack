@@ -1,22 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Baseurl } from 'src/utils/Baseurl';
+import { headers } from 'src/utils/headers';
 
-// Register User
 export const userRegisterAction = createAsyncThunk(
   'users/register',
   async (user, { rejectWithValue }) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
-
       const response = await axios.post(
         `${Baseurl}/users/register`,
         user,
-        config
+        headers()
       );
       return response.data;
     } catch (error: any) {
@@ -28,16 +22,13 @@ export const userRegisterAction = createAsyncThunk(
 export const userLoginAction = createAsyncThunk(
   'users/login',
   async (user, { rejectWithValue }) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
     try {
-      const response = await axios.post(`${Baseurl}/users/login`, user, config);
-      // save user to local storage
-      localStorage.setItem('userInfo', JSON.stringify(response.data));
+      const response = await axios.post(
+        `${Baseurl}/users/login`,
+        user,
+        headers()
+      );
+      localStorage.setItem('blog_user', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
       if (error instanceof Error) {
