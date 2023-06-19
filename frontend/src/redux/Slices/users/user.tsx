@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Baseurl } from 'src/utils/Baseurl';
 
@@ -63,24 +63,24 @@ export const userLogOutAction = createAsyncThunk(
   }
 );
 
-const getUserFromLocalStorage = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo') as any)
+const getUserFromLocalStorage = localStorage.getItem('blog_user')
+  ? JSON.parse(localStorage.getItem('blog_user') as any)
   : null;
 
 interface initialStateProps {
-  Error: string | unknown;
-  userAuth: null;
-  registered: null;
-  loading: boolean;
+  isAuthenticated: boolean;
+  error: string | unknown;
+  user: null;
+  isLoading: boolean;
 }
 
 const usersSlices = createSlice({
   name: 'users',
   initialState: {
-    userAuth: getUserFromLocalStorage,
-    registered: null,
-    loading: false,
-    Error: {
+    user: getUserFromLocalStorage,
+    isLoading: false,
+    isAuthenticated: false,
+    error: {
       appError: '',
       serverError: '',
     },
