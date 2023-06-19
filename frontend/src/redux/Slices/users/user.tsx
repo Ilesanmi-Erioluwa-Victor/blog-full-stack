@@ -65,6 +65,7 @@ interface initialStateProps {
   isLoading: boolean;
 }
 
+
 const usersSlices = createSlice({
   name: 'users',
   initialState: {
@@ -82,10 +83,10 @@ const usersSlices = createSlice({
     builder.addCase(userRegisterAction.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(userRegisterAction.fulfilled, (state, action) => {
-      state.registered = action?.payload;
-      state.userAuth = null;
-      state.loading = false;
+    builder.addCase(userRegisterAction.fulfilled, (state, action : PayloadAction<any>) => {
+      state.isLoading = false;
+      state.user = action?.payload;
+      state.isAuthenticated = true;
     });
     builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
