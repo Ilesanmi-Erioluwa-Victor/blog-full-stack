@@ -61,10 +61,19 @@ const getUserFromLocalStorage = localStorage.getItem('blog_user')
 interface initialStateProps {
   isAuthenticated: boolean;
   error: string | unknown;
-  user: null;
+  user: null | userProps;
   isLoading: boolean;
 }
 
+interface userProps {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePhoto: string;
+  isAdmin: boolean;
+  token: string;
+}
 
 const usersSlices = createSlice({
   name: 'users',
@@ -83,11 +92,14 @@ const usersSlices = createSlice({
     builder.addCase(userRegisterAction.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(userRegisterAction.fulfilled, (state, action : PayloadAction<any>) => {
-      state.isLoading = false;
-      state.user = action?.payload;
-      state.isAuthenticated = true;
-    });
+    builder.addCase(
+      userRegisterAction.fulfilled,
+      (state, action: PayloadAction<userProps>) => {
+        state.isLoading = false;
+        state.user = action?.payload;
+        state.isAuthenticated = true;
+      }
+    );
     builder.addCase(userRegisterAction.rejected, (state, action) => {
       state.loading = false;
       state.userAuth = null;
