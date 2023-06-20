@@ -44,7 +44,7 @@ const Login = () => {
         autoClose: 1000,
       });
     } else {
-      dispatch(userLoginAction(login));
+      dispatch(userLoginAction());
     }
 
     if (Error?.appError?.message && Error?.serverError) {

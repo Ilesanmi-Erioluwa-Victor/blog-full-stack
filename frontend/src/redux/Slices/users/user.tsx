@@ -21,7 +21,7 @@ export const userRegisterAction = createAsyncThunk(
 
 export const userLoginAction = createAsyncThunk(
   'users/login',
-  async (user, { rejectWithValue }) => {
+  async(user, { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${Baseurl}/users/login`,
@@ -120,7 +120,7 @@ const usersSlices = createSlice({
     });
     builder.addCase(
       userLoginAction.fulfilled,
-      (state, action: PayloadAction<userProps>) => {
+      (state, action) => {
         state.isAuthenticated = true;
         state.isLoading = false;
         state.user = action.payload;
