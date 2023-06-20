@@ -29,7 +29,7 @@
     "src/pages/Admin/Addcategory/Addcategory.js",
     "src/pages/Admin/Category/Category.js",
     "src/pages/Admin/Admin.js",
-    "src/pages/Home.js",
+    "src/pages/Home.tsx",
     "src/redux/store.ts",
     "src/components/molecules/Navigation/Private/PrivateNav.js",
     "src/components/molecules/Footer/Footer.js",
