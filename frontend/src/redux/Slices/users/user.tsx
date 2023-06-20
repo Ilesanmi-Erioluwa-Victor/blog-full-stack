@@ -128,12 +128,12 @@ const usersSlices = createSlice({
       state.error.appError = undefined;
       state.error.serverError = undefined;
     });
-    builder.addCase(userLoginAction.rejected, (state, action) => {
-      state.loading = false;
-      state.userAuth = null;
-      state.Error.appError = action?.error;
-      state.Error.serverError = action?.payload;
-      state.registered = null;
+    builder.addCase(userLoginAction.rejected, (state, action : any) => {
+      state.isLoading = false;
+      state.user = null;
+      state.error.appError = action?.error;
+      state.error.serverError = action?.payload;
+      state.isAuthenticated = false;
     });
 
     // Logout user
