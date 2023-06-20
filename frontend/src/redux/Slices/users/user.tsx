@@ -138,14 +138,14 @@ const usersSlices = createSlice({
 
     // Logout user
     builder.addCase(userLogOutAction.pending, (state) => {
-      state.loading = false;
+      state.isLoading = false;
     });
     builder.addCase(userLogOutAction.fulfilled, (state, action) => {
-      state.userAuth = null;
-      state.loading = false;
-      state.registered = null;
-      state.Error.appError = undefined;
-      state.Error.serverError = undefined;
+      state.user = null;
+      state.isLoading = false;
+      state.isAuthenticated = false;
+      state.error.appError = undefined;
+      state.error.serverError = undefined;
     });
     builder.addCase(userLogOutAction.rejected, (state, action) => {
       state.loading = false;
