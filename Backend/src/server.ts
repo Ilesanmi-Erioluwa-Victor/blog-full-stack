@@ -6,7 +6,7 @@ import dbConnect from "./config/db/dbConnect";
 const app = express();
 import dotenv from "dotenv";
 dotenv.config();
-import { ErrorHandler, NotFound } from "./middlewares/error/middleware";
+import  errorHandler from "./middlewares/error/middleware";
 
 // DB
 dbConnect();
@@ -29,8 +29,8 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/mails", emailRoutes);
 app.use("/api/categorys", categoryRoute);
 
-app.use(NotFound);
-app.use(ErrorHandler);
+// app.use(NotFound);
+app.use(errorHandler);
 
 // Server
 dbConnect().then(() => { 

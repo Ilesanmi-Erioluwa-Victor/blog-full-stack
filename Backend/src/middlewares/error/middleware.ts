@@ -1,23 +1,27 @@
 import { RequestHandler, Request, Response, NextFunction } from 'express';
-
+import { ValidationError } from 'express-validation';
+import { requestError } from '../../types/error-interfaces';
 // NotFoundError
-export const NotFound: RequestHandler = (req, res, next) => {
-  const error = new Error(`Not Found - ${req.originalUrl}`);
-  res.status(404);
-  next(error);
-};
-
-// ErrorHandler
-export const ErrorHandler = (
-  err: any,
+const errorHandler = (
+  error: requestError | any,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: err.message,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-  });
+  const message = error.message || 'encounter error';
+  const status = error.statusCode || 500;
+  console.log('Error message', message);
+
+  if (error instanceof ValidationError) {
+    return res.status(error.statusCode).json(error);
+  } else {
+    res.status(status).json({
+      message,
+      error: 'Error message',
+    });
+  }
+
+  next();
 };
+
+export default errorHandler;

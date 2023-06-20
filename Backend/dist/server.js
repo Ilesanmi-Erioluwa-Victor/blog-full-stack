@@ -10,7 +10,7 @@ const dbConnect_1 = __importDefault(require("./config/db/dbConnect"));
 const app = (0, express_1.default)();
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const middleware_1 = require("./middlewares/error/middleware");
+const middleware_1 = __importDefault(require("./middlewares/error/middleware"));
 // DB
 (0, dbConnect_1.default)();
 // Routes
@@ -28,8 +28,8 @@ app.use("/api/posts", postRoute_1.default);
 app.use("/api/comments", commentRoutes_1.default);
 app.use("/api/mails", sendMail_1.default);
 app.use("/api/categorys", categoryRoute_1.default);
-app.use(middleware_1.NotFound);
-app.use(middleware_1.ErrorHandler);
+// app.use(NotFound);
+app.use(middleware_1.default);
 // Server
 (0, dbConnect_1.default)().then(() => {
     const PORT = process.env.PORT || 5000;

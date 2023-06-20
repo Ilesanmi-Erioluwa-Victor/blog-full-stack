@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ErrorHandler = exports.NotFound = void 0;
+const express_validation_1 = require("express-validation");
 // NotFoundError
-const NotFound = (req, res, next) => {
-    const error = new Error(`Not Found - ${req.originalUrl}`);
-    res.status(404);
-    next(error);
+const errorHandler = (error, req, res, next) => {
+    const message = error.message || 'encounter error';
+    const status = error.statusCode || 500;
+    console.log('Error message', message);
+    if (error instanceof express_validation_1.ValidationError) {
+        return res.status(error.statusCode).json(error);
+    }
+    else {
+        res.status(status).json({
+            message,
+            error: 'Error message',
+        });
+    }
+    next();
 };
-exports.NotFound = NotFound;
-// ErrorHandler
-const ErrorHandler = (err, req, res, next) => {
-    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-    res.status(statusCode);
-    res.json({
-        message: err.message,
-        stack: process.env.NODE_ENV === 'production' ? null : err.stack,
-    });
-};
-exports.ErrorHandler = ErrorHandler;
+exports.default = errorHandler;
