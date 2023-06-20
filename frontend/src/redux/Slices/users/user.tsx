@@ -105,30 +105,30 @@ const usersSlices = createSlice({
         state.error.serverError = null;
       }
     );
-    builder.addCase(
-      userRegisterAction.rejected,
-      (state, action: any) => {
-        state.isLoading = false;
-        state.user = null;
-        state.isAuthenticated = false;
-        state.error.appError = action?.error;
-        state.error.serverError = action?.payload?.message;
-      }
-    );
+    builder.addCase(userRegisterAction.rejected, (state, action: any) => {
+      state.isLoading = false;
+      state.user = null;
+      state.isAuthenticated = false;
+      state.error.appError = action?.error;
+      state.error.serverError = action?.payload?.message;
+    });
 
     // Login user
     builder.addCase(userLoginAction.pending, (state) => {
       state.isLoading = true;
       state.isAuthenticated = false;
     });
-    builder.addCase(userLoginAction.fulfilled, (state, action : PayloadAction<userProps>) => {
-      state.isAuthenticated = true;
-      state.isLoading = false;
-      state.user = action.payload;
-      state.error.appError = undefined;
-      state.error.serverError = undefined;
-    });
-    builder.addCase(userLoginAction.rejected, (state, action : any) => {
+    builder.addCase(
+      userLoginAction.fulfilled,
+      (state, action: PayloadAction<userProps>) => {
+        state.isAuthenticated = true;
+        state.isLoading = false;
+        state.user = action.payload;
+        state.error.appError = undefined;
+        state.error.serverError = undefined;
+      }
+    );
+    builder.addCase(userLoginAction.rejected, (state, action: any) => {
       state.isLoading = false;
       state.user = null;
       state.error.appError = action?.error;
@@ -147,10 +147,12 @@ const usersSlices = createSlice({
       state.error.appError = undefined;
       state.error.serverError = undefined;
     });
-    builder.addCase(userLogOutAction.rejected, (state, action) => {
-      state.loading = false;
-      console.log(action.error);
-      console.log(action.type);
+    builder.addCase(userLogOutAction.rejected, (state, action: any) => {
+      state.isLoading = false;
+      state.error.appError = action?.error?.message;
+      state.error.serverError = action?.payload;
+      state.user = null;
+      state.isAuthenticated = false;
     });
   },
 });
