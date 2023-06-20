@@ -11,7 +11,7 @@ import {
   CreatePost,
   PostList,
   Profile,
-  Post
+  Post,
 } from 'src/pages';
 import {
   Posts,

@@ -3,7 +3,7 @@ import { Circles } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostsAction } from 'src/redux/Slices/Post/post';
 import { fetchCategoriesAction } from 'src/redux/Slices/Category/category';
-import PostCard from 'src/pages/Post/PostCard';
+import PostCard from 'src/pages/post/PostCard';
 
 const PostList = () => {
   const dispatch = useDispatch();
@@ -122,7 +122,7 @@ const PostList = () => {
                       key={post.id}
                       className='flex flex-wrap bg-gray-900 -mx-3  lg:mb-6'
                     >
-                      <PostCard post ={post} />
+                      <PostCard post={post} />
                     </section>
                   );
                 })

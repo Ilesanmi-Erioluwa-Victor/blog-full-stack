@@ -1,5 +1,5 @@
 import React from 'react'
-import ErrorPage from 'src/components/molecules/Error/Errorcomp'
+import { ErrorPage }  from 'src/components/molecules/Error'
 
 const Error = () => {
   return (

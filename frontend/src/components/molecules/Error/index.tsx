@@ -15,7 +15,7 @@ type ErrorMessage = Record<
   }
 >;
 
-const ErrorPage = (props: { statusCode: number }) => {
+export const ErrorPage = (props: { statusCode: number }) => {
   const statusCode = props.statusCode;
 
   const errorMessages: ErrorMessage = {
@@ -62,4 +62,3 @@ const ErrorPage = (props: { statusCode: number }) => {
   );
 };
 
-export default ErrorPage;
