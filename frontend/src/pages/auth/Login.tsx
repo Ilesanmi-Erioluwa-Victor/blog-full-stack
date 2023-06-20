@@ -5,18 +5,15 @@ import {
   EyeIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
-import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { userData } from 'src/types';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { toast } from 'react-toastify';
 import google from 'src/assets/svg/google.svg';
 import { Button, Input, Loader } from 'src/components/atoms';
 import { userLoginAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
-
-interface userData{
-  email : string,
-  password : string
-}
 
 const Login = () => {
   const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
@@ -28,17 +25,17 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
 
-  const { user, error, isLoading } = useAppSelector((state) => state?.users);
-
-  const handleInputChange = (e) => {
+  const user = useAppSelector((state) => state);
+  console.log(user);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     setLogin({ ...login, [name]: value.trim() });
   };
 
-  const handleInputSubmit = async (event) => {
+  const handleInputSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-    const { email, password } = loginUser;
+    const { email, password } = login;
 
     if (!email || !password) {
       return toast.error('Please, fill up all inputs !!!', {
@@ -46,9 +43,9 @@ const Login = () => {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+    } else {
+      dispatch(userLoginAction(login));
     }
-
-    dispatch(userLoginAction(loginUser));
 
     if (Error?.appError?.message && Error?.serverError) {
       return toast.error(

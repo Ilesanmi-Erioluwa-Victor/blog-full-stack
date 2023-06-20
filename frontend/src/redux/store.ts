@@ -6,8 +6,8 @@ import post from './Slices/Post/post';
 export const store = configureStore({
   reducer: {
     users,
-    category: categoryReducers,
-    post,
+    // category: categoryReducers,
+    // post,
   },
 });
 
