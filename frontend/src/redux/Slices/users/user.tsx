@@ -61,8 +61,8 @@ const getUserFromLocalStorage = localStorage.getItem('blog_user')
 interface initialStateProps {
   isAuthenticated: boolean;
   error: {
-    appError: string | null;
-    serverError: string | null;
+    appError: string | null | undefined;
+    serverError: string | null | undefined;
   };
   user: null | userProps;
   isLoading: boolean;
@@ -121,12 +121,12 @@ const usersSlices = createSlice({
       state.isLoading = true;
       state.isAuthenticated = false;
     });
-    builder.addCase(userLoginAction.fulfilled, (state, action : PayloadAction<string>) => {
+    builder.addCase(userLoginAction.fulfilled, (state, action : PayloadAction<userProps>) => {
       state.isAuthenticated = true;
       state.isLoading = false;
       state.user = action.payload;
-      state.Error.appError = undefined;
-      state.Error.serverError = undefined;
+      state.error.appError = undefined;
+      state.error.serverError = undefined;
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.loading = false;
