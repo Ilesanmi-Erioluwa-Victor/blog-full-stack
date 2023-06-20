@@ -23,7 +23,7 @@
     "components/header/header.jsx",
     "src/redux/Slices/users/user.tsx",
     "src/pages/auth/Signup.js",
-    "src/pages/auth/Login.js",
+    "src/pages/auth/Login.tsx",
     "src/App.tsx",
     "src/index.tsx",
     "src/pages/Admin/Addcategory/Addcategory.js",

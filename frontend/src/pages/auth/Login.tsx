@@ -5,7 +5,7 @@ import {
   EyeIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import google from 'src/assets/svg/google.svg';
@@ -13,22 +13,27 @@ import { Button, Input, Loader } from 'src/components/atoms';
 import { userLoginAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
 
+interface userData{
+  email : string,
+  password : string
+}
+
 const Login = () => {
-  const [passwordFieldType, setPasswordFieldType] = useState(false);
-  const [loginUser, setLoginUser] = useState({
+  const [passwordFieldType, setPasswordFieldType] = useState<boolean>(false);
+  const [login, setLogin] = useState<userData>({
     email: '',
     password: '',
   });
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { userAuth, Error, loading } = useSelector((state) => state?.users);
+  const { user, error, isLoading } = useAppSelector((state) => state?.users);
 
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setLoginUser({ ...loginUser, [name]: value.trim() });
+    setLogin({ ...login, [name]: value.trim() });
   };
 
   const handleInputSubmit = async (event) => {
