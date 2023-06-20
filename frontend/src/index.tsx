@@ -5,9 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import App from './App';
-import { NetworkStatus } from './components/atoms';
-import { store } from './redux/store';
-import Toastify from './utils/ToastifyConfig';
+import { NetworkStatus } from 'src/components/atoms';
+import { store } from 'src/redux/store';
+import Toastify from 'src/utils/ToastifyConfig';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
