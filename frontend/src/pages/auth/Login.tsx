@@ -57,33 +57,21 @@ const Login = () => {
       dispatch(userLoginAction({ email, password }));
     }
 
-    // if (Error?.appError?.message && Error?.serverError) {
-    //   return toast.error(
-    //     `${Error?.appError?.message} - ${Error?.serverError}`,
-    //     {
-    //       toastId: 'Error',
-    //       position: toast.POSITION.TOP_CENTER,
-    //       autoClose: 1000,
-    //     }
-    //   );
-    // }
   };
 
   // useEffect(() => {
-  //   console.log(userAuth);
-  //   if (userAuth) {
-  //     navigate(`/profile/${userAuth?._id}`);
+  //   if (isAuthenticated === true) {
+  //     navigate(`/profile/${user?._id}`);
   //   }
 
-  //   if (userAuth?.isAdmin === true) {
+  //   if (user?.isAdmin === true) {
   //     navigate('/dashboard');
   //   }
-  // }, [navigate, userAuth]);
-  const loading = false;
+  // }, [isAuthenticated, navigate, user?._id]);
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <>
@@ -185,7 +173,7 @@ const Login = () => {
                     </span>
                   </div>
                   <Button
-                    // disabled={loading}
+                    // disabled={isLoading}
                     className={
                       'block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4 max-md:w-full'
                     }

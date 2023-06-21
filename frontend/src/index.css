@@ -22,17 +22,19 @@
 
 .paddingLogin {
   padding: calc(1rem + 5vh) calc(1rem + 5vw);
-  background: url('./assets/authentication/errorpage.svg'), rgb(70 68 68 / 11%);
+  background: url('./assets/svg/Login.svg'), rgb(70 68 68 / 11%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .back {
-  background: url('./assets/authentication/errorpage.svg');
+  background: url('./assets/svg/Login.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  border-left: 2px solid #CA8A04;
+  margin-bottom: 1rem;
 }
 
 .containergrid {

@@ -1,13 +1,12 @@
 import React from 'react'
 import { Bars3Icon, PlusIcon} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import { Button } from "src/components/atoms";
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
 import { Icon } from 'src/utils';
-
-
-let header = [
+import { Header } from 'src/types';
+let header: Header[] = [
   {
     title: "Home",
     link: "/",
@@ -25,7 +24,7 @@ let header = [
   },
   {
     title: "Register",
-    link: "/signup",
+    link: "/sign_up",
     active: false,
   },
   {
