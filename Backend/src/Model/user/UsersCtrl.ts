@@ -1,4 +1,7 @@
 import expressAsyncHandler from 'express-async-handler';
+import {
+  StatusCodes,
+} from 'http-status-codes';
 import { Request } from 'express';
 import { User } from './User';
 import sgMail from '@sendgrid/mail';
@@ -7,6 +10,7 @@ import dotenv from 'dotenv';
 import generateToken from '../../config/token/generateToken';
 import ValidateMongoDbId from '../../Utils/ValidateMongoDbId';
 import crypto from 'crypto';
+import { throwError }  from '../../helpers/ControllerError';
 // import cloudinaryUploadImage from '../../Utils/Cloudinary';
 
 dotenv.config();
@@ -23,8 +27,8 @@ export const Create_user = expressAsyncHandler(async (req, res) => {
   const { email } = req?.body;
   try {
     if (await User?.emailTaken(email)) {
-      throw new Error(
-        'You are already registered, just log in to your account'
+      throwError(
+        'You are already registered, just log in to your account', StatusCodes.BAD_REQUEST
       );
     }
 
@@ -44,7 +48,6 @@ export const Login = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
   try {
     const userFound = await User.findOne({ email: email });
-  
 
     if (userFound && (await userFound.isPasswordMatched(password))) {
       res.json({

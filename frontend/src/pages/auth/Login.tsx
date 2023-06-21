@@ -5,7 +5,6 @@ import {
   EyeIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/outline';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { userData } from 'src/types';
 import { useAppDispatch, useAppSelector } from 'src/redux/hooks';
@@ -25,8 +24,10 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector((state) => state);
-  console.log(user);
+  const userState = useAppSelector((state) => state?.users);
+
+  const { error, isAuthenticated, isLoading, user } = userState;
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -43,32 +44,42 @@ const Login = () => {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
       });
+    } else if (error?.serverError || error?.appError?.message) {
+      const message = `Invalid logins Credentials - ${error?.appError?.message}`;
+      console.log(message);
+      return (toast.error(message, {
+        toastId: 'Error',
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1000,
+      }));
+      
     } else {
-      dispatch(userLoginAction());
+      dispatch(userLoginAction({ email, password }));
     }
 
-    if (Error?.appError?.message && Error?.serverError) {
-      return toast.error(
-        `${Error?.appError?.message} - ${Error?.serverError}`,
-        {
-          toastId: 'Error',
-          position: toast.POSITION.TOP_CENTER,
-          autoClose: 1000,
-        }
-      );
-    }
+    // if (Error?.appError?.message && Error?.serverError) {
+    //   return toast.error(
+    //     `${Error?.appError?.message} - ${Error?.serverError}`,
+    //     {
+    //       toastId: 'Error',
+    //       position: toast.POSITION.TOP_CENTER,
+    //       autoClose: 1000,
+    //     }
+    //   );
+    // }
   };
 
-  useEffect(() => {
-    console.log(userAuth);
-    if (userAuth) {
-      navigate(`/profile/${userAuth?._id}`);
-    }
+  // useEffect(() => {
+  //   console.log(userAuth);
+  //   if (userAuth) {
+  //     navigate(`/profile/${userAuth?._id}`);
+  //   }
 
-    if (userAuth?.isAdmin === true) {
-      navigate('/dashboard');
-    }
-  }, [navigate, userAuth]);
+  //   if (userAuth?.isAdmin === true) {
+  //     navigate('/dashboard');
+  //   }
+  // }, [navigate, userAuth]);
+  const loading = false;
 
   return (
     <>
@@ -131,7 +142,7 @@ const Login = () => {
                       type={'email'}
                       label={'Email'}
                       name='email'
-                      value={loginUser.email}
+                      value={login.email}
                       onChange={handleInputChange}
                       placeholder={'Enter your Email'}
                       className='mt-2 border-transparent focus:border focus:outline transition-all p-6 pl-8'
@@ -147,7 +158,7 @@ const Login = () => {
                       type={passwordFieldType ? 'text' : 'password'}
                       label={'Password'}
                       name='password'
-                      value={loginUser.password}
+                      value={login.password}
                       onChange={handleInputChange}
                       placeholder={'Enter your Password'}
                       className='mt-2 border-transparent focus:border focus:outline transition-all p-6 pl-8'
@@ -163,7 +174,7 @@ const Login = () => {
                       {passwordFieldType ? (
                         <EyeSlashIcon
                           className='w-5 bg-inherit'
-                          title='Show Pasword'
+                          title='Show Password'
                         />
                       ) : (
                         <EyeIcon
@@ -174,7 +185,7 @@ const Login = () => {
                     </span>
                   </div>
                   <Button
-                    disabled={loading}
+                    // disabled={loading}
                     className={
                       'block bg-yellow-600 self-start w-[50%] rounded-md text-white text-sm p-4 max-md:w-full'
                     }

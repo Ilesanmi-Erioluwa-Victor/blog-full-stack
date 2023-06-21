@@ -11,6 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const generateToken_1 = __importDefault(require("../../config/token/generateToken"));
 const ValidateMongoDbId_1 = __importDefault(require("../../Utils/ValidateMongoDbId"));
 const crypto_1 = __importDefault(require("crypto"));
+const ControllerError_1 = require("../../helpers/ControllerError");
 // import cloudinaryUploadImage from '../../Utils/Cloudinary';
 dotenv_1.default.config();
 if (!process.env.SENDGRID_API_KEY)
@@ -21,7 +22,7 @@ exports.Create_user = (0, express_async_handler_1.default)(async (req, res) => {
     const { email } = req === null || req === void 0 ? void 0 : req.body;
     try {
         if (await (User_1.User === null || User_1.User === void 0 ? void 0 : User_1.User.emailTaken(email))) {
-            throw new Error('You are already registered, just log in to your account');
+            (0, ControllerError_1.throwError)('You are already registered, just log in to your account');
         }
         const user = await User_1.User.create({
             firstName: (_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.firstName,

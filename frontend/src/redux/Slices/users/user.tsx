@@ -21,7 +21,7 @@ export const userRegisterAction = createAsyncThunk(
 
 export const userLoginAction = createAsyncThunk(
   'users/login',
-  async(user, { rejectWithValue }) => {
+  async(user: {email: string, password: string} , { rejectWithValue }) => {
     try {
       const response = await axios.post(
         `${Baseurl}/users/login`,
@@ -37,6 +37,7 @@ export const userLoginAction = createAsyncThunk(
       return console.log('ERROR', error);
     }
   }
+
 );
 
 // Logout user
@@ -61,8 +62,8 @@ const getUserFromLocalStorage = localStorage.getItem('blog_user')
 interface initialStateProps {
   isAuthenticated: boolean;
   error: {
-    appError: string | null | undefined;
-    serverError: string | null | undefined;
+    appError: any;
+    serverError: any;
   };
   user: null | userProps;
   isLoading: boolean;
@@ -120,7 +121,7 @@ const usersSlices = createSlice({
     });
     builder.addCase(
       userLoginAction.fulfilled,
-      (state, action) => {
+      (state, action: PayloadAction<userProps>) => {
         state.isAuthenticated = true;
         state.isLoading = false;
         state.user = action.payload;
@@ -132,7 +133,7 @@ const usersSlices = createSlice({
       state.isLoading = false;
       state.user = null;
       state.error.appError = action?.error;
-      state.error.serverError = action?.payload;
+      state.error.serverError = action?.payload?.message;
       state.isAuthenticated = false;
     });
 
