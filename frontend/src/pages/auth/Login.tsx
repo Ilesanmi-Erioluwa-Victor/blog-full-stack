@@ -59,15 +59,15 @@ const Login = () => {
 
   };
 
-  // useEffect(() => {
-  //   if (isAuthenticated === true) {
-  //     navigate(`/profile/${user?._id}`);
-  //   }
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate(`/profile/${user?._id}`);
+    }
 
-  //   if (user?.isAdmin === true) {
-  //     navigate('/dashboard');
-  //   }
-  // }, [isAuthenticated, navigate, user?._id]);
+    if (user?.isAdmin === true) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate, user]);
 
   return (
     <>

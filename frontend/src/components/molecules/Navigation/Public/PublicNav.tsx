@@ -1,12 +1,13 @@
 import React from 'react'
 import { Bars3Icon, PlusIcon} from "@heroicons/react/24/outline";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ErrorImg from "src/assets/authentication/errorpage.svg" 
 import { Button } from "src/components/atoms";
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
 import { Icon } from 'src/utils';
-import { Header } from 'src/types';
-let header: Header[] = [
+
+
+let header = [
   {
     title: "Home",
     link: "/",
@@ -24,7 +25,7 @@ let header: Header[] = [
   },
   {
     title: "Register",
-    link: "/sign_up",
+    link: "/signup",
     active: false,
   },
   {
@@ -36,16 +37,16 @@ let header: Header[] = [
 ];
 
 const PublicNav = () => {
-     const changePath = (path) => {
-    // router.push(path);
-  };
+  //    const changePath = (path) => {
+  //   // router.push(path);
+  // };
 
-    const handleMenuClick = (item, index) => {
-    header.map((item) => (item.active = false));
-    // if (router.pathname === item.link) {
-    //   header[index].active = true;
-    // }
-  };
+  //   const handleMenuClick = (item, index) => {
+  //   header.map((item) => (item.active = false));
+  //   // if (router.pathname === item.link) {
+  //   //   header[index].active = true;
+  //   // }
+  // };
 
 
   return (
@@ -63,14 +64,14 @@ const PublicNav = () => {
               {header.map((item, index) => (
                 <Link to={item.link} key={index}>
                   <li
-                    onClick={() => handleMenuClick(item, index)}
+                    // onClick={() => handleMenuClick(item, index)}
                     className={`text-sm flex capitalize cursor-pointer hover:text-primary_green hover:underline hover:underline-offset-4 ${
                       item.active &&
                       "text-primary_green underline underline-offset-4"
                     }`}
                   >
                     <span>{item.title}</span>
-                    <span>{item.icon ? item.icon : ""}</span>
+                    {/* <span>{item.icon ? item.icon : ""}</span> */}
                   </li>
                 </Link>
               ))}
