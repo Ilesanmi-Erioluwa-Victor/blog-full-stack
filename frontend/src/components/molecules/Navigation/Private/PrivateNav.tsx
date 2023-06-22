@@ -5,7 +5,7 @@ import { Button } from 'src/components/atoms';
 import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
 import { userLogOutAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
 
 let header = [
   {
@@ -32,22 +32,21 @@ let header = [
 ];
 
 const PrivateNav = () => {
-  const dispatch = useDispatch();
-  const users = useSelector((state) => state?.users);
-  const { userAuth } = users;
+  const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state?.users);
+
+  const { user } = userState;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (userAuth === null) {
+    if (user && user?.token === null) {
       navigate('/login');
     }
-
-    console.log(userAuth);
-  }, [userAuth, navigate]);
+  }, [user, navigate]);
 
   // if()
 
-  console.log(users?.userAuth);
+  console.log(user);
 
   const userNav = [
     {
@@ -61,16 +60,16 @@ const PrivateNav = () => {
     },
   ];
 
-  const changePath = (path) => {
-    // router.push(path);
-  };
+  // const changePath = (path) => {
+  //   // router.push(path);
+  // };
 
-  const handleMenuClick = (item, index) => {
-    header.map((item) => (item.active = false));
-    // if (router.pathname === item.link) {
-    //   header[index].active = true;
-    // }
-  };
+  // const handleMenuClick = (item, index) => {
+  //   header.map((item) => (item.active = false));
+  //   // if (router.pathname === item.link) {
+  //   //   header[index].active = true;
+  //   // }
+  // };
 
   return (
     <GeneralLayout>
@@ -94,14 +93,14 @@ const PrivateNav = () => {
                     key={index}
                   >
                     <li
-                      onClick={() => handleMenuClick(item, index)}
+                      // onClick={() => handleMenuClick(item, index)}
                       className={`text-sm flex capitalize cursor-pointer hover:text-primary_green hover:underline hover:underline-offset-4 ${
                         item.active &&
                         'text-primary_green underline underline-offset-4'
                       }`}
                     >
-                      <span>{item.title}</span>
-                      <span>{item.icon ? item.icon : ''}</span>
+                      {/* <span>{item.title}</span>
+                      <span>{item.icon ? item.icon : ''}</span> */}
                     </li>
                   </Link>
                 ))}
