@@ -111,44 +111,30 @@ export const AccountMenu = ({
         </Link>
               {userHeader.map((link: any, idx: number) => {
                 return (
-                  <Link
-                    to={'/'}
-                    style={{
-                      minWidth: '100',
-                    }}
-                    key={idx}
-                  >
-                    {link.title}
-                  </Link>
-                )
-              
-              })}
-            </>
-          ) : (
-              <div>Hello</div>
-          )
-        }
-     
-        <Link
-          to={'/'}
-          style={{ minWidth: 100 }}
-        >
-          Profile
-        </Link>
-        <Tooltip title='Account settings'>
-          <IconButton
-            onClick={handleClick}
-            size='small'
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup='true'
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
+                  <React.Fragment>
+                    <Link
+                      to={'/'}
+                      style={{
+                        minWidth: '100',
+                      }}
+                      key={idx}
+                    >
+                      {link.title}
+                    </Link>
+                    <Tooltip title='Account settings'>
+                      <IconButton
+                        onClick={handleClick}
+                        size='small'
+                        sx={{ ml: 2 }}
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup='true'
+                        aria-expanded={open ? 'true' : undefined}
+                      >
+                        <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                      </IconButton>
+                    </Tooltip>
+
+                         <Menu
         anchorEl={anchorEl}
         id='account-menu'
         open={open}
@@ -213,6 +199,18 @@ export const AccountMenu = ({
           Logout
         </MenuItem>
       </Menu>
+                  </React.Fragment>
+                );
+              
+              })}
+            </>
+          ) : (
+              <div>Hello</div>
+          )
+        }
+  
+       
+      </Box>
     </GeneralLayout>
   );
 };
