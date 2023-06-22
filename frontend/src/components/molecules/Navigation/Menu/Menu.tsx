@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -11,6 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
+
 
 const userHeader = [
   {
@@ -66,16 +69,17 @@ const publicHeader = [
 ];
 
 interface propsInterface {
-  user?: any;
-  admin?: boolean;
-  default?: string;
+  userProp: any;
 }
 
 export const AccountMenu = ({
-  user,
-  admin = false,
-  default: string = 'public',
+  userProp
 }: propsInterface): JSX.Element => {
+
+   const dispatch = useAppDispatch();
+   const userState = useAppSelector((state) => state?.users);
+
+   const { user } = userState;
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -89,7 +93,7 @@ export const AccountMenu = ({
   console.log(user)
 
   return (
-    <React.Fragment>
+    <GeneralLayout>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Link to='/'>
           <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
@@ -101,6 +105,16 @@ export const AccountMenu = ({
           </div>
         </Link>
         {/* sx={{ minWidth: 100 }} */}
+
+        {
+          user && user?.token ? (
+            userHeader.map(() => {
+              return ()
+            })
+          ) : (
+              <div>Hello</div>
+          )
+        }
         <Link
           to={'/'}
           style={{
@@ -163,13 +177,13 @@ export const AccountMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {user.map((user: any, idx: number) => {
+        {/* {user.map((user: any, idx: number) => {
           return (
             <MenuItem onClick={handleClose} key={idx}>
               <Avatar /> {user?.name}
             </MenuItem>
           );
-        })}
+        })} */}
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
@@ -193,6 +207,6 @@ export const AccountMenu = ({
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </GeneralLayout>
   );
 };
