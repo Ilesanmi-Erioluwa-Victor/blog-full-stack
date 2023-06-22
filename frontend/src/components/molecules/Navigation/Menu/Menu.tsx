@@ -7,13 +7,12 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
-export const AccountMenu = ():JSX.Element => {
+export const AccountMenu = ({user as string, admin: boolean, default:string = "public"}):JSX.Element => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,8 +27,9 @@ export const AccountMenu = ():JSX.Element => {
         <Box
           sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
         >
-          <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-          <Typography sx={{ minWidth: 100 }}>Profile</Typography>
+          {/* sx={{ minWidth: 100 }} */}
+          <Link to={'/'}>Contact</Link>
+          <Link to={"/"}>Profile</Link>
           <Tooltip title='Account settings'>
             <IconButton
               onClick={handleClick}
