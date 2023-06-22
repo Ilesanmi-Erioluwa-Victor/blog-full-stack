@@ -95,7 +95,12 @@ export const AccountMenu = ({
   return (
     <GeneralLayout>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Link to='/'>
+
+        {/* sx={{ minWidth: 100 }} */}
+        {
+          user && user?.token ? (
+            <>
+                 <Link to='/'>
           <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
             <img
               src='/main_logo.svg'
@@ -104,25 +109,26 @@ export const AccountMenu = ({
             />
           </div>
         </Link>
-        {/* sx={{ minWidth: 100 }} */}
-
-        {
-          user && user?.token ? (
-            userHeader.map(() => {
-              return ()
-            })
+              {userHeader.map((link: any, idx: number) => {
+                return (
+                  <Link
+                    to={'/'}
+                    style={{
+                      minWidth: '100',
+                    }}
+                    key={idx}
+                  >
+                    {link.title}
+                  </Link>
+                )
+              
+              })}
+            </>
           ) : (
               <div>Hello</div>
           )
         }
-        <Link
-          to={'/'}
-          style={{
-            minWidth: '100',
-          }}
-        >
-          Contact
-        </Link>
+     
         <Link
           to={'/'}
           style={{ minWidth: 100 }}
