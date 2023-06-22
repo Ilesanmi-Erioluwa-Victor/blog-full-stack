@@ -8,31 +8,6 @@ import { Icon } from 'src/utils';
 import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
 import { AccountMenu } from '../Menu/Menu';
 
-
-let header = [
-  {
-    title: 'Home',
-    link: '/',
-    active: true,
-  },
-  {
-    title: 'Create',
-    link: '/create-post',
-    active: false,
-  },
-  {
-    title: 'Posts',
-    link: '/posts',
-    active: false,
-  },
-
-  {
-    title: 'Authors',
-    link: '/authors',
-    active: false,
-  },
-];
-
 const PrivateNav = () => {
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state?.users);
@@ -78,15 +53,6 @@ const PrivateNav = () => {
       <div className={`w-full h-20 sticky top-0 z-50  bg-green-900`}>
         <div className={`relative h-20`}>
           <header className='w-11/12 relative z-50 md:w-11/12 xl:w-10/12 mx-auto h-full flex justify-between  items-center'>
-            <Link to='/'>
-              <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
-                <img
-                  src='/main_logo.svg'
-                  alt='logo'
-                  className=''
-                />
-              </div>
-            </Link>
             <AccountMenu user={userNav}/>
             {/*
             <nav className='hidden lg:flex items-center h-full '>

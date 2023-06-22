@@ -12,10 +12,63 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
+const userHeader = [
+  {
+    title: 'Home',
+    link: '/',
+    active: true,
+  },
+  {
+    title: 'Create',
+    link: '/create-post',
+    active: false,
+  },
+  {
+    title: 'Posts',
+    link: '/posts',
+    active: false,
+  },
+
+  {
+    title: 'Authors',
+    link: '/authors',
+    active: false,
+  },
+];
+
+
+const publicHeader = [
+  {
+    title: 'Home',
+    link: '/',
+    active: true,
+  },
+  {
+    title: 'Create',
+    link: '/create-post',
+    active: false,
+  },
+  {
+    title: 'Posts',
+    link: '/posts',
+    active: false,
+  },
+  {
+    title: 'Register',
+    link: '/signup',
+    active: false,
+  },
+  {
+    title: 'Login',
+    link: '/login',
+    active: false,
+  },
+];
+
 interface propsInterface {
-  user: any;
-  admin: boolean;
-  default: string;
+  user?: any;
+  admin?: boolean;
+  default?: string;
 }
 
 export const AccountMenu = ({
@@ -38,11 +91,30 @@ export const AccountMenu = ({
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        <Link to='/'>
+          <div className={`w-1/12 h-full flex items-center cursor-pointer`}>
+            <img
+              src='/main_logo.svg'
+              alt='logo'
+              className=''
+            />
+          </div>
+        </Link>
         {/* sx={{ minWidth: 100 }} */}
-        <Link to={'/'} style={{
-          minWidth : "100"
-        }}>Contact</Link>
-        <Link to={'/'} style={{minWidth : 100}}>Profile</Link>
+        <Link
+          to={'/'}
+          style={{
+            minWidth: '100',
+          }}
+        >
+          Contact
+        </Link>
+        <Link
+          to={'/'}
+          style={{ minWidth: 100 }}
+        >
+          Profile
+        </Link>
         <Tooltip title='Account settings'>
           <IconButton
             onClick={handleClick}
@@ -91,16 +163,13 @@ export const AccountMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {
-          user.map((user: any, idx: number) => {
-            return (
-        <MenuItem onClick={handleClose} >
-          <Avatar /> {user?.name}
-        </MenuItem>
-
-            )
-          })
-        }
+        {user.map((user: any, idx: number) => {
+          return (
+            <MenuItem onClick={handleClose} key={idx}>
+              <Avatar /> {user?.name}
+            </MenuItem>
+          );
+        })}
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
