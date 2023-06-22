@@ -6,6 +6,8 @@ import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
 import { userLogOutAction } from 'src/redux/Slices/users/user';
 import { Icon } from 'src/utils';
 import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
+import { AccountMenu } from '../Menu/Menu';
+
 
 let header = [
   {
@@ -85,6 +87,8 @@ const PrivateNav = () => {
                 />
               </div>
             </Link>
+            <AccountMenu user={userNav}/>
+            {/*
             <nav className='hidden lg:flex items-center h-full '>
               <ul className='flex lg:space-x-3 xl:space-x-5'>
                 {header.map((item, index) => (
@@ -101,11 +105,12 @@ const PrivateNav = () => {
                     >
                       {/* <span>{item.title}</span>
                       <span>{item.icon ? item.icon : ''}</span> */}
-                    </li>
+                    {/* </li>
                   </Link>
                 ))}
               </ul>
-            </nav>
+            </nav> */}
+            
             <div className='flex space-x-4 items-center'>
               <div className='hidden md:flex space-x-4'>
                 <Button

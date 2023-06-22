@@ -13,7 +13,7 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
 interface propsInterface {
-  user: string;
+  user: any;
   admin: boolean;
   default: string;
 }
@@ -23,6 +23,7 @@ export const AccountMenu = ({
   admin = false,
   default: string = 'public',
 }: propsInterface): JSX.Element => {
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -32,12 +33,16 @@ export const AccountMenu = ({
     setAnchorEl(null);
   };
 
+  console.log(user)
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {/* sx={{ minWidth: 100 }} */}
-        <Link to={'/'}>Contact</Link>
-        <Link to={'/'}>Profile</Link>
+        <Link to={'/'} style={{
+          minWidth : "100"
+        }}>Contact</Link>
+        <Link to={'/'} style={{minWidth : 100}}>Profile</Link>
         <Tooltip title='Account settings'>
           <IconButton
             onClick={handleClick}
@@ -86,9 +91,16 @@ export const AccountMenu = ({
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+        {
+          user.map((user: any, idx: number) => {
+            return (
+        <MenuItem onClick={handleClose} >
+          <Avatar /> {user?.name}
         </MenuItem>
+
+            )
+          })
+        }
         <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem>
