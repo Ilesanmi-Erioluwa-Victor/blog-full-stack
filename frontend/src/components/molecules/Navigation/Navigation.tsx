@@ -1,7 +1,9 @@
 import React from "react";
 import { useAppSelector } from "src/redux/hooks";
-import PrivateNav from "./Private/PrivateNav";
-import PublicNav from "./Public/PublicNav";
+import { AccountMenu } from "./Menu/Menu";
+// import PrivateNav from "./Private/PrivateNav";
+// import PublicNav from "./Public/PublicNav";
+
 
 const Navigation = () => {
   const userState = useAppSelector((state) => state?.users);
@@ -9,7 +11,7 @@ const Navigation = () => {
   const { user } = userState;
 
   const isAdmin = user?.isAdmin;
-  return <>{user  && isAdmin? null : user ? <PrivateNav /> :<PublicNav />}</>;
+  return <>{user  && isAdmin ? null : user ? <AccountMenu userProp={user}/> : null}</>;
 };
 
 export default Navigation;
