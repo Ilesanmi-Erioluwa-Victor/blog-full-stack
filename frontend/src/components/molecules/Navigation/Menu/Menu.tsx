@@ -12,7 +12,13 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
-export const AccountMenu = ({user as string, admin: boolean, default:string = "public"}):JSX.Element => {
+interface propsInterface {
+  user: string;
+  admin: boolean;
+  default: string;
+}
+
+export const AccountMenu = ({user, admin, default:string = "public"}:propsInterface):JSX.Element => {
    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
    const open = Boolean(anchorEl);
    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
