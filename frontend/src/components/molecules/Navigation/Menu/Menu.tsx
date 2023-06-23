@@ -12,6 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Stack from '@mui/material/Stack';
+import { Link } from 'react-router-dom';
 // import React, { useState } from 'react';
 // import { Link } from 'react-router-dom';
 // import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
@@ -262,11 +264,11 @@ const userHeader = [
 //   );
 // };
 
-
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export const  AccountMenu = () => {
+export const AccountMenu = ({ userProp }) => {
+  console.log(userProp)
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -290,10 +292,15 @@ export const  AccountMenu = () => {
   };
 
   return (
-    <AppBar position='static'>
+    <AppBar position='static' style={{
+    backgroundColor:"#ca8a04"
+    }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          {
+            userProp && userProp?.token ? (
+              <>
+                  <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant='h6'
             noWrap
@@ -341,12 +348,12 @@ export const  AccountMenu = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {userNav.map((page) => (
+              {userHeader.map((page, idx) => (
                 <MenuItem
-                  key={page}
+                  key={idx}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography textAlign='center'>{page}</Typography>
+                  <Link to={`${page?.link}`} >{page?.title}</Link>
                 </MenuItem>
               ))}
             </Menu>
@@ -371,16 +378,29 @@ export const  AccountMenu = () => {
             GOOOOOO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {userHeader.map((page, idx) => (
               <Button
-                key={page}
+                key={idx}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page?.title}
               </Button>
             ))}
           </Box>
+
+          <Stack
+            direction='row'
+            spacing={2}
+            className='pr-5'
+          >
+            <Button
+              variant='outlined'
+              className='text-white'
+            >
+              New Post
+            </Button>
+          </Stack>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
@@ -420,9 +440,14 @@ export const  AccountMenu = () => {
               ))}
             </Menu>
           </Box>
+       </>
+            ) : (
+                <div>Hello</div>
+     )
+          }
+        
         </Toolbar>
       </Container>
     </AppBar>
   );
-}
-
+};
