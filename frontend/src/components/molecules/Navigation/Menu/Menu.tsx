@@ -56,17 +56,17 @@ const userHeader = [
   },
 ];
 
-// const userNav = [
-//   {
-//     name: 'Your Profile',
-//     link: `/profile`,
-//   },
+const userNav = [
+  {
+    name: 'Your Profile',
+    link: `/profile`,
+  },
 
-//   {
-//     name: 'Change your Password',
-//     link: `/update-password`,
-//   },
-// ];
+  {
+    name: 'Change your Password',
+    link: `/update-password`,
+  },
+];
 
 // const publicHeader = [
 //   {
@@ -264,10 +264,7 @@ const userHeader = [
 //   );
 // };
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-export const AccountMenu = ({ userProp }) => {
+export const AccountMenu = ({ userProp } : any) => {
   console.log(userProp)
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -354,6 +351,7 @@ export const AccountMenu = ({ userProp }) => {
                   onClick={handleCloseNavMenu}
                 >
                   <Link to={`${page?.link}`} >{page?.title}</Link>
+                  <p>Hello world</p>
                 </MenuItem>
               ))}
             </Menu>
@@ -379,13 +377,15 @@ export const AccountMenu = ({ userProp }) => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {userHeader.map((page, idx) => (
-              <Button
+              <Link
                 key={idx}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                className = "my-2 text-white block"
+                to={`${page?.link}`}
+                title ={page?.title}
               >
                 {page?.title}
-              </Button>
+              </Link>
             ))}
           </Box>
 
@@ -394,12 +394,11 @@ export const AccountMenu = ({ userProp }) => {
             spacing={2}
             className='pr-5'
           >
-            <Button
-              variant='outlined'
+            <Link to={`/create-post`}
               className='text-white'
             >
               New Post
-            </Button>
+            </Link>
           </Stack>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -429,13 +428,13 @@ export const AccountMenu = ({ userProp }) => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
+                  >
+              {userNav.map((user, idx) => (
                 <MenuItem
-                  key={setting}
+                  key={idx}
                   onClick={handleCloseUserMenu}
                 >
-                  <Typography textAlign='center'>{setting}</Typography>
+                  <Link to={`${user?.link}`}>{user?.name}</Link>
                 </MenuItem>
               ))}
             </Menu>
