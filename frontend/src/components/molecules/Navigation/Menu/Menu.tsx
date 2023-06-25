@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-import { userHeader } from './userMenu';
+import { userHeader } from './Nav';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 // import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
@@ -38,33 +38,7 @@ const userNav = [
   },
 ];
 
-// const publicHeader = [
-//   {
-//     title: 'Home',
-//     link: '/',
-//     active: true,
-//   },
-//   {
-//     title: 'Create',
-//     link: '/create-post',
-//     active: false,
-//   },
-//   {
-//     title: 'Posts',
-//     link: '/posts',
-//     active: false,
-//   },
-//   {
-//     title: 'Register',
-//     link: '/signup',
-//     active: false,
-//   },
-//   {
-//     title: 'Login',
-//     link: '/login',
-//     active: false,
-//   },
-// ];
+
 
 // interface propsInterface {
 //   userProp: any;
@@ -269,9 +243,7 @@ export const AccountMenu = ({ userProp }: any) => {
           {userProp && userProp?.token ? (
             <>
               <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Link to={`/`}>
-                HMMM
-              </Link>
+              <Link to={`/`}>HMMM</Link>
 
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -313,20 +285,25 @@ export const AccountMenu = ({ userProp }: any) => {
                 </Menu>
               </Box>
               <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-              <Link to={`/`}>
-                GOOOOOO
-              </Link>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, columnGap: "3rem", pl: "4rem"}}>
+              <Link to={`/`}>GOOOOOO</Link>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  columnGap: '3rem',
+                  pl: '4rem',
+                }}
+              >
                 {userHeader.map((page, idx) => (
                   <Link
                     key={idx}
-                      onClick={handleCloseNavMenu}
-                      className='my-2 text-white flex flex-col'
-                      to={`${page?.link}`}
-                      title={page?.title}
-                    >
-                      {page?.title}
-                    </Link>
+                    onClick={handleCloseNavMenu}
+                    className='my-2 text-white flex flex-col'
+                    to={`${page?.link}`}
+                    title={page?.title}
+                  >
+                    {page?.title}
+                  </Link>
                 ))}
               </Box>
 
@@ -383,7 +360,124 @@ export const AccountMenu = ({ userProp }: any) => {
               </Box>
             </>
           ) : (
-            <div className='bg-red-900 text-white'>Hello</div>
+            <>
+              <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+              <Link to={`/`}>HMMM</Link>
+
+              <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                <IconButton
+                  size='large'
+                  aria-label='account of current user'
+                  aria-controls='menu-appbar'
+                  aria-haspopup='true'
+                  onClick={handleOpenNavMenu}
+                  color='inherit'
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id='menu-appbar'
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'left',
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                  }}
+                >
+                  {userHeader.map((page, idx) => (
+                    <MenuItem
+                      key={idx}
+                      onClick={handleCloseNavMenu}
+                    >
+                      <Link to={`${page?.link}`}>{page?.title}</Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+              <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+              <Link to={`/`}>GOOOOOO</Link>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  columnGap: '3rem',
+                  pl: '4rem',
+                }}
+              >
+                {userHeader.map((page, idx) => (
+                  <Link
+                    key={idx}
+                    onClick={handleCloseNavMenu}
+                    className='my-2 text-white flex flex-col'
+                    to={`${page?.link}`}
+                    title={page?.title}
+                  >
+                    {page?.title}
+                  </Link>
+                ))}
+              </Box>
+
+              <Stack
+                direction='row'
+                spacing={2}
+                className='pr-5'
+              >
+                <Link
+                  to={`/create-post`}
+                  className='text-white'
+                >
+                  New Post
+                </Link>
+              </Stack>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title='Open settings'>
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{ p: 0 }}
+                  >
+                    <Avatar
+                      alt='Remy Sharp'
+                      src='/static/images/avatar/2.jpg'
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id='menu-appbar'
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {userNav.map((user, idx) => (
+                    <MenuItem
+                      key={idx}
+                      onClick={handleCloseUserMenu}
+                    >
+                      <Link to={`${user?.link}`}>{user?.name}</Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </>
           )}
         </Toolbar>
       </Container>
