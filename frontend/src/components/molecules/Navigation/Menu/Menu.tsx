@@ -14,6 +14,9 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import { userHeader, publicHeader } from './Nav';
+import { userLogOutAction } from 'src/redux/Slices/users/user';
+import { useAppSelector, useAppDispatch } from 'src/redux/hooks';
+
 // import ListItemIcon from '@mui/material/ListItemIcon';
 // import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
@@ -21,11 +24,17 @@ import { userHeader, publicHeader } from './Nav';
 // import PersonAdd from '@mui/icons-material/PersonAdd';
 // import Settings from '@mui/icons-material/Settings';
 // import Logout from '@mui/icons-material/Logout';
-// import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
+import GeneralLayout from 'src/layouts/GeneralLayouts/GeneralLayout';
+
+interface userNavProps {
+  name : string;
+  link : string;
+  onClick? : any;
+  icon? : any
+} 
 
 
-
-const userNav = [
+const userNav: userNavProps[] = [
   {
     name: 'Your Profile',
     link: `/profile`,
@@ -40,6 +49,13 @@ const userNav = [
 
 
 export const AccountMenu = ({ userProp }: any) => {
+
+  const dispatch = useAppDispatch();
+  const userState = useAppSelector((state) => state?.users);
+
+    const { user } = userState;
+  const navigate = useNavigate();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -62,7 +78,10 @@ export const AccountMenu = ({ userProp }: any) => {
     setAnchorElUser(null);
   };
 
+  console.log(userProp)
+
   return (
+    <GeneralLayout>
     <AppBar
       position='static'
       style={{
@@ -157,8 +176,8 @@ export const AccountMenu = ({ userProp }: any) => {
                     sx={{ p: 0 }}
                   >
                     <Avatar
-                      alt='Remy Sharp'
-                      src='/static/images/avatar/2.jpg'
+                      alt={`${userProp?.firstName}`}
+                      src={`${userProp?.profilePhoto}`}
                     />
                   </IconButton>
                 </Tooltip>
@@ -260,5 +279,6 @@ export const AccountMenu = ({ userProp }: any) => {
         </Toolbar>
       </Container>
     </AppBar>
+    </GeneralLayout>
   );
 };
