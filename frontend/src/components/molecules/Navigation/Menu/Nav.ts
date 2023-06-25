@@ -35,7 +35,7 @@ interface publicHeaderProps {
   active?: boolean;
 }
 
-const publicHeader : publicHeaderProps[] = [
+export const publicHeader : publicHeaderProps[] = [
   {
     title: 'Home',
     link: '/',

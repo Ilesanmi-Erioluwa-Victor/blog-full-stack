@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -14,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-import { userHeader } from './Nav';
+import { userHeader, publicHeader } from './Nav';
 // import ListItemIcon from '@mui/material/ListItemIcon';
 // import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
@@ -393,7 +392,7 @@ export const AccountMenu = ({ userProp }: any) => {
                     display: { xs: 'block', md: 'none' },
                   }}
                 >
-                  {userHeader.map((page, idx) => (
+                  {publicHeader.map((page, idx) => (
                     <MenuItem
                       key={idx}
                       onClick={handleCloseNavMenu}
