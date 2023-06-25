@@ -242,7 +242,7 @@ export const AccountMenu = ({ userProp }: any) => {
           {userProp && userProp?.token ? (
             <>
               <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Link to={`/`}>HMMM</Link>
+              <Link to={`/`}>Blog</Link>
 
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -284,7 +284,7 @@ export const AccountMenu = ({ userProp }: any) => {
                 </Menu>
               </Box>
               <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-              <Link to={`/`}>GOOOOOO</Link>
+              <Link to={`/`}>Blog</Link>
               <Box
                 sx={{
                   flexGrow: 1,
@@ -361,7 +361,7 @@ export const AccountMenu = ({ userProp }: any) => {
           ) : (
             <>
               <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Link to={`/`}>Blog</Link>
+              {/* <Link to={`/`}>Blog</Link> */}
 
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton

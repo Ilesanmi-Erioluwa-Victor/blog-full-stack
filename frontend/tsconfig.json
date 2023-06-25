@@ -32,7 +32,7 @@
     "src/pages/Home.tsx",
     "src/redux/store.ts",
     "src/components/molecules/Navigation/Private/PrivateNav.tsx",
-    "src/components/molecules/Footer/Footer.js",
+    "src/components/molecules/Footer/Footer.tsx",
     "src/components/molecules/Navigation/Navigation.tsx",
     "src/components/molecules/Navigation/Public/PublicNav.tsx",
     "src/pages/Admin/index.js",
