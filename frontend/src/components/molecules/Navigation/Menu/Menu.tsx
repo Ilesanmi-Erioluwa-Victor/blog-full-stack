@@ -361,7 +361,7 @@ export const AccountMenu = ({ userProp }: any) => {
           ) : (
             <>
               <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-              <Link to={`/`}>HMMM</Link>
+              <Link to={`/`}>Blog</Link>
 
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -403,7 +403,7 @@ export const AccountMenu = ({ userProp }: any) => {
                 </Menu>
               </Box>
               <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-              <Link to={`/`}>GOOOOOO</Link>
+              <Link to={`/`}>Blog</Link>
               <Box
                 sx={{
                   flexGrow: 1,
@@ -412,7 +412,7 @@ export const AccountMenu = ({ userProp }: any) => {
                   pl: '4rem',
                 }}
               >
-                {userHeader.map((page, idx) => (
+                {publicHeader.map((page, idx) => (
                   <Link
                     key={idx}
                     onClick={handleCloseNavMenu}
@@ -423,58 +423,6 @@ export const AccountMenu = ({ userProp }: any) => {
                     {page?.title}
                   </Link>
                 ))}
-              </Box>
-
-              <Stack
-                direction='row'
-                spacing={2}
-                className='pr-5'
-              >
-                <Link
-                  to={`/create-post`}
-                  className='text-white'
-                >
-                  New Post
-                </Link>
-              </Stack>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title='Open settings'>
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0 }}
-                  >
-                    <Avatar
-                      alt='Remy Sharp'
-                      src='/static/images/avatar/2.jpg'
-                    />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id='menu-appbar'
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {userNav.map((user, idx) => (
-                    <MenuItem
-                      key={idx}
-                      onClick={handleCloseUserMenu}
-                    >
-                      <Link to={`${user?.link}`}>{user?.name}</Link>
-                    </MenuItem>
-                  ))}
-                </Menu>
               </Box>
             </>
           )}
