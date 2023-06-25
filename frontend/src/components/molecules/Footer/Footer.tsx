@@ -23,7 +23,7 @@ const Footer = (): JSX.Element => {
     {
       title: 'about',
       items: [
-        { external: false, title: 'afrisplash', url: '#' },
+        { external: false, title: 'Blogger', url: '#' },
         { external: false, title: 'careers', url: '#' },
         { external: false, title: 'FAQs', url: '#' },
         { external: false, title: 'our team', url: '#' },
@@ -63,7 +63,7 @@ const Footer = (): JSX.Element => {
     },
   ];
   return (
-    <footer className='bg-dark_blue w-full py-5'>
+    <footer className='dark_blue w-full py-5 text-white'>
       <div className='w-11/12 md:w-10/12 mx-auto space-y-12'>
         <div className='flex w-full justify-between flex-wrap pt-14'>
           {footer.map((item: FooterItems, index) => (
@@ -96,7 +96,7 @@ const Footer = (): JSX.Element => {
           <section>
             <span>&copy;</span>
             <span className='capitalize xs:text-xs md:text-sm lg:text-base'>
-              afrisplash remotely. all rights reserved
+              Blogger  platform. all rights reserved
             </span>
           </section>
           <section>

@@ -20,6 +20,10 @@
   padding: calc(1rem + 8vh) calc(1rem + 8vw);
 }
 
+.dark_blue {
+ background-color: #1C1D36; 
+}
+
 .paddingLogin {
   padding: calc(1rem + 5vh) calc(1rem + 5vw);
   background: url('./assets/svg/Login.svg'), rgb(70 68 68 / 11%);
