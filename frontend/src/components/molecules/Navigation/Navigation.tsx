@@ -11,7 +11,7 @@ const Navigation = () => {
   const { user } = userState;
 
   const isAdmin = user?.isAdmin;
-  return <>{user  && isAdmin ? null : user ? <AccountMenu userProp={user}/> : null}</>;
+  return <>{user  && isAdmin ? null : user ? <AccountMenu userProp={user}/> : <AccountMenu />}</>;
 };
 
 export default Navigation;
